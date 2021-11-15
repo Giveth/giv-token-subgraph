@@ -1,0 +1,8 @@
+type TokenAllocation @entity {
+  id: ID!
+  recipient: String!
+  amount: BigInt!
+  timestamp: BigInt!
+  txHash: String!
+  distributor: String
+}
