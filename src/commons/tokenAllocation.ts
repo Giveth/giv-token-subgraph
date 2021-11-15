@@ -21,6 +21,7 @@ export function saveTokenAllocation(
     entity.amount = amount;
     entity.timestamp = timestamp;
     entity.recipient = recipient
+    entity.txHash = txHash
     entity.save();
 }
 
