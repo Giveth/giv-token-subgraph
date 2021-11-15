@@ -42,3 +42,17 @@ query sample:
   }
 }
 ```
+
+```
+{
+  tokenAllocations( where:{
+    recipient: "0xf23ea0b5f14afcbe532a1df273f7b233ebe41c78"
+  }) {
+    id
+    recipient
+    amount
+    timestamp
+  }
+}
+
+```
