@@ -58,6 +58,16 @@ Query sample:
 ```
 
 * **GIV Balance**
+
+```
+{
+  balances( first: 10 ) {
+    id
+    balance
+  }
+}
+```
+
 ```
 {
   balances( where:{
