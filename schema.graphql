@@ -6,3 +6,8 @@ type TokenAllocation @entity {
   txHash: String!
   distributor: String
 }
+
+type Balance @entity{
+    id: ID!
+    balance: BigInt!
+}

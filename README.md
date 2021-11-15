@@ -13,8 +13,8 @@
 * `graph auth`
 * Change address of subgraphs in package.json >> scripts >> deploy:kovan & deploy:xdai 
 (You should first go to https://thegraph.com/hosted-service and create subgraphs from panel)
-* Deploy xdai: `yarn deploy:xdai`
-* Deploy kovan: `yarn deploy:kovan`
+* Deploy **xdai**: `yarn deploy:xdai`
+* Deploy **kovan**: `yarn deploy:kovan`
 
 ## Smart contracts
 You can see the smart contracts here
@@ -24,12 +24,13 @@ https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
 Our subgraphs: 
-* Kovan : https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
-* Xdai: https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
+* **Kovan** : https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
+* **Xdai**: https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
 
 
-query sample:
+Query sample:
 
+* **Token Allocation**
 ```
 {
   tokenAllocations(first: 10) {
@@ -54,5 +55,16 @@ query sample:
     timestamp
   }
 }
+```
 
+* **GIV Balance**
+```
+{
+  balances( where:{
+    id:"0x0cdf6d72f5614a63d4c47568c7caec2609b6f513"
+  }) {
+    id
+    balance
+  }
+}
 ```
