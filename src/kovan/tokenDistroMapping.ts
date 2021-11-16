@@ -4,18 +4,21 @@ import {
   ChangeAddress,
   Claim,
   GivBackPaid,
-  RoleAdminChanged, RoleGranted, RoleRevoked, StartTimeChanged
-} from "../../generated/TokenDistro/TokenDistro";
-import {saveTokenAllocation} from "../commons/tokenAllocation";
+  RoleAdminChanged,
+  RoleGranted,
+  RoleRevoked,
+  StartTimeChanged,
+} from '../../generated/TokenDistro/TokenDistro';
+import { saveTokenAllocation } from '../commons/tokenAllocation';
 
 export function handleAllocate(event: Allocate): void {
   saveTokenAllocation(
-      event.params.grantee.toHex(),
-      event.transaction.hash.toHex(),
-      event.transactionLogIndex,
-      event.params.amount,
-      event.block.timestamp
-  )
+    event.params.grantee.toHex(),
+    event.transaction.hash.toHex(),
+    event.transactionLogIndex,
+    event.params.amount,
+    event.block.timestamp
+  );
 }
 
 export function handleAssign(event: Assign): void {}

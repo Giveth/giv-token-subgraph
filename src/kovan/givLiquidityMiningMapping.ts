@@ -1,18 +1,18 @@
 import {
   OwnershipTransferred,
-  RewardAdded, RewardPaid, Staked, Withdrawn
-} from "../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor";
-import {updateTokenAllocationDistributor} from "../commons/tokenAllocation";
+  RewardAdded,
+  RewardPaid,
+  Staked,
+  Withdrawn,
+} from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+import { updateTokenAllocationDistributor } from '../commons/tokenAllocation';
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-
-}
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handleRewardAdded(event: RewardAdded): void {}
 
 export function handleRewardPaid(event: RewardPaid): void {
-  updateTokenAllocationDistributor( event.transaction.hash.toHex(),'givLM')
-
+  updateTokenAllocationDistributor(event.transaction.hash.toHex(), 'givLM');
 }
 
 export function handleStaked(event: Staked): void {}

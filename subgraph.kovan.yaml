@@ -114,8 +114,8 @@ dataSources:
     name: givLiquidityMiningTokenDistributor
     network: kovan
     source:
-      address: "0x5dA8196427475C0026B465454156f0D31236C88B"
-      startBlock: 28094093
+      address: "0x61296aEC102bE83Aaa350B408b5F6B9466F86Dd9"
+      startBlock: 28091553
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -149,7 +149,7 @@ dataSources:
     source:
       address: "0x03472537CB64652Aa1224E4aaF6f33a34e73E877"
       abi: GIV
-      startBlock: 27852585
+      startBlock: 27851733
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

@@ -1,21 +1,32 @@
-import {BigInt} from "@graphprotocol/graph-ts";
-import {Balance} from "../../generated/schema";
+import { BigInt, log } from '@graphprotocol/graph-ts';
+import { Balance } from '../../generated/schema';
+import { ZERO_ADDRESS } from '../helpers/constants';
 
-export function updateBalance(from: string, to:string, value: BigInt):void{
-    let toBalance = Balance.load(from)
-    if (!toBalance){
-        toBalance = new Balance(from)
-        toBalance.balance = value
-    }else{
-        toBalance.balance.plus(value)
+export function updateBalance(from: string, to: string, value: BigInt): void {
+  log.debug('updateBalance(from:{}, to:{}, value:{})', [from, to, value.toString()]);
+  if (to != ZERO_ADDRESS) {
+    let toBalance = Balance.load(to);
+    if (!toBalance) {
+      toBalance = new Balance(to);
+      toBalance.balance = value;
+    } else {
+      toBalance.balance = toBalance.balance.plus(value);
     }
-    toBalance.save()
+    toBalance.save();
+  } else {
+    log.debug('is burn', []);
+  }
 
-    const fromBalance = Balance.load(to)
-    if (!fromBalance){
-        // What should we do in this case? Actually it should not reach to this line
-        return
+  // Is not mint
+  if (from != ZERO_ADDRESS) {
+    const fromBalance = Balance.load(from);
+    if (!fromBalance) {
+      log.error('Transferring from empty address: {}', [from]);
+      return;
     }
-    fromBalance.balance.minus(value)
-    fromBalance.save()
+    fromBalance.balance = fromBalance.balance.minus(value);
+    fromBalance.save();
+  } else {
+    log.debug('is mint', []);
+  }
 }
