@@ -3,7 +3,6 @@ import { Balance } from '../../generated/schema';
 import { ZERO_ADDRESS } from '../helpers/constants';
 
 export function updateBalance(from: string, to: string, value: BigInt): void {
-  log.debug('updateBalance(from:{}, to:{}, value:{})', [from, to, value.toString()]);
   if (to != ZERO_ADDRESS) {
     let toBalance = Balance.load(to);
     if (!toBalance) {
