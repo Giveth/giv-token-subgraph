@@ -102,7 +102,7 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      file: ./src/xdai/givETHUniPoolMapping.ts
+      file: ./src/xdai/givEthUniPoolMapping.ts
 
   - kind: ethereum/contract
     name: givHNYUnipoolTokenDistributor
@@ -135,7 +135,7 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      file: ./src/xdai/givHNYUniPoolMapping.ts
+      file: ./src/xdai/givHnyUniPoolMapping.ts
 
   - kind: ethereum/contract
     name: GardenUnipoolTokenDistributor
