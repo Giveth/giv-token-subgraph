@@ -70,11 +70,18 @@ Query sample:
 
 ```
 {
-  balances( where:{
-    id:"0x0cdf6d72f5614a63d4c47568c7caec2609b6f513"
-  }) {
+  tokenAllocations(first: 5,
+    skip:10
+    orderBy:timestamp,
+    orderDirection:asc,
+    where:{
+      recipient:"0x8f48094a12c8f99d616ae8f3305d5ec73cbaa6b6"
+    }
+  ) {
     id
-    balance
+    recipient
+    amount
+    timestamp
   }
 }
 ```
