@@ -29,3 +29,25 @@ export function updateBalance(from: string, to: string, value: BigInt): void {
     log.debug('is mint', []);
   }
 }
+
+export function addAllocatedTokens(to: string, value: BigInt): void {
+  let toBalance = Balance.load(to);
+  if (!toBalance) {
+    toBalance = new Balance(to);
+    toBalance.allocatedTokens = value;
+  } else {
+    toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
+  }
+  toBalance.save();
+}
+
+export function addClaimed(to: string, value: BigInt): void {
+  let toBalance = Balance.load(to);
+  if (!toBalance) {
+    toBalance = new Balance(to);
+    toBalance.claimed = value;
+  } else {
+    toBalance.claimed = toBalance.claimed.plus(value);
+  }
+  toBalance.save();
+}

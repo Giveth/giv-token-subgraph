@@ -10,6 +10,7 @@ import {
   RoleRevoked,
   StartTimeChanged,
 } from '../../generated/TokenDistro/TokenDistro';
+import {addAllocatedTokens, addClaimed} from "../commons/balanceHandler";
 
 export function handleAllocate(event: Allocate): void {
   saveTokenAllocation(
@@ -19,13 +20,16 @@ export function handleAllocate(event: Allocate): void {
     event.params.amount,
     event.block.timestamp
   );
+  addAllocatedTokens(event.params.grantee.toHex(), event.params.amount);
 }
 
 export function handleAssign(event: Assign): void {}
 
 export function handleChangeAddress(event: ChangeAddress): void {}
 
-export function handleClaim(event: Claim): void {}
+export function handleClaim(event: Claim): void {
+  addClaimed(event.params.grantee.toHex(), event.params.amount);
+}
 
 export function handleGivBackPaid(event: GivBackPaid): void {}
 

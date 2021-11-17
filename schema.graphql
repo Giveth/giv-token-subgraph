@@ -10,4 +10,7 @@ type TokenAllocation @entity {
 type Balance @entity{
     id: ID!
     balance: BigInt!
+    allocatedTokens: BigInt!
+    claimed:  BigInt!
+    balance: BigInt!
 }
