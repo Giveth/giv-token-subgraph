@@ -12,5 +12,4 @@ type Balance @entity{
     balance: BigInt!
     allocatedTokens: BigInt!
     claimed:  BigInt!
-    balance: BigInt!
 }
