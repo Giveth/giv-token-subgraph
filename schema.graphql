@@ -7,6 +7,11 @@ type TokenAllocation @entity {
   distributor: String
 }
 
+type TransactionTokenAllocation @entity {
+    id: ID!
+    tokenAllocationIds : [String!]!
+}
+
 type Balance @entity{
     id: ID!
     balance: BigInt!
@@ -16,6 +21,7 @@ type Balance @entity{
     rewardsGivLm:  BigInt
     rewardPerTokenStoredUniswap:  BigInt
     rewardsUniswap:  BigInt
+    givback: BigInt
 }
 
 type UnipoolContractInfo @entity {

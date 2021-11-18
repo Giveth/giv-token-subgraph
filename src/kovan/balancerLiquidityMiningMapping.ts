@@ -18,7 +18,8 @@ export function handleRewardPaid(event: RewardPaid): void {
   updateTokenAllocationDistributor(event.transaction.hash.toHex(), 'balancerLM');
 }
 
-export function handleStaked(event: Staked): void {}
+export function handleStaked(event: Staked): void {
+}
 
 export function handleWithdrawn(event: Withdrawn): void {}
 
