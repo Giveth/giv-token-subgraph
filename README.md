@@ -85,3 +85,36 @@ Query sample:
   }
 }
 ```
+
+* **Unipool contract info**
+
+```
+{
+     unipoolContractInfos{
+          id
+          rewardDistribution
+          periodFinish
+          rewardRate
+          lastUpdateTime
+          rewardPerTokenStored
+     }
+}
+
+```
+
+* **Token distro smart contract info**
+```
+{
+  tokenDistroContractInfos(first:5){
+    id
+    initialAmount
+    duration
+    startTime
+    cliffTime
+    lockedAmount
+    totalTokens
+  }
+}
+```
+
+

@@ -12,4 +12,27 @@ type Balance @entity{
     balance: BigInt!
     allocatedTokens: BigInt!
     claimed:  BigInt!
+    rewardPerTokenStoredGivLm:  BigInt
+    rewardsGivLm:  BigInt
+    rewardPerTokenStoredUniswap:  BigInt
+    rewardsUniswap:  BigInt
+}
+
+type UnipoolContractInfo @entity {
+    id: ID!
+    rewardDistribution: String
+    periodFinish: BigInt
+    rewardRate: BigInt
+    lastUpdateTime: BigInt
+    rewardPerTokenStored: BigInt
+}
+
+type TokenDistroContractInfo @entity {
+    id: ID!
+    totalTokens: BigInt
+    startTime: BigInt
+    cliffTime: BigInt
+    duration: BigInt
+    initialAmount: BigInt
+    lockedAmount: BigInt
 }
