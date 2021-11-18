@@ -11,6 +11,7 @@ export function createTokenDistroContractInfoIfNotExists(address: Address): void
   }
   contractInfo = new TokenDistroContractInfo(address.toHex());
   contractInfo.lockedAmount = contract.lockedAmount();
+  contractInfo.startTime = contract.startTime();
   contractInfo.cliffTime = contract.cliffTime();
   contractInfo.duration = contract.duration();
   contractInfo.initialAmount = contract.initialAmount();
