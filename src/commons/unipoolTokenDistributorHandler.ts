@@ -1,8 +1,11 @@
 import { UnipoolTokenDistributor } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { Address } from '@graphprotocol/graph-ts/common/numbers';
 import { UnipoolContractInfo } from '../../generated/schema';
-
-export function createContractInfoIfNotExists(address: Address): void {
+// const isContractInfoInitiated: [string: boolean] = { hey: true };
+export function createUnipoolContractInfoIfNotExists(address: Address): void {
+  // if (isContractInfoInitiated[address.toHex()]) {
+  //   return;
+  // }
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (contractInfo) {
@@ -18,6 +21,7 @@ export function createContractInfoIfNotExists(address: Address): void {
   contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
   contractInfo.rewardRate = contract.rewardRate();
   contractInfo.save();
+  // isContractInfoInitiated[address.toHex()] = true;
 }
 
 export function updateContractInfo(address: Address): void {
@@ -43,6 +47,50 @@ export function updateRewardPerTokenStored(address: Address): void {
   const callResult = contract.try_rewardPerTokenStored();
   if (!callResult.reverted) {
     contractInfo.rewardPerTokenStored = callResult.value;
+    contractInfo.save();
+  }
+}
+
+export function updateRewardRate(address: Address): void {
+  // rewardRate has been called in below line, but I couldn't find usage of notifyRewardAmount()
+  // so I call it when I call rewardPerTokenStored
+  // https://github.com/Giveth/giv-token-contracts/blob/develop/contracts/Distributors/UnipoolTokenDistributor.sol#L171-L186
+  const contract = UnipoolTokenDistributor.bind(address);
+  let contractInfo = UnipoolContractInfo.load(address.toHex());
+  if (!contractInfo) {
+    contractInfo = new UnipoolContractInfo(address.toHex());
+  }
+  const callResult = contract.try_rewardRate();
+  if (!callResult.reverted) {
+    contractInfo.rewardRate = callResult.value;
+    contractInfo.save();
+  }
+}
+
+export function updateRewardDistribution(address: Address): void {
+  //TODO I dont know where should i call this, maybe adding call handler
+  const contract = UnipoolTokenDistributor.bind(address);
+  let contractInfo = UnipoolContractInfo.load(address.toHex());
+  if (!contractInfo) {
+    contractInfo = new UnipoolContractInfo(address.toHex());
+  }
+  const callResult = contract.try_rewardDistribution();
+  if (!callResult.reverted) {
+    contractInfo.rewardDistribution = callResult.value.toHex();
+    contractInfo.save();
+  }
+}
+
+export function updateLastUpdateDate(address: Address): void {
+  //TODO I dont know where should i call this, maybe adding call handler
+  const contract = UnipoolTokenDistributor.bind(address);
+  let contractInfo = UnipoolContractInfo.load(address.toHex());
+  if (!contractInfo) {
+    contractInfo = new UnipoolContractInfo(address.toHex());
+  }
+  const callResult = contract.try_lastUpdateTime();
+  if (!callResult.reverted) {
+    contractInfo.lastUpdateTime = callResult.value;
     contractInfo.save();
   }
 }

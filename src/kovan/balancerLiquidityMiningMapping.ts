@@ -6,23 +6,31 @@ import {
   Withdrawn,
 } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { updateTokenAllocationDistributor } from '../commons/tokenAllocation';
-import {InitializeCall} from "../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor";
-import {createContractInfoIfNotExists} from "../commons/unipoolTokenDistributorHandler";
-import {Address} from "@graphprotocol/graph-ts/index";
+import { InitializeCall } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+import { createUnipoolContractInfoIfNotExists } from '../commons/unipoolTokenDistributorHandler';
+import { Address } from '@graphprotocol/graph-ts/index';
+const contractAddress = Address.fromString('0x5dA8196427475C0026B465454156f0D31236C88B');
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
+}
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
-
-export function handleRewardAdded(event: RewardAdded): void {}
+export function handleRewardAdded(event: RewardAdded): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
+}
 
 export function handleRewardPaid(event: RewardPaid): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
   updateTokenAllocationDistributor(event.transaction.hash.toHex(), 'balancerLM');
 }
 
 export function handleStaked(event: Staked): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
 }
 
-export function handleWithdrawn(event: Withdrawn): void {}
+export function handleWithdrawn(event: Withdrawn): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
+}
 
 export function handleInitialize(call: InitializeCall): void {
-  createContractInfoIfNotExists(Address.fromString('0x5dA8196427475C0026B465454156f0D31236C88B'));
+  createUnipoolContractInfoIfNotExists(contractAddress);
 }

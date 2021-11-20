@@ -122,7 +122,7 @@ dataSources:
     name: givLiquidityMiningTokenDistributor
     network: kovan
     source:
-      address: "0x61296aEC102bE83Aaa350B408b5F6B9466F86Dd9"
+      address: "0xE77D387b4be1076891868060c32E81BC3b89C730"
       startBlock: 28091553
       abi: UnipoolTokenDistributor
     mapping:

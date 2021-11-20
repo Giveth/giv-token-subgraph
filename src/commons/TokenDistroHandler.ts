@@ -1,9 +1,12 @@
-import { UnipoolTokenDistributor } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { Address } from '@graphprotocol/graph-ts/common/numbers';
 import { TokenDistroContractInfo } from '../../generated/schema';
 import { TokenDistro } from '../../generated/TokenDistro/TokenDistro';
+// const isContractInfoInitiated: any = {};
 
 export function createTokenDistroContractInfoIfNotExists(address: Address): void {
+  // if (isContractInfoInitiated[address.toHex()]) {
+  //   return;
+  // }
   const contract = TokenDistro.bind(address);
   let contractInfo = TokenDistroContractInfo.load(address.toHex());
   if (contractInfo) {
@@ -17,6 +20,7 @@ export function createTokenDistroContractInfoIfNotExists(address: Address): void
   contractInfo.initialAmount = contract.initialAmount();
   contractInfo.totalTokens = contract.totalTokens();
   contractInfo.save();
+  // isContractInfoInitiated[address.toHex()] = true;
 }
 
 export function updateContractInfo(address: Address): void {}
