@@ -1,8 +1,12 @@
 import { UnipoolTokenDistributor } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { Address } from '@graphprotocol/graph-ts/common/numbers';
 import { UnipoolContractInfo } from '../../generated/schema';
+import { BigInt, log } from '@graphprotocol/graph-ts';
+
 // const isContractInfoInitiated: [string: boolean] = { hey: true };
 export function createUnipoolContractInfoIfNotExists(address: Address): void {
+  log.error('createUnipoolContractInfoIfNotExists() has been called: ' + address.toHex(), []);
+
   // if (isContractInfoInitiated[address.toHex()]) {
   //   return;
   // }
@@ -45,7 +49,11 @@ export function updateRewardPerTokenStored(address: Address): void {
     contractInfo = new UnipoolContractInfo(address.toHex());
   }
   const callResult = contract.try_rewardPerTokenStored();
+  log.error('createUnipoolContractInfoIfNotExists() callResult: ' + callResult.value.toString(), []);
+
   if (!callResult.reverted) {
+    log.error('createUnipoolContractInfoIfNotExists() callResult is reverted ' + callResult.reverted.toString(), []);
+
     contractInfo.rewardPerTokenStored = callResult.value;
     contractInfo.save();
   }
@@ -68,7 +76,7 @@ export function updateRewardRate(address: Address): void {
 }
 
 export function updateRewardDistribution(address: Address): void {
-  //TODO I dont know where should i call this, maybe adding call handler
+  //TODO Should listen to setRewardDistribution call
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (!contractInfo) {
@@ -82,7 +90,6 @@ export function updateRewardDistribution(address: Address): void {
 }
 
 export function updateLastUpdateDate(address: Address): void {
-  //TODO I dont know where should i call this, maybe adding call handler
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (!contractInfo) {
@@ -91,6 +98,20 @@ export function updateLastUpdateDate(address: Address): void {
   const callResult = contract.try_lastUpdateTime();
   if (!callResult.reverted) {
     contractInfo.lastUpdateTime = callResult.value;
+    contractInfo.save();
+  }
+}
+
+export function updatePeriodFinish(address: Address): void {
+  //TODO value changes in notifyRewardAmount() function in contract, I dont know when should I change that
+  const contract = UnipoolTokenDistributor.bind(address);
+  let contractInfo = UnipoolContractInfo.load(address.toHex());
+  if (!contractInfo) {
+    contractInfo = new UnipoolContractInfo(address.toHex());
+  }
+  const callResult = contract.try_periodFinish();
+  if (!callResult.reverted) {
+    contractInfo.periodFinish = callResult.value;
     contractInfo.save();
   }
 }
