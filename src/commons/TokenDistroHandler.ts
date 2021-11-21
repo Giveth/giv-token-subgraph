@@ -6,14 +6,14 @@ import { BigInt, log } from '@graphprotocol/graph-ts';
 // const isContractInfoInitiated: any = {};
 
 export function createTokenDistroContractInfoIfNotExists(address: Address): void {
-  log.error('createTokenDistroContractInfoIfNotExists() has been called: ' + address.toHex(), []);
+  log.info('createTokenDistroContractInfoIfNotExists() has been called: ' + address.toHex(), []);
   // if (isContractInfoInitiated[address.toHex()]) {
   //   return;
   // }
   const contract = TokenDistro.bind(address);
   let contractInfo = TokenDistroContractInfo.load(address.toHex());
   if (contractInfo) {
-    log.error('createTokenDistroContractInfoIfNotExists() contractInfo existed' + address.toHex(), []);
+    log.info('createTokenDistroContractInfoIfNotExists() contractInfo existed' + address.toHex(), []);
 
     return;
   }

@@ -1,11 +1,11 @@
 import { UnipoolTokenDistributor } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { Address } from '@graphprotocol/graph-ts/common/numbers';
 import { UnipoolContractInfo } from '../../generated/schema';
-import { BigInt, log } from '@graphprotocol/graph-ts';
+import { log } from '@graphprotocol/graph-ts';
 
 // const isContractInfoInitiated: [string: boolean] = { hey: true };
 export function createUnipoolContractInfoIfNotExists(address: Address): void {
-  log.error('createUnipoolContractInfoIfNotExists() has been called: ' + address.toHex(), []);
+  log.info('createUnipoolContractInfoIfNotExists() has been called: ' + address.toHex(), []);
 
   // if (isContractInfoInitiated[address.toHex()]) {
   //   return;
@@ -49,10 +49,10 @@ export function updateRewardPerTokenStored(address: Address): void {
     contractInfo = new UnipoolContractInfo(address.toHex());
   }
   const callResult = contract.try_rewardPerTokenStored();
-  log.error('createUnipoolContractInfoIfNotExists() callResult: ' + callResult.value.toString(), []);
+  log.info('createUnipoolContractInfoIfNotExists() callResult: ' + callResult.value.toString(), []);
 
   if (!callResult.reverted) {
-    log.error('createUnipoolContractInfoIfNotExists() callResult is reverted ' + callResult.reverted.toString(), []);
+    log.info('createUnipoolContractInfoIfNotExists() callResult is reverted ' + callResult.reverted.toString(), []);
 
     contractInfo.rewardPerTokenStored = callResult.value;
     contractInfo.save();

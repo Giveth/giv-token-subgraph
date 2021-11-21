@@ -117,4 +117,16 @@ Query sample:
 }
 ```
 
-
+* **Get Giv price**
+```
+{
+  prices{
+    id
+    from
+     to
+    value
+    source
+    blockTimeStamp
+  }
+}
+```

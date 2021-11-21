@@ -42,3 +42,12 @@ type TokenDistroContractInfo @entity {
     initialAmount: BigInt
     lockedAmount: BigInt
 }
+
+type Price @entity {
+    id: ID!
+    from: String!
+    to: String!
+    value: BigInt!
+    source: String!
+    blockTimeStamp: BigInt
+}
