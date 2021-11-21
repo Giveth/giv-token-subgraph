@@ -1,6 +1,7 @@
-import { BigInt, log } from '@graphprotocol/graph-ts';
+import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { Balance } from '../../generated/schema';
 import { ZERO_ADDRESS } from '../helpers/constants';
+import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
 export function updateBalance(from: string, to: string, value: BigInt): void {
   if (to != ZERO_ADDRESS) {
@@ -50,4 +51,18 @@ export function addClaimed(to: string, value: BigInt): void {
     toBalance.claimed = toBalance.claimed.plus(value);
   }
   toBalance.save();
+}
+
+export function updateUniswapRewards(address: string, contractAddress: Address): void {
+  const contract = UnipoolTokenDistributor.bind(contractAddress);
+  const callResult = contract.try_rewards(Address.fromString(address));
+  if (callResult.reverted) {
+    return;
+  }
+  let balance = Balance.load(address);
+  if (!balance) {
+    balance = new Balance(address);
+  }
+  balance.rewardsUniswap = callResult.value;
+  balance.save();
 }

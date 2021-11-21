@@ -64,6 +64,13 @@ Query sample:
   balances( first: 10 ) {
     id
     balance
+    allocatedTokens
+    claimed
+    rewardPerTokenStoredGivLm
+    rewardsGivLm
+    rewardPerTokenStoredUniswap
+    rewardsUniswap
+    givback
   }
 }
 ```

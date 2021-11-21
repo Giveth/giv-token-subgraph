@@ -10,7 +10,7 @@ import {
   RoleRevoked,
   StartTimeChanged,
 } from '../../generated/TokenDistro/TokenDistro';
-import {addAllocatedTokens, addClaimed} from "../commons/balanceHandler";
+import { addAllocatedTokens, addClaimed } from '../commons/balanceHandler';
 
 export function handleAllocate(event: Allocate): void {
   saveTokenAllocation(
