@@ -26,6 +26,7 @@ dataSources:
       abis:
         - name: TokenDistro
           file: ./abis/TokenDistro.json
+
       eventHandlers:
         - event: Allocate(indexed address,indexed address,uint256)
           handler: handleAllocate
@@ -174,6 +175,9 @@ dataSources:
       abis:
         - name: GIV
           file: ./abis/GIV.json
+        # We should pass all ABIs to every subgraph that use that ABI
+        - name: uniswapV3Pool
+          file: ./abis/uniswapV3Pool.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
@@ -185,26 +189,26 @@ dataSources:
           handler: handleTransfer
       file: ./src/kovan/GivTokenMapping.ts
 
-  - kind: ethereum/contract
-    name: uniswapV3
-    network: kovan
-    source:
-      address: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
-      abi: uniswapV3
-      startBlock: 28083840
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Transfer
-      abis:
-        - name: uniswapV3
-          file: ./abis/uniswapV3.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/kovan/uniswapV3Mapping.ts
+#  - kind: ethereum/contract
+#    name: uniswapV3
+#    network: kovan
+#    source:
+#      address: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
+#      abi: uniswapV3
+#      startBlock: 28083840
+#    mapping:
+#      kind: ethereum/events
+#      apiVersion: 0.0.5
+#      language: wasm/assemblyscript
+#      entities:
+#        - Transfer
+#      abis:
+#        - name: uniswapV3
+#          file: ./abis/uniswapV3.json
+#      eventHandlers:
+#        - event: Transfer(indexed address,indexed address,uint256)
+#          handler: handleTransfer
+#      file: ./src/kovan/uniswapV3Mapping.ts
 
   - kind: ethereum/contract
     name: uniswapV3Pool
@@ -213,7 +217,6 @@ dataSources:
       address: "0xa48C26fF05F47a2eEd88C09664de1cb604A21b01"
       abi: uniswapV3Pool
       startBlock: 28083840
-
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -228,5 +231,4 @@ dataSources:
         - event:  Sync(uint112,uint112)
           handler: handleSync
       file: ./src/kovan/uniswapV3PoolMapping.ts
-
 
