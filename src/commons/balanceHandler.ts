@@ -50,6 +50,7 @@ export function addClaimed(to: string, value: BigInt): void {
   } else {
     toBalance.claimed = toBalance.claimed.plus(value);
   }
+  toBalance.givback = BigInt.zero();
   toBalance.save();
 }
 

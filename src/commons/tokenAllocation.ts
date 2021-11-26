@@ -1,4 +1,4 @@
-import { TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
+import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 export function saveTokenAllocation(
@@ -33,9 +33,30 @@ export function updateTokenAllocationDistributor(txHash: string, distributor: st
   for (let i = 0; i < transactionTokenAllocations.tokenAllocationIds.length; i++) {
     const entity = TokenAllocation.load(transactionTokenAllocations.tokenAllocationIds[i]);
     if (!entity) {
-      return;
+      continue;
     }
     entity.distributor = distributor;
     entity.save();
+  }
+}
+
+export function updateTokenAllocationGivback(txHash: string): void {
+  const transactionTokenAllocations = TransactionTokenAllocation.load(txHash);
+  if (!transactionTokenAllocations) {
+    return;
+  }
+  for (let i = 0; i < transactionTokenAllocations.tokenAllocationIds.length; i++) {
+    const tokenAllocation = TokenAllocation.load(transactionTokenAllocations.tokenAllocationIds[i]);
+    if (!tokenAllocation) {
+      continue;
+    }
+    tokenAllocation.givback = true;
+    tokenAllocation.save();
+    const balance = Balance.load(tokenAllocation.recipient);
+    if (!balance) {
+      continue;
+    }
+    balance.givback.plus(tokenAllocation.amount);
+    balance.save();
   }
 }

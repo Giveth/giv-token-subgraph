@@ -1,4 +1,4 @@
-import { saveTokenAllocation } from '../commons/tokenAllocation';
+import { saveTokenAllocation, updateTokenAllocationGivback } from "../commons/tokenAllocation";
 import {
   Allocate,
   Assign,
@@ -31,7 +31,9 @@ export function handleClaim(event: Claim): void {
   addClaimed(event.params.grantee.toHex(), event.params.amount);
 }
 
-export function handleGivBackPaid(event: GivBackPaid): void {}
+export function handleGivBackPaid(event: GivBackPaid): void {
+  updateTokenAllocationGivback(event.transaction.hash.toHex());
+}
 
 export function handleRoleAdminChanged(event: RoleAdminChanged): void {}
 

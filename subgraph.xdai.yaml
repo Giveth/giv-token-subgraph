@@ -30,7 +30,7 @@ dataSources:
     name: TokenDistro
     network: xdai
     source:
-      address: "0xf11aC05c97F8845f6b974e9e327129d36683cC90"
+      address: "0x1aD46D40648639f84a396Fef32132888038c5aA8"
       abi: TokenDistro
       startBlock: 18722203
     mapping:

@@ -10,7 +10,7 @@ import {
   RoleRevoked,
   StartTimeChanged,
 } from '../../generated/TokenDistro/TokenDistro';
-import { saveTokenAllocation } from '../commons/tokenAllocation';
+import { saveTokenAllocation, updateTokenAllocationGivback } from '../commons/tokenAllocation';
 import { addAllocatedTokens, addClaimed } from '../commons/balanceHandler';
 import { createUnipoolContractInfoIfNotExists } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts/index';
@@ -40,6 +40,7 @@ export function handleClaim(event: Claim): void {
 
 export function handleGivBackPaid(event: GivBackPaid): void {
   createTokenDistroContractInfoIfNotExists(contractAddress);
+  updateTokenAllocationGivback(event.transaction.hash.toHex());
 }
 
 export function handleRoleAdminChanged(event: RoleAdminChanged): void {

@@ -5,6 +5,7 @@ type TokenAllocation @entity {
   timestamp: BigInt!
   txHash: String!
   distributor: String
+  givback: Boolean!
 }
 
 type TransactionTokenAllocation @entity {
@@ -21,7 +22,7 @@ type Balance @entity{
     rewardsGivLm:  BigInt
     rewardPerTokenStoredUniswap:  BigInt
     rewardsUniswap:  BigInt
-    givback: BigInt
+    givback: BigInt!
 }
 
 type UnipoolContractInfo @entity {
