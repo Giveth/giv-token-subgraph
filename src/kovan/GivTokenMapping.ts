@@ -13,10 +13,10 @@ export function handleChangeMinter(event: ChangeMinter): void {}
 export function handleTransfer(event: Transfer): void {
   updateBalance(event.params.from.toHex(), event.params.to.toHex(), event.params.value);
   event.transaction.from.toHex();
-  updateTokenPrice(event.transaction.from.toHex());
+  updateTokenPrice();
 }
 
-function updateTokenPrice(fromAddress: string): void {
+function updateTokenPrice(): void {
   const uniswapEthGivPoolAddress = Address.fromString('0xa48C26fF05F47a2eEd88C09664de1cb604A21b01');
   const contract = uniswapV3Pool.bind(uniswapEthGivPoolAddress);
   const tokensResult = contract.try_getReserves();
