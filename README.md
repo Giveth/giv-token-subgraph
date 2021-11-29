@@ -40,6 +40,7 @@ Query sample:
     timestamp
     distributor
     txHash
+    givback
   }
 }
 ```
@@ -53,6 +54,9 @@ Query sample:
     recipient
     amount
     timestamp
+    distributor
+    txHash
+    givback
   }
 }
 ```
