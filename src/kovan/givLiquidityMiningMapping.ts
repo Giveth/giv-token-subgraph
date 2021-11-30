@@ -10,8 +10,9 @@ import {
 import { updateTokenAllocationDistributor } from '../commons/tokenAllocation';
 import {
   createUnipoolContractInfoIfNotExists,
+  onRewardUpdated,
   updateRewardPerTokenStored,
-  updateRewardRate
+  updateRewardRate,
 } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts';
 const contractAddress = Address.fromString('0xE77D387b4be1076891868060c32E81BC3b89C730');
@@ -30,18 +31,9 @@ export function handleRewardPaid(event: RewardPaid): void {
 }
 
 export function handleStaked(event: Staked): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
-  updateRewardRate(contractAddress);
+  onRewardUpdated(contractAddress, event.params.user.toHex());
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
-  updateRewardRate(contractAddress);
-}
-
-export function handleInitialize(call: InitializeCall): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
-  createUnipoolContractInfoIfNotExists(contractAddress);
+  onRewardUpdated(contractAddress, event.params.user.toHex());
 }

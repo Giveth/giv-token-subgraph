@@ -2,6 +2,15 @@ import { UnipoolTokenDistributor } from '../../generated/givLiquidityMiningToken
 import { Address } from '@graphprotocol/graph-ts/common/numbers';
 import { UnipoolContractInfo } from '../../generated/schema';
 import { log } from '@graphprotocol/graph-ts';
+import { updateUniswapRewards } from './balanceHandler';
+
+export function onRewardUpdated(contractAddress: Address, userAddress: string): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
+  updateRewardPerTokenStored(contractAddress);
+  updateRewardRate(contractAddress);
+  updateLastUpdateDate(contractAddress);
+  updateUniswapRewards(userAddress, contractAddress);
+}
 
 // const isContractInfoInitiated: [string: boolean] = { hey: true };
 export function createUnipoolContractInfoIfNotExists(address: Address): void {
