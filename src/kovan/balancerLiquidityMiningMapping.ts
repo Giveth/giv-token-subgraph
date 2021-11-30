@@ -5,18 +5,10 @@ import {
   Staked,
   Withdrawn,
 } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
-import { updateTokenAllocationDistributor } from '../commons/tokenAllocation';
-import { InitializeCall } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
-import {
-  createUnipoolContractInfoIfNotExists,
-  onRewardUpdated,
-  updateLastUpdateDate,
-  updateRewardPerTokenStored,
-  updateRewardRate,
-} from '../commons/unipoolTokenDistributorHandler';
+import { createUnipoolContractInfoIfNotExists, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts/index';
-import { onRewardPaid, updateUniswapRewards } from '../commons/balanceHandler';
-const contractAddress = Address.fromString('0x5dA8196427475C0026B465454156f0D31236C88B');
+import { onRewardPaid } from '../commons/balanceHandler';
+const contractAddress = Address.fromString('0xA14149623488A79ecfd79E63Bb7F5EF2F661A624');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   createUnipoolContractInfoIfNotExists(contractAddress);

@@ -16,7 +16,7 @@ import { createUnipoolContractInfoIfNotExists } from '../commons/unipoolTokenDis
 import { Address } from '@graphprotocol/graph-ts/index';
 import { log } from '@graphprotocol/graph-ts';
 import { createTokenDistroContractInfoIfNotExists } from '../commons/TokenDistroHandler';
-const contractAddress = Address.fromString('0x95c76AEaDf98dbD5ef6E2acD8308E563302AF2e3');
+const contractAddress = Address.fromString('0x35f8414Ca6d5629887b9049cE99C7B592E583dd3');
 
 export function handleAllocate(event: Allocate): void {
   saveTokenAllocation(

@@ -16,7 +16,7 @@ import {
 } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts';
 import { onRewardPaid } from '../commons/balanceHandler';
-const contractAddress = Address.fromString('0xE77D387b4be1076891868060c32E81BC3b89C730');
+const contractAddress = Address.fromString('0x1aAA619b066360C22EBD8c597c975CACff146317');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   createUnipoolContractInfoIfNotExists(contractAddress);

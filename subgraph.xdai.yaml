@@ -1,3 +1,5 @@
+# Contract Addresses: https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
+
 specVersion: 0.0.2
 schema:
   file: ./schema.graphql
@@ -32,7 +34,7 @@ dataSources:
     source:
       address: "0x1aD46D40648639f84a396Fef32132888038c5aA8"
       abi: TokenDistro
-      startBlock: 18722203
+      startBlock: 19133711
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -141,8 +143,8 @@ dataSources:
     name: GardenUnipoolTokenDistributor
     network: xdai
     source:
-      address: "0xE77D387b4be1076891868060c32E81BC3b89C730"
-      startBlock: 18889311
+      address: "0x26F033515ce926658def0939A8D9a0592D0F5cc9"
+      startBlock: 19133741
       abi: GardenUnipoolTokenDistributor
     mapping:
       kind: ethereum/events
