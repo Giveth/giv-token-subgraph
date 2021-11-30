@@ -2,6 +2,8 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { Balance } from '../../generated/schema';
 import { ZERO_ADDRESS } from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+import { createUnipoolContractInfoIfNotExists } from "./unipoolTokenDistributorHandler";
+import { updateTokenAllocationDistributor } from "./tokenAllocation";
 
 export function updateBalance(from: string, to: string, value: BigInt): void {
   if (to != ZERO_ADDRESS) {
@@ -52,6 +54,18 @@ export function addClaimed(to: string, value: BigInt): void {
   }
   toBalance.givback = BigInt.zero();
   toBalance.save();
+}
+
+export function onRewardPaid(
+  contractAddress:Address,
+  txHash:string,
+  userAddress: string,
+  distributor:string):void{
+  createUnipoolContractInfoIfNotExists(contractAddress);
+  updateTokenAllocationDistributor(txHash, distributor);
+
+  //TODO it should be different for any farm/contract
+  updateUniswapRewards(userAddress, contractAddress);
 }
 
 export function updateUniswapRewards(address: string, contractAddress: Address): void {

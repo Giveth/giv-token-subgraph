@@ -15,6 +15,7 @@ import {
   updateRewardRate,
 } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts';
+import { onRewardPaid } from '../commons/balanceHandler';
 const contractAddress = Address.fromString('0xE77D387b4be1076891868060c32E81BC3b89C730');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -26,8 +27,7 @@ export function handleRewardAdded(event: RewardAdded): void {
 }
 
 export function handleRewardPaid(event: RewardPaid): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
-  updateTokenAllocationDistributor(event.transaction.hash.toHex(), 'givLM');
+  onRewardPaid(contractAddress, event.transaction.hash.toHex(), event.params.user.toHex(), 'givLM');
 }
 
 export function handleStaked(event: Staked): void {
