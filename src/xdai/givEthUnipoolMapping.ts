@@ -10,6 +10,7 @@ import { Address } from '@graphprotocol/graph-ts';
 import { onRewardPaid } from '../commons/balanceHandler';
 
 const contractAddress = Address.fromString('0x2C4a1620B29D551B950e48eba3813e5B5b012A2f');
+
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handleRewardAdded(event: RewardAdded): void {}

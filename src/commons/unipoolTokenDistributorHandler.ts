@@ -15,10 +15,6 @@ export function onRewardUpdated(contractAddress: Address, userAddress: string): 
 // const isContractInfoInitiated: [string: boolean] = { hey: true };
 export function createUnipoolContractInfoIfNotExists(address: Address): void {
   log.info('createUnipoolContractInfoIfNotExists() has been called: ' + address.toHex(), []);
-
-  // if (isContractInfoInitiated[address.toHex()]) {
-  //   return;
-  // }
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (contractInfo) {
@@ -26,15 +22,11 @@ export function createUnipoolContractInfoIfNotExists(address: Address): void {
   }
   contractInfo = new UnipoolContractInfo(address.toHex());
   contractInfo.lastUpdateTime = contract.lastUpdateTime();
-  const periodFinish = contract.try_periodFinish();
-  if (!periodFinish.reverted) {
-    contractInfo.periodFinish = contract.try_periodFinish().value;
-  }
+  contractInfo.periodFinish = contract.periodFinish();
   contractInfo.rewardDistribution = contract.rewardDistribution().toHex();
   contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
   contractInfo.rewardRate = contract.rewardRate();
   contractInfo.save();
-  // isContractInfoInitiated[address.toHex()] = true;
 }
 
 export function updateContractInfo(address: Address): void {
