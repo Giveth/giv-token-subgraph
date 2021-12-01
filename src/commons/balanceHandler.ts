@@ -12,6 +12,8 @@ export function updateBalance(from: string, to: string, value: BigInt): void {
       toBalance = new Balance(to);
       toBalance.balance = value;
     } else {
+      //This is just for having some data and not be zero, for Cherik tests
+      toBalance.givback = BigInt.fromString('1371');
       toBalance.balance = toBalance.balance.plus(value);
     }
     toBalance.save();
@@ -52,9 +54,7 @@ export function addClaimed(to: string, value: BigInt): void {
   } else {
     toBalance.claimed = toBalance.claimed.plus(value);
   }
-  // toBalance.givback = BigInt.zero();
-  //This is just for having some data and not be zero, for Cherik tests
-  toBalance.givback = BigInt.fromString('1371');
+  toBalance.givback = BigInt.zero();
   toBalance.save();
 }
 

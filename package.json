@@ -8,8 +8,10 @@
     "codegen": "yarn codegen:xdai && yarn codegen:kovan",
     "build:kovan": "graph build subgraph.kovan.yaml",
     "build:xdai": "graph build subgraph.xdai.yaml",
+    "build": "yarn build:xdai && yarn build:kovan",
     "deploy:kovan": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan subgraph.kovan.yaml",
     "deploy:xdai": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai subgraph.xdai.yaml",
+    "deploy": "yarn deploy:xdai && yarn deploy:kovan",
     "create-local": "graph create --node http://localhost:8020/ mohammadranjbarz/gardenUnipool",
     "remove-local": "graph remove --node http://localhost:8020/ mohammadranjbarz/gardenUnipool",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 mohammadranjbarz/gardenUnipool"
