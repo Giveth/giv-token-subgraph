@@ -5,6 +5,7 @@
     "lint": "eslint --max-warnings 0 . --ext .ts",
     "codegen:kovan": "graph codegen subgraph.kovan.yaml",
     "codegen:xdai": "graph codegen subgraph.xdai.yaml",
+    "codegen": "yarn codegen:xdai && yarn codegen:kovan",
     "build:kovan": "graph build subgraph.kovan.yaml",
     "build:xdai": "graph build subgraph.xdai.yaml",
     "deploy:kovan": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan subgraph.kovan.yaml",
