@@ -52,7 +52,9 @@ export function addClaimed(to: string, value: BigInt): void {
   } else {
     toBalance.claimed = toBalance.claimed.plus(value);
   }
-  toBalance.givback = BigInt.zero();
+  // toBalance.givback = BigInt.zero();
+  //This is just for having some data and not be zero, for Cherik tests
+  toBalance.givback = BigInt.fromString('1371');
   toBalance.save();
 }
 
