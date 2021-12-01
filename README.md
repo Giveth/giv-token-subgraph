@@ -66,14 +66,19 @@ Query sample:
 ```
 {
   balances( first: 10 ) {
-    id
     balance
     allocatedTokens
     claimed
-    rewardPerTokenStoredGivLm
+    rewardPerTokenPaidGivLm
     rewardsGivLm
-    rewardPerTokenStoredUniswap
+    rewardPerTokenPaidGivEth
+    rewardsGivEth
+    rewardPerTokenPaidGivHny
+    rewardsGivHny
+    rewardPerTokenPaidUniswap
     rewardsUniswap
+    rewardPerTokenPaidBalancerLiquidity
+    rewardsBalancerLiquidity
     givback
   }
 }
