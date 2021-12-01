@@ -10,12 +10,14 @@ import {
 import { updateTokenAllocationDistributor } from '../commons/tokenAllocation';
 import {
   createUnipoolContractInfoIfNotExists,
+  onRewardAdded,
+  onRewardPaid,
   onRewardUpdated,
   updateRewardPerTokenStored,
   updateRewardRate,
 } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts';
-import { onRewardPaid } from '../commons/balanceHandler';
+import { GIV_LIQUIDITY } from "../helpers/constants";
 const contractAddress = Address.fromString('0x1aAA619b066360C22EBD8c597c975CACff146317');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -23,17 +25,17 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function handleRewardAdded(event: RewardAdded): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
+  onRewardAdded(contractAddress);
 }
 
 export function handleRewardPaid(event: RewardPaid): void {
-  onRewardPaid(contractAddress, event.transaction.hash.toHex(), event.params.user.toHex(), 'givLM');
+  onRewardPaid(contractAddress, event.transaction.hash.toHex(), event.params.user.toHex(), GIV_LIQUIDITY);
 }
 
 export function handleStaked(event: Staked): void {
-  onRewardUpdated(contractAddress, event.params.user.toHex());
+  onRewardUpdated(contractAddress, event.params.user.toHex(), GIV_LIQUIDITY);
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  onRewardUpdated(contractAddress, event.params.user.toHex());
+  onRewardUpdated(contractAddress, event.params.user.toHex(), GIV_LIQUIDITY);
 }

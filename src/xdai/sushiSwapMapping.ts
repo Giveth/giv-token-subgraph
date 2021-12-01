@@ -1,6 +1,5 @@
 import { SushiSwapLpToken, Sync } from '../../generated/SushiSwapLpToken/SushiSwapLpToken';
 import { Address } from '@graphprotocol/graph-ts/index';
-import { uniswapV3Pool } from '../../generated/uniswapV3Pool/uniswapV3Pool';
 import { Price } from '../../generated/schema';
 
 export function handleSync(event: Sync): void {

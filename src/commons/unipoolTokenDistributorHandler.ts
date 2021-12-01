@@ -1,15 +1,30 @@
 import { UnipoolTokenDistributor } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
-import { Address } from '@graphprotocol/graph-ts/common/numbers';
 import { UnipoolContractInfo } from '../../generated/schema';
-import { log } from '@graphprotocol/graph-ts';
-import { updateUniswapRewards } from './balanceHandler';
+import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { updateRewards } from './balanceHandler';
+import { updateTokenAllocationDistributor } from './tokenAllocation';
 
-export function onRewardUpdated(contractAddress: Address, userAddress: string): void {
+export function onRewardUpdated(contractAddress: Address, userAddress: string, contractName: string): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
+  updateRewardRate(contractAddress);
+  updateLastUpdateDate(contractAddress);
+  const rewardPerTokenStored = updateRewardPerTokenStored(contractAddress);
+  updateRewards(userAddress, contractAddress, contractName, rewardPerTokenStored);
+}
+
+export function onRewardAdded(contractAddress: Address): void {
   createUnipoolContractInfoIfNotExists(contractAddress);
   updateRewardPerTokenStored(contractAddress);
   updateRewardRate(contractAddress);
   updateLastUpdateDate(contractAddress);
-  updateUniswapRewards(userAddress, contractAddress);
+}
+
+export function onRewardPaid(contractAddress: Address, txHash: string, userAddress: string, distributor: string): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
+  updateTokenAllocationDistributor(txHash, distributor);
+
+  //TODO it should be different for any farm/contract
+  updateRewards(userAddress, contractAddress, distributor);
 }
 
 // const isContractInfoInitiated: [string: boolean] = { hey: true };
@@ -43,21 +58,17 @@ export function updateContractInfo(address: Address): void {
   contractInfo.save();
 }
 
-export function updateRewardPerTokenStored(address: Address): void {
+export function updateRewardPerTokenStored(address: Address): BigInt | null {
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (!contractInfo) {
     contractInfo = new UnipoolContractInfo(address.toHex());
   }
-  const callResult = contract.try_rewardPerTokenStored();
-  log.info('createUnipoolContractInfoIfNotExists() callResult: ' + callResult.value.toString(), []);
+  const rewardPerTokenStored = contract.rewardPerTokenStored();
 
-  if (!callResult.reverted) {
-    log.info('createUnipoolContractInfoIfNotExists() callResult is reverted ' + callResult.reverted.toString(), []);
-
-    contractInfo.rewardPerTokenStored = callResult.value;
-    contractInfo.save();
-  }
+  contractInfo.rewardPerTokenStored = rewardPerTokenStored;
+  contractInfo.save();
+  return rewardPerTokenStored;
 }
 
 export function updateRewardRate(address: Address): void {

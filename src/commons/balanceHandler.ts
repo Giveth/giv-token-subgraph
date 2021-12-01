@@ -1,9 +1,7 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { Balance } from '../../generated/schema';
-import { ZERO_ADDRESS } from '../helpers/constants';
+import { BALANCER_LIQUIDITY, GIV_ETH, GIV_HNY, GIV_LIQUIDITY, ZERO_ADDRESS } from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
-import { createUnipoolContractInfoIfNotExists } from './unipoolTokenDistributorHandler';
-import { updateTokenAllocationDistributor } from './tokenAllocation';
 
 export function updateBalance(from: string, to: string, value: BigInt): void {
   if (to != ZERO_ADDRESS) {
@@ -58,24 +56,34 @@ export function addClaimed(to: string, value: BigInt): void {
   toBalance.save();
 }
 
-export function onRewardPaid(contractAddress: Address, txHash: string, userAddress: string, distributor: string): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
-  updateTokenAllocationDistributor(txHash, distributor);
-
-  //TODO it should be different for any farm/contract
-  updateUniswapRewards(userAddress, contractAddress);
-}
-
-export function updateUniswapRewards(address: string, contractAddress: Address): void {
+export function updateRewards(
+  address: string,
+  contractAddress: Address,
+  distributor: string,
+  rewardPerTokenStored: BigInt | null = null
+): void {
   const contract = UnipoolTokenDistributor.bind(contractAddress);
-  const callResult = contract.try_rewards(Address.fromString(address));
-  if (callResult.reverted) {
-    return;
-  }
+  const rewards = contract.rewards(Address.fromString(address));
   let balance = Balance.load(address);
   if (!balance) {
     balance = new Balance(address);
   }
-  balance.rewardsUniswap = callResult.value;
+  if (!rewardPerTokenStored) {
+    balance.save();
+    return;
+  }
+  if (distributor === BALANCER_LIQUIDITY) {
+    balance.rewardPerTokenPaidBalancerLiquidity = rewardPerTokenStored;
+    balance.rewardsBalancerLiquidity = rewards;
+  } else if (distributor === GIV_ETH) {
+    balance.rewardPerTokenPaidGivEth = rewardPerTokenStored;
+    balance.rewardsGivEth = rewards;
+  } else if (distributor === GIV_HNY) {
+    balance.rewardPerTokenPaidGivHny = rewardPerTokenStored;
+    balance.rewardsGivHny = rewards;
+  } else if (distributor === GIV_LIQUIDITY) {
+    balance.rewardPerTokenPaidGivLm = rewardPerTokenStored;
+    balance.rewardsGivLm = rewards;
+  }
   balance.save();
 }

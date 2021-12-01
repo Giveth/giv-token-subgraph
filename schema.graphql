@@ -18,10 +18,16 @@ type Balance @entity{
     balance: BigInt!
     allocatedTokens: BigInt!
     claimed:  BigInt!
-    rewardPerTokenStoredGivLm:  BigInt
+    rewardPerTokenPaidGivLm:  BigInt
     rewardsGivLm:  BigInt
-    rewardPerTokenStoredUniswap:  BigInt
+    rewardPerTokenPaidGivEth:  BigInt
+    rewardsGivEth:  BigInt
+    rewardPerTokenPaidGivHny:  BigInt
+    rewardsGivHny:  BigInt
+    rewardPerTokenPaidUniswap:  BigInt
     rewardsUniswap:  BigInt
+    rewardPerTokenPaidBalancerLiquidity:  BigInt
+    rewardsBalancerLiquidity:  BigInt
     givback: BigInt!
 }
 
