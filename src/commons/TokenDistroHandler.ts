@@ -14,7 +14,6 @@ export function createTokenDistroContractInfoIfNotExists(address: Address): void
   let contractInfo = TokenDistroContractInfo.load(address.toHex());
   if (contractInfo) {
     log.info('createTokenDistroContractInfoIfNotExists() contractInfo existed' + address.toHex(), []);
-
     return;
   }
   contractInfo = new TokenDistroContractInfo(address.toHex());
