@@ -121,6 +121,25 @@ export function updateHoneyswapLpStakedBalanceAfterWithdrawal(userAddress: strin
   balance.save();
 }
 
+export function updateGivStakedBalanceAfterStake(userAddress: string, stakedValue: BigInt): void {
+  let balance = Balance.load(userAddress);
+  if (!balance) {
+    balance = new Balance(userAddress);
+    balance.givStaked = stakedValue;
+  } else {
+    balance.givStaked.plus(stakedValue);
+  }
+  balance.save();
+}
+export function updateGivStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+  const balance = Balance.load(userAddress);
+  if (!balance) {
+    return;
+  }
+  balance.givStaked.minus(withdrawnValue);
+  balance.save();
+}
+
 export function addAllocatedTokens(to: string, value: BigInt): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
