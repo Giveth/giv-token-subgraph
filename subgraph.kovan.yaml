@@ -240,7 +240,7 @@ dataSources:
     network: kovan
     source:
       address: "0x1ee71e1ed744ae6d4058f5c7797c2e583dbfb095"
-      abi: LPs
+      abi: MinimalERC20
       startBlock: 27853090
     mapping:
       kind: ethereum/events
@@ -249,8 +249,8 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: LPs
-          file: ./abis/LPs.json
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
