@@ -80,6 +80,13 @@ Query sample:
     rewardPerTokenPaidBalancerLiquidity
     rewardsBalancerLiquidity
     givback
+    balancerLp
+    balancerLpStaked
+    sushiswapLp
+    sushiSwapLpStaked
+    honeyswapLp 
+    honeyswapLpStaked 
+    givStaked
   }
 }
 ```
