@@ -83,6 +83,24 @@ export function updateBalancerLpStakedBalanceAfterWithdrawal(userAddress: string
   balance.balancerLpStaked.minus(withdrawnValue);
   balance.save();
 }
+export function updateSushiswapStakedBalanceAfterStake(userAddress: string, stakedValue: BigInt): void {
+  let balance = Balance.load(userAddress);
+  if (!balance) {
+    balance = new Balance(userAddress);
+    balance.sushiSwapLpStaked = stakedValue;
+  } else {
+    balance.sushiSwapLpStaked.plus(stakedValue);
+  }
+  balance.save();
+}
+export function updateSushiswapLpStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+  const balance = Balance.load(userAddress);
+  if (!balance) {
+    return;
+  }
+  balance.sushiSwapLpStaked.minus(withdrawnValue);
+  balance.save();
+}
 
 export function addAllocatedTokens(to: string, value: BigInt): void {
   let toBalance = Balance.load(to);
