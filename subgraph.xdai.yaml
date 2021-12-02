@@ -216,7 +216,6 @@ dataSources:
       entities:
         - Sync
         - Transfer
-
       abis:
         - name: SushiSwapLpToken
           file: ./abis/SushiSwapLpToken.json
@@ -227,3 +226,24 @@ dataSources:
           handler: handleTransfer
       file: ./src/xdai/sushiSwapLpMapping.ts
 
+
+  - kind: ethereum/contract
+    name: honeyswapLP
+    network: xdai
+    source:
+      address: "0x1ee71e1ed744ae6d4058f5c7797c2e583dbfb095"
+      abi: MinimalERC20
+      startBlock: 18721566
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/xdai/honeySwapLpMapping.ts
