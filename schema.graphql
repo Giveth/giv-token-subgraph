@@ -29,6 +29,14 @@ type Balance @entity{
     rewardPerTokenPaidBalancerLiquidity:  BigInt
     rewardsBalancerLiquidity:  BigInt
     givback: BigInt!
+    balancerLp: BigInt!
+    balancerLpStaked: BigInt!
+    sushiswapLp: BigInt!
+    sushiSwapLpStaked: BigInt!
+    honeyswapLp : BigInt!
+    honeyswapLpStaked : BigInt!
+    givStaked: BigInt!
+
 }
 
 type UnipoolContractInfo @entity {
