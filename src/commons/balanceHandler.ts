@@ -1,7 +1,7 @@
-import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { Balance } from "../../generated/schema";
-import { BALANCER_LIQUIDITY, BALANCER_LP, GIV_ETH, GIV_HNY, GIV_LIQUIDITY, ZERO_ADDRESS } from "../helpers/constants";
-import { UnipoolTokenDistributor } from "../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor";
+import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { Balance } from '../../generated/schema';
+import { BALANCER_LIQUIDITY, BALANCER_LP, GIV_ETH, GIV_HNY, GIV_LIQUIDITY, ZERO_ADDRESS } from '../helpers/constants';
+import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
 export function updateBalance(from: string, to: string, value: BigInt, distributor: string): void {
   updateToBalance(to, value, distributor);
@@ -10,12 +10,12 @@ export function updateBalance(from: string, to: string, value: BigInt, distribut
 
 export function updateFromBalance(from: string, value: BigInt, distributor: string): void {
   if (from == ZERO_ADDRESS) {
-    log.debug("is mint", []);
+    log.debug('is mint', []);
     return;
   }
   const fromBalance = Balance.load(from);
   if (!fromBalance) {
-    log.error("Transferring from empty address: {}", [from]);
+    log.error('Transferring from empty address: {}', [from]);
     return;
   }
   if (distributor === BALANCER_LP) {
@@ -28,7 +28,7 @@ export function updateFromBalance(from: string, value: BigInt, distributor: stri
 
 export function updateToBalance(to: string, value: BigInt, distributor: string): void {
   if (to == ZERO_ADDRESS) {
-    log.debug("is burn", []);
+    log.debug('is burn', []);
     return;
   }
   let toBalance = Balance.load(to);
@@ -41,7 +41,7 @@ export function updateToBalance(to: string, value: BigInt, distributor: string):
     }
   } else {
     //TODO delete this line, This is just for having some data and not be zero, for Cherik tests
-    toBalance.givback = BigInt.fromString("1371");
+    toBalance.givback = BigInt.fromString('1371');
     if (distributor === BALANCER_LP) {
       toBalance.balancerLp = toBalance.balancerLp.plus(value);
     } else {
@@ -49,6 +49,25 @@ export function updateToBalance(to: string, value: BigInt, distributor: string):
     }
   }
   toBalance.save();
+}
+
+export function updateBalancerLpStakedBalanceAfterStake(userAddress: string, stakedValue: BigInt): void {
+  let balance = Balance.load(userAddress);
+  if (!balance) {
+    balance = new Balance(userAddress);
+    balance.balancerLpStaked = stakedValue;
+  } else {
+    balance.balancerLpStaked.plus(stakedValue);
+  }
+  balance.save();
+}
+export function updateBalancerLpStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+  const balance = Balance.load(userAddress);
+  if (!balance) {
+    return;
+  }
+  balance.balancerLpStaked.minus(withdrawnValue);
+  balance.save();
 }
 
 export function addAllocatedTokens(to: string, value: BigInt): void {
