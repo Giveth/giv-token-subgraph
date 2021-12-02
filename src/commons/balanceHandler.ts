@@ -11,12 +11,12 @@ import {
 } from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
-export function updateBalance(from: string, to: string, value: BigInt, distributor: string): void {
+export function updateBalance(from: string, to: string, value: BigInt, distributor: string | null = null): void {
   updateToBalance(to, value, distributor);
   updateFromBalance(from, value, distributor);
 }
 
-export function updateFromBalance(from: string, value: BigInt, distributor: string): void {
+export function updateFromBalance(from: string, value: BigInt, distributor: string | null = null): void {
   if (from == ZERO_ADDRESS) {
     log.debug('is mint', []);
     return;
@@ -36,7 +36,7 @@ export function updateFromBalance(from: string, value: BigInt, distributor: stri
   fromBalance.save();
 }
 
-export function updateToBalance(to: string, value: BigInt, distributor: string): void {
+export function updateToBalance(to: string, value: BigInt, distributor: string | null = null): void {
   if (to == ZERO_ADDRESS) {
     log.debug('is burn', []);
     return;
