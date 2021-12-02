@@ -215,10 +215,15 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Sync
+        - Transfer
+
       abis:
         - name: SushiSwapLpToken
           file: ./abis/SushiSwapLpToken.json
       eventHandlers:
         - event: Sync(uint112,uint112)
           handler: handleSync
-      file: ./src/xdai/sushiSwapMapping.ts
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/xdai/sushiSwapLpMapping.ts
+

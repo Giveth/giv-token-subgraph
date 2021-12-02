@@ -1,6 +1,14 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { Balance } from '../../generated/schema';
-import { BALANCER_LIQUIDITY, BALANCER_LP, GIV_ETH, GIV_HNY, GIV_LIQUIDITY, ZERO_ADDRESS } from '../helpers/constants';
+import {
+  BALANCER_LIQUIDITY,
+  BALANCER_LP,
+  GIV_ETH,
+  GIV_HNY,
+  GIV_LIQUIDITY,
+  SUSHISWAP_LP,
+  ZERO_ADDRESS,
+} from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
 export function updateBalance(from: string, to: string, value: BigInt, distributor: string): void {
@@ -20,6 +28,8 @@ export function updateFromBalance(from: string, value: BigInt, distributor: stri
   }
   if (distributor === BALANCER_LP) {
     fromBalance.balancerLp = fromBalance.balancerLp.minus(value);
+  } else if (distributor === SUSHISWAP_LP) {
+    fromBalance.sushiswapLp = fromBalance.sushiswapLp.minus(value);
   } else {
     fromBalance.balance = fromBalance.balance.minus(value);
   }
@@ -36,6 +46,8 @@ export function updateToBalance(to: string, value: BigInt, distributor: string):
     toBalance = new Balance(to);
     if (distributor === BALANCER_LP) {
       toBalance.balancerLp = value;
+    } else if (distributor === SUSHISWAP_LP) {
+      toBalance.sushiswapLp = value;
     } else {
       toBalance.balance = value;
     }
@@ -44,6 +56,8 @@ export function updateToBalance(to: string, value: BigInt, distributor: string):
     toBalance.givback = BigInt.fromString('1371');
     if (distributor === BALANCER_LP) {
       toBalance.balancerLp = toBalance.balancerLp.plus(value);
+    } else if (distributor === SUSHISWAP_LP) {
+      toBalance.sushiswapLp = toBalance.sushiswapLp.plus(value);
     } else {
       toBalance.balance = toBalance.balance.plus(value);
     }
