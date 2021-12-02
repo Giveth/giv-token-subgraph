@@ -26,8 +26,8 @@ export function handleRewardPaid(event: RewardPaid): void {
 }
 
 export function handleStaked(event: Staked): void {
-  updateSushiswapStakedBalanceAfterStake(event.params.user.toHex(), event.params.amount);
   onRewardUpdated(contractAddress, event.params.user.toHex(), GIV_ETH);
+  updateSushiswapStakedBalanceAfterStake(event.params.user.toHex(), event.params.amount);
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
