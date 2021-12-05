@@ -28,7 +28,7 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
     }
   }
 
-  let originalFromValue;
+  let originalFromValue: BigInt;
 
   switch (true) {
     case distributor === BALANCER_LP:
@@ -53,7 +53,7 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
   }
 
   if (from != ZERO_ADDRESS && !originalFromValue) {
-    log.error('From value was null in transferring {} from {}', [distributor || 'GIV', from]);
+    log.error('From value was null in transferring {} from {}', [distributor ? distributor : 'GIV', from]);
     return;
   }
 
