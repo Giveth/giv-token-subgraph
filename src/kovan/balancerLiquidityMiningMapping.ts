@@ -13,10 +13,7 @@ import {
 } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts/index';
 import { BALANCER_LIQUIDITY } from '../helpers/constants';
-import {
-  handleBalancerLpStaked,
-  handleBalancerLpWithdrawal,
-} from '../commons/balanceHandler';
+import { handleBalancerLpStaked, handleBalancerLpWithdrawal } from '../commons/balanceHandler';
 const contractAddress = Address.fromString('0xA14149623488A79ecfd79E63Bb7F5EF2F661A624');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {

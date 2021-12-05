@@ -2,11 +2,11 @@ import { SushiSwapLpToken, Sync } from '../../generated/SushiSwapLpToken/SushiSw
 import { Address } from '@graphprotocol/graph-ts/index';
 import { Price } from '../../generated/schema';
 import { Transfer } from '../../generated/GIV/GIV';
-import { updateBalance } from '../commons/balanceHandler';
+import { onTransfer } from '../commons/balanceHandler';
 import { SUSHISWAP_LP } from '../helpers/constants';
 
 export function handleTransfer(event: Transfer): void {
-  updateBalance(event.params.from.toHex(), event.params.to.toHex(), event.params.value, SUSHISWAP_LP);
+  onTransfer(event.params.from.toHex(), event.params.to.toHex(), event.params.value, SUSHISWAP_LP);
 }
 
 export function handleSync(event: Sync): void {

@@ -12,70 +12,50 @@ import {
 } from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
-export function updateBalance(from: string, to: string, value: BigInt, distributor: string | null = null): void {
-  updateToBalance(to, value, distributor);
-  updateFromBalance(from, value, distributor);
-}
+export function onTransfer(from: string, to: string, value: BigInt, distributor: string | null = null): void {
+  // updateToBalance(to, value, distributor);
+  // updateFromBalance(from, value, distributor);
 
-export function updateFromBalance(from: string, value: BigInt, distributor: string | null = null): void {
-  if (from == ZERO_ADDRESS) {
-    log.debug('is mint', []);
-    return;
-  }
-  const fromBalance = Balance.load(from);
-  if (!fromBalance) {
-    log.error('Transferring from empty address: {}', [from]);
-    return;
-  }
-  switch (true) {
-    case distributor === BALANCER_LP:
-      fromBalance.balancerLp = fromBalance.balancerLp.minus(value);
-      break;
-    case distributor === SUSHISWAP_LP:
-      fromBalance.sushiswapLp = fromBalance.sushiswapLp.minus(value);
-      break;
-    case distributor === HONEYSWAP_LP:
-      fromBalance.honeyswapLp = fromBalance.sushiswapLp.minus(value);
-      break;
-    default:
-      fromBalance.balance = fromBalance.balance.minus(value);
-  }
-  fromBalance.save();
-}
-
-export function updateToBalance(to: string, value: BigInt, distributor: string | null = null): void {
-  if (to == ZERO_ADDRESS) {
-    log.debug('is burn', []);
-    return;
-  }
   let toBalance = Balance.load(to);
+  let fromBalance = Balance.load(from);
+
   if (!toBalance) {
     toBalance = new Balance(to);
-    switch (true) {
-      case distributor === BALANCER_LP:
-        toBalance.balancerLp = value;
-        break;
-      case distributor === SUSHISWAP_LP:
-        toBalance.sushiswapLp = value;
-        break;
-      default:
-        toBalance.balance = value;
-    }
-  } else {
-    //TODO delete this line, This is just for having some data and not be zero, for Cherik tests
-    toBalance.givback = BigInt.fromString('1371');
-    switch (true) {
-      case distributor === BALANCER_LP:
-        toBalance.balancerLp = toBalance.balancerLp.plus(value);
-        break;
-      case distributor === SUSHISWAP_LP:
-        toBalance.sushiswapLp = toBalance.sushiswapLp.plus(value);
-        break;
-      default:
-        toBalance.balance = value;
+  }
+  if (!fromBalance) {
+    if (from != ZERO_ADDRESS) {
+      log.error('Transferring from empty address: {}', [from]);
+      return;
+    } else {
+      fromBalance = new Balance(from);
     }
   }
-  toBalance.save();
+
+  switch (true) {
+    case distributor === BALANCER_LP:
+      toBalance.balancerLp = toBalance.balancerLp ? toBalance.balancerLp.minus(value) : value;
+      fromBalance.balancerLp = fromBalance.balancerLp ? fromBalance.balancerLp.minus(value) : value;
+      break;
+    case distributor === SUSHISWAP_LP:
+      toBalance.sushiswapLp = toBalance.sushiswapLp ? toBalance.sushiswapLp.minus(value) : value;
+      fromBalance.sushiswapLp = fromBalance.sushiswapLp ? fromBalance.sushiswapLp.minus(value) : value;
+      break;
+    case distributor === HONEYSWAP_LP:
+      toBalance.honeyswapLp = toBalance.honeyswapLp ? toBalance.honeyswapLp.minus(value) : value;
+      fromBalance.honeyswapLp = fromBalance.honeyswapLp ? fromBalance.honeyswapLp.minus(value) : value;
+      break;
+    default:
+      toBalance.balance = toBalance.balance ? toBalance.balance.minus(value) : value;
+      fromBalance.balance = fromBalance.balance ? fromBalance.balance.minus(value) : value;
+  }
+
+  if (from != ZERO_ADDRESS) {
+    fromBalance.save();
+  }
+
+  if (to != ZERO_ADDRESS) {
+    toBalance.save();
+  }
 }
 
 export function handleBalancerLpStaked(userAddress: string, stakedValue: BigInt): void {

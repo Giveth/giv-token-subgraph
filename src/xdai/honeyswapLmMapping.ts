@@ -8,10 +8,7 @@ import {
 import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts';
 import { GIV_HNY } from '../helpers/constants';
-import {
-  handleHoneyswapLpWithdrawal,
-  handleHoneyswapStaked,
-} from '../commons/balanceHandler';
+import { handleHoneyswapLpWithdrawal, handleHoneyswapStaked } from '../commons/balanceHandler';
 const contractAddress = Address.fromString('0x523e671E6922B10c6157b265195e24e687224Fd1');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
