@@ -71,14 +71,14 @@ Query sample:
     claimed
     rewardPerTokenPaidGivLm
     rewardsGivLm
-    rewardPerTokenPaidGivEth
-    rewardsGivEth
-    rewardPerTokenPaidGivHny
-    rewardsGivHny
+    rewardPerTokenPaidSushiSwap
+    rewardsSushiSwap
+    rewardPerTokenPaidHoneyswap
+    rewardsHoneyswap
     rewardPerTokenPaidUniswap
     rewardsUniswap
-    rewardPerTokenPaidBalancerLiquidity
-    rewardsBalancerLiquidity
+    rewardPerTokenPaidBalancer
+    rewardsBalancer
     givback
     balancerLp
     balancerLpStaked

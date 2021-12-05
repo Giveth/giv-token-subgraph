@@ -175,16 +175,16 @@ export function updateRewards(
   }
   switch (true) {
     case distributor === BALANCER_LIQUIDITY:
-      balance.rewardPerTokenPaidBalancerLiquidity = rewardPerTokenStored;
-      balance.rewardsBalancerLiquidity = rewards;
+      balance.rewardPerTokenPaidBalancer = rewardPerTokenStored;
+      balance.rewardsBalancer = rewards;
       break;
     case distributor === GIV_ETH:
-      balance.rewardPerTokenPaidGivEth = rewardPerTokenStored;
-      balance.rewardsGivEth = rewards;
+      balance.rewardPerTokenPaidSushiSwap = rewardPerTokenStored;
+      balance.rewardsSushiSwap = rewards;
       break;
     case distributor === GIV_HNY:
-      balance.rewardPerTokenPaidGivHny = rewardPerTokenStored;
-      balance.rewardsGivHny = rewards;
+      balance.rewardPerTokenPaidHoneyswap = rewardPerTokenStored;
+      balance.rewardsHoneyswap = rewards;
       break;
     case distributor === GIV_LIQUIDITY:
       balance.rewardPerTokenPaidGivLm = rewardPerTokenStored;
