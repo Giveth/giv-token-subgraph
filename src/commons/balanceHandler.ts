@@ -6,6 +6,7 @@ import {
   GIV_ETH,
   GIV_HNY,
   GIV_LIQUIDITY,
+  HONEYSWAP_LP,
   SUSHISWAP_LP,
   ZERO_ADDRESS,
 } from '../helpers/constants';
@@ -26,12 +27,18 @@ export function updateFromBalance(from: string, value: BigInt, distributor: stri
     log.error('Transferring from empty address: {}', [from]);
     return;
   }
-  if (distributor === BALANCER_LP) {
-    fromBalance.balancerLp = fromBalance.balancerLp.minus(value);
-  } else if (distributor === SUSHISWAP_LP) {
-    fromBalance.sushiswapLp = fromBalance.sushiswapLp.minus(value);
-  } else {
-    fromBalance.balance = fromBalance.balance.minus(value);
+  switch (true) {
+    case distributor === BALANCER_LP:
+      fromBalance.balancerLp = fromBalance.balancerLp.minus(value);
+      break;
+    case distributor === SUSHISWAP_LP:
+      fromBalance.sushiswapLp = fromBalance.sushiswapLp.minus(value);
+      break;
+    case distributor === HONEYSWAP_LP:
+      fromBalance.honeyswapLp = fromBalance.sushiswapLp.minus(value);
+      break;
+    default:
+      fromBalance.balance = fromBalance.balance.minus(value);
   }
   fromBalance.save();
 }
@@ -71,7 +78,7 @@ export function updateToBalance(to: string, value: BigInt, distributor: string |
   toBalance.save();
 }
 
-export function updateBalancerLpStakedBalanceAfterStake(userAddress: string, stakedValue: BigInt): void {
+export function handleBalancerLpStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
@@ -81,7 +88,7 @@ export function updateBalancerLpStakedBalanceAfterStake(userAddress: string, sta
   }
   balance.save();
 }
-export function updateBalancerLpStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+export function handleBalancerLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
@@ -89,7 +96,7 @@ export function updateBalancerLpStakedBalanceAfterWithdrawal(userAddress: string
   balance.balancerLpStaked.minus(withdrawnValue);
   balance.save();
 }
-export function updateSushiswapStakedBalanceAfterStake(userAddress: string, stakedValue: BigInt): void {
+export function handleSushiswapStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
@@ -99,7 +106,7 @@ export function updateSushiswapStakedBalanceAfterStake(userAddress: string, stak
   }
   balance.save();
 }
-export function updateSushiswapLpStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+export function handleSushiswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
@@ -108,22 +115,22 @@ export function updateSushiswapLpStakedBalanceAfterWithdrawal(userAddress: strin
   balance.save();
 }
 
-export function updateHoneyswapStakedBalanceAfterStake(userAddress: string, stakedValue: BigInt): void {
+export function handleHoneyswapStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
     balance.honeyswapLpStaked = stakedValue;
   } else {
-    balance.honeyswapLpStaked.plus(stakedValue);
+    balance.honeyswapLpStaked = balance.honeyswapLpStaked.plus(stakedValue);
   }
   balance.save();
 }
-export function updateHoneyswapLpStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+export function handleHoneyswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
   }
-  balance.honeyswapLpStaked.minus(withdrawnValue);
+  balance.honeyswapLpStaked = balance.honeyswapLpStaked.minus(withdrawnValue);
   balance.save();
 }
 
@@ -185,7 +192,7 @@ export function updateRewards(
     balance.save();
     return;
   }
-  switch (true){
+  switch (true) {
     case distributor === BALANCER_LIQUIDITY:
       balance.rewardPerTokenPaidBalancerLiquidity = rewardPerTokenStored;
       balance.rewardsBalancerLiquidity = rewards;
