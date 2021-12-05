@@ -18,7 +18,7 @@ import {
 } from '../commons/unipoolTokenDistributorHandler';
 import { Address } from '@graphprotocol/graph-ts';
 import { GIV_LIQUIDITY } from '../helpers/constants';
-import { updateGivStakedBalanceAfterStake, updateGivStakedBalanceAfterWithdrawal } from '../commons/balanceHandler';
+import { onGivStaked, onGivWithdrawal } from '../commons/balanceHandler';
 const contractAddress = Address.fromString('0x1aAA619b066360C22EBD8c597c975CACff146317');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -35,10 +35,10 @@ export function handleRewardPaid(event: RewardPaid): void {
 
 export function handleStaked(event: Staked): void {
   onRewardUpdated(contractAddress, event.params.user.toHex(), GIV_LIQUIDITY);
-  updateGivStakedBalanceAfterStake(event.params.user.toHex(), event.params.amount);
+  onGivStaked(event.params.user.toHex(), event.params.amount);
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
   onRewardUpdated(contractAddress, event.params.user.toHex(), GIV_LIQUIDITY);
-  updateGivStakedBalanceAfterWithdrawal(event.params.user.toHex(), event.params.amount);
+  onGivWithdrawal(event.params.user.toHex(), event.params.amount);
 }

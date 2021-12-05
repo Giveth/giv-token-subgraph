@@ -86,7 +86,7 @@ export function handleBalancerLpWithdrawal(userAddress: string, withdrawnValue: 
   balance.balancerLpStaked = balance.balancerLpStaked.minus(withdrawnValue);
   balance.save();
 }
-export function handleSushiswapStaked(userAddress: string, stakedValue: BigInt): void {
+export function onSushiswapStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
@@ -94,7 +94,7 @@ export function handleSushiswapStaked(userAddress: string, stakedValue: BigInt):
   balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.plus(stakedValue);
   balance.save();
 }
-export function handleSushiswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+export function onSushiswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
@@ -103,7 +103,7 @@ export function handleSushiswapLpWithdrawal(userAddress: string, withdrawnValue:
   balance.save();
 }
 
-export function handleHoneyswapStaked(userAddress: string, stakedValue: BigInt): void {
+export function onHoneyswapStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
@@ -112,7 +112,7 @@ export function handleHoneyswapStaked(userAddress: string, stakedValue: BigInt):
 
   balance.save();
 }
-export function handleHoneyswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+export function onHoneyswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
@@ -121,7 +121,7 @@ export function handleHoneyswapLpWithdrawal(userAddress: string, withdrawnValue:
   balance.save();
 }
 
-export function updateGivStakedBalanceAfterStake(userAddress: string, stakedValue: BigInt): void {
+export function onGivStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
@@ -129,7 +129,7 @@ export function updateGivStakedBalanceAfterStake(userAddress: string, stakedValu
   balance.givStaked = balance.givStaked.plus(stakedValue);
   balance.save();
 }
-export function updateGivStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+export function onGivWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
