@@ -74,7 +74,7 @@ dataSources:
       file: ./src/xdai/tokenDistroMapping.ts
 
   - kind: ethereum/contract
-    name: givETHUnipoolTokenDistributor
+    name: sushiSwapLm
     network: xdai
     source:
       address: "0x2C4a1620B29D551B950e48eba3813e5B5b012A2f"
@@ -104,10 +104,10 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      file: ./src/xdai/givEthUniPoolMapping.ts
+      file: ./src/xdai/sushiSwapLmMapping.ts
 
   - kind: ethereum/contract
-    name: givHNYUnipoolTokenDistributor
+    name: honeyswapLm
     network: xdai
     source:
       address: "0x523e671E6922B10c6157b265195e24e687224Fd1"
@@ -137,7 +137,7 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      file: ./src/xdai/givHnyUniPoolMapping.ts
+      file: ./src/xdai/honeyswapLmMapping.ts
 
   - kind: ethereum/contract
     name: GardenUnipoolTokenDistributor
@@ -215,10 +215,35 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Sync
+        - Transfer
       abis:
         - name: SushiSwapLpToken
           file: ./abis/SushiSwapLpToken.json
       eventHandlers:
         - event: Sync(uint112,uint112)
           handler: handleSync
-      file: ./src/xdai/sushiSwapMapping.ts
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/xdai/sushiSwapLpMapping.ts
+
+
+  - kind: ethereum/contract
+    name: honeyswapLP
+    network: xdai
+    source:
+      address: "0x1ee71e1ed744ae6d4058f5c7797c2e583dbfb095"
+      abi: MinimalERC20
+      startBlock: 18721566
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/xdai/honeySwapLpMapping.ts

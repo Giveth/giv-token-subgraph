@@ -1,4 +1,4 @@
-import { saveTokenAllocation, updateTokenAllocationGivback } from '../commons/tokenAllocation';
+import { saveTokenAllocation, onGivBackPaid } from '../commons/tokenAllocation';
 import {
   Allocate,
   Assign,
@@ -13,7 +13,7 @@ import {
 import { addAllocatedTokens, addClaimed } from '../commons/balanceHandler';
 import { createTokenDistroContractInfoIfNotExists } from '../commons/TokenDistroHandler';
 import { Address } from '@graphprotocol/graph-ts';
-const contractAddress = Address.fromString('0x1aD46D40648639f84a396Fef32132888038c5aA8');
+import { log } from '@graphprotocol/graph-ts/index';
 
 export function handleAllocate(event: Allocate): void {
   saveTokenAllocation(
@@ -32,20 +32,19 @@ export function handleChangeAddress(event: ChangeAddress): void {}
 
 export function handleClaim(event: Claim): void {
   addClaimed(event.params.grantee.toHex(), event.params.amount);
-  createTokenDistroContractInfoIfNotExists(contractAddress);
+  createTokenDistroContractInfoIfNotExists(event.address);
 }
 
 export function handleGivBackPaid(event: GivBackPaid): void {
-  createTokenDistroContractInfoIfNotExists(contractAddress);
-  updateTokenAllocationGivback(event.transaction.hash.toHex());
+  onGivBackPaid(event.transaction.hash.toHex());
 }
 
 export function handleRoleAdminChanged(event: RoleAdminChanged): void {
-  createTokenDistroContractInfoIfNotExists(contractAddress);
+  createTokenDistroContractInfoIfNotExists(event.address);
 }
 
 export function handleRoleGranted(event: RoleGranted): void {
-  createTokenDistroContractInfoIfNotExists(contractAddress);
+  createTokenDistroContractInfoIfNotExists(event.address);
 }
 
 export function handleRoleRevoked(event: RoleRevoked): void {}

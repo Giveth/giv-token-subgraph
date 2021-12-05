@@ -20,21 +20,29 @@ type Balance @entity{
     claimed:  BigInt!
     rewardPerTokenPaidGivLm:  BigInt
     rewardsGivLm:  BigInt
-    rewardPerTokenPaidGivEth:  BigInt
-    rewardsGivEth:  BigInt
-    rewardPerTokenPaidGivHny:  BigInt
-    rewardsGivHny:  BigInt
+    rewardPerTokenPaidSushiSwap:  BigInt
+    rewardsSushiSwap:  BigInt
+    rewardPerTokenPaidHoneyswap:  BigInt
+    rewardsHoneyswap:  BigInt
     rewardPerTokenPaidUniswap:  BigInt
     rewardsUniswap:  BigInt
-    rewardPerTokenPaidBalancerLiquidity:  BigInt
-    rewardsBalancerLiquidity:  BigInt
+    rewardPerTokenPaidBalancer:  BigInt
+    rewardsBalancer:  BigInt
     givback: BigInt!
+    balancerLp: BigInt!
+    balancerLpStaked: BigInt!
+    sushiswapLp: BigInt!
+    sushiSwapLpStaked: BigInt!
+    honeyswapLp : BigInt!
+    honeyswapLpStaked : BigInt!
+    givStaked: BigInt!
+
 }
 
 type UnipoolContractInfo @entity {
     id: ID!
-    rewardDistribution: String
     periodFinish: BigInt
+    totalSupply : BigInt
     rewardRate: BigInt
     lastUpdateTime: BigInt
     rewardPerTokenStored: BigInt

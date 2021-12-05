@@ -71,15 +71,22 @@ Query sample:
     claimed
     rewardPerTokenPaidGivLm
     rewardsGivLm
-    rewardPerTokenPaidGivEth
-    rewardsGivEth
-    rewardPerTokenPaidGivHny
-    rewardsGivHny
+    rewardPerTokenPaidSushiSwap
+    rewardsSushiSwap
+    rewardPerTokenPaidHoneyswap
+    rewardsHoneyswap
     rewardPerTokenPaidUniswap
     rewardsUniswap
-    rewardPerTokenPaidBalancerLiquidity
-    rewardsBalancerLiquidity
+    rewardPerTokenPaidBalancer
+    rewardsBalancer
     givback
+    balancerLp
+    balancerLpStaked
+    sushiswapLp
+    sushiSwapLpStaked
+    honeyswapLp 
+    honeyswapLpStaked 
+    givStaked
   }
 }
 ```
@@ -87,7 +94,7 @@ Query sample:
 ```
 {
   tokenAllocations(first: 5,
-    skip:10
+    skip:0
     orderBy:timestamp,
     orderDirection:asc,
     where:{
@@ -108,8 +115,8 @@ Query sample:
 {
      unipoolContractInfos{
           id
-          rewardDistribution
           periodFinish
+          totalSupply
           rewardRate
           lastUpdateTime
           rewardPerTokenStored

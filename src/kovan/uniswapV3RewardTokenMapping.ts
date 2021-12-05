@@ -13,9 +13,6 @@ export function handleRewardPaid(event: RewardPaid): void {
   updateTokenAllocationDistributor(event.transaction.hash.toHex(), 'uniswapPool');
 }
 
-export function handleApproval(event: Approval): void {
-}
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-}
-export function handleTransfer(event: Transfer): void {
-}
+export function handleApproval(event: Approval): void {}
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
+export function handleTransfer(event: Transfer): void {}
