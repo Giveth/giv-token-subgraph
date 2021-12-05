@@ -148,10 +148,8 @@ export function addClaimed(to: string, value: BigInt): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
     toBalance = new Balance(to);
-    toBalance.claimed = value;
-  } else {
-    toBalance.claimed = toBalance.claimed.plus(value);
   }
+  toBalance.claimed = toBalance.claimed.plus(value);
   toBalance.givback = BigInt.zero();
   toBalance.save();
 }
