@@ -44,22 +44,28 @@ export function updateToBalance(to: string, value: BigInt, distributor: string |
   let toBalance = Balance.load(to);
   if (!toBalance) {
     toBalance = new Balance(to);
-    if (distributor === BALANCER_LP) {
-      toBalance.balancerLp = value;
-    } else if (distributor === SUSHISWAP_LP) {
-      toBalance.sushiswapLp = value;
-    } else {
-      toBalance.balance = value;
+    switch (true) {
+      case distributor === BALANCER_LP:
+        toBalance.balancerLp = value;
+        break;
+      case distributor === SUSHISWAP_LP:
+        toBalance.sushiswapLp = value;
+        break;
+      default:
+        toBalance.balance = value;
     }
   } else {
     //TODO delete this line, This is just for having some data and not be zero, for Cherik tests
     toBalance.givback = BigInt.fromString('1371');
-    if (distributor === BALANCER_LP) {
-      toBalance.balancerLp = toBalance.balancerLp.plus(value);
-    } else if (distributor === SUSHISWAP_LP) {
-      toBalance.sushiswapLp = toBalance.sushiswapLp.plus(value);
-    } else {
-      toBalance.balance = toBalance.balance.plus(value);
+    switch (true) {
+      case distributor === BALANCER_LP:
+        toBalance.balancerLp = toBalance.balancerLp.plus(value);
+        break;
+      case distributor === SUSHISWAP_LP:
+        toBalance.sushiswapLp = toBalance.sushiswapLp.plus(value);
+        break;
+      default:
+        toBalance.balance = value;
     }
   }
   toBalance.save();
@@ -179,18 +185,23 @@ export function updateRewards(
     balance.save();
     return;
   }
-  if (distributor === BALANCER_LIQUIDITY) {
-    balance.rewardPerTokenPaidBalancerLiquidity = rewardPerTokenStored;
-    balance.rewardsBalancerLiquidity = rewards;
-  } else if (distributor === GIV_ETH) {
-    balance.rewardPerTokenPaidGivEth = rewardPerTokenStored;
-    balance.rewardsGivEth = rewards;
-  } else if (distributor === GIV_HNY) {
-    balance.rewardPerTokenPaidGivHny = rewardPerTokenStored;
-    balance.rewardsGivHny = rewards;
-  } else if (distributor === GIV_LIQUIDITY) {
-    balance.rewardPerTokenPaidGivLm = rewardPerTokenStored;
-    balance.rewardsGivLm = rewards;
+  switch (true){
+    case distributor === BALANCER_LIQUIDITY:
+      balance.rewardPerTokenPaidBalancerLiquidity = rewardPerTokenStored;
+      balance.rewardsBalancerLiquidity = rewards;
+      break;
+    case distributor === GIV_ETH:
+      balance.rewardPerTokenPaidGivEth = rewardPerTokenStored;
+      balance.rewardsGivEth = rewards;
+      break;
+    case distributor === GIV_HNY:
+      balance.rewardPerTokenPaidGivHny = rewardPerTokenStored;
+      balance.rewardsGivHny = rewards;
+      break;
+    case distributor === GIV_LIQUIDITY:
+      balance.rewardPerTokenPaidGivLm = rewardPerTokenStored;
+      balance.rewardsGivLm = rewards;
+      break;
   }
   balance.save();
 }
