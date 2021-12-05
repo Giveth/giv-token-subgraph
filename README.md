@@ -116,6 +116,7 @@ Query sample:
      unipoolContractInfos{
           id
           periodFinish
+          totalSupply
           rewardRate
           lastUpdateTime
           rewardPerTokenStored
