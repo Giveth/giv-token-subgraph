@@ -38,7 +38,6 @@ export function createUnipoolContractInfoIfNotExists(address: Address): void {
   contractInfo = new UnipoolContractInfo(address.toHex());
   contractInfo.lastUpdateTime = contract.lastUpdateTime();
   contractInfo.periodFinish = contract.periodFinish();
-  contractInfo.rewardDistribution = contract.rewardDistribution().toHex();
   contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
   contractInfo.rewardRate = contract.rewardRate();
   contractInfo.save();
@@ -52,7 +51,6 @@ export function updateContractInfo(address: Address): void {
   }
   contractInfo.lastUpdateTime = contract.lastUpdateTime();
   contractInfo.periodFinish = contract.periodFinish();
-  contractInfo.rewardDistribution = contract.rewardDistribution().toHex();
   contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
   contractInfo.rewardRate = contract.rewardRate();
   contractInfo.save();
@@ -83,20 +81,6 @@ export function updateRewardRate(address: Address): void {
   const callResult = contract.try_rewardRate();
   if (!callResult.reverted) {
     contractInfo.rewardRate = callResult.value;
-    contractInfo.save();
-  }
-}
-
-export function updateRewardDistribution(address: Address): void {
-  //TODO Should listen to setRewardDistribution call
-  const contract = UnipoolTokenDistributor.bind(address);
-  let contractInfo = UnipoolContractInfo.load(address.toHex());
-  if (!contractInfo) {
-    contractInfo = new UnipoolContractInfo(address.toHex());
-  }
-  const callResult = contract.try_rewardDistribution();
-  if (!callResult.reverted) {
-    contractInfo.rewardDistribution = callResult.value.toHex();
     contractInfo.save();
   }
 }

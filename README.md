@@ -115,7 +115,6 @@ Query sample:
 {
      unipoolContractInfos{
           id
-          rewardDistribution
           periodFinish
           rewardRate
           lastUpdateTime
