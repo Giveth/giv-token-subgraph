@@ -94,7 +94,7 @@ Query sample:
 ```
 {
   tokenAllocations(first: 5,
-    skip:10
+    skip:0
     orderBy:timestamp,
     orderDirection:asc,
     where:{

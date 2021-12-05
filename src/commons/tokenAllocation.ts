@@ -40,7 +40,7 @@ export function updateTokenAllocationDistributor(txHash: string, distributor: st
   }
 }
 
-export function updateTokenAllocationGivback(txHash: string): void {
+export function onGivBackPaid(txHash: string): void {
   const transactionTokenAllocations = TransactionTokenAllocation.load(txHash);
   if (!transactionTokenAllocations) {
     return;
@@ -56,7 +56,7 @@ export function updateTokenAllocationGivback(txHash: string): void {
     if (!balance) {
       continue;
     }
-    balance.givback.plus(tokenAllocation.amount);
+    balance.givback = balance.givback.plus(tokenAllocation.amount);
     balance.save();
   }
 }

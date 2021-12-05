@@ -80,17 +80,15 @@ export function handleBalancerLpWithdrawal(userAddress: string, withdrawnValue: 
   if (!balance) {
     return;
   }
-  balance.balancerLpStaked.minus(withdrawnValue);
+  balance.balancerLpStaked = balance.balancerLpStaked.minus(withdrawnValue);
   balance.save();
 }
 export function handleSushiswapStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
-    balance.sushiSwapLpStaked = stakedValue;
-  } else {
-    balance.sushiSwapLpStaked.plus(stakedValue);
   }
+  balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.plus(stakedValue);
   balance.save();
 }
 export function handleSushiswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
@@ -106,10 +104,9 @@ export function handleHoneyswapStaked(userAddress: string, stakedValue: BigInt):
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
-    balance.honeyswapLpStaked = stakedValue;
-  } else {
-    balance.honeyswapLpStaked = balance.honeyswapLpStaked.plus(stakedValue);
   }
+  balance.honeyswapLpStaked = balance.honeyswapLpStaked.plus(stakedValue);
+
   balance.save();
 }
 export function handleHoneyswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
@@ -125,10 +122,8 @@ export function updateGivStakedBalanceAfterStake(userAddress: string, stakedValu
   let balance = Balance.load(userAddress);
   if (!balance) {
     balance = new Balance(userAddress);
-    balance.givStaked = stakedValue;
-  } else {
-    balance.givStaked.plus(stakedValue);
   }
+  balance.givStaked = balance.givStaked.plus(stakedValue);
   balance.save();
 }
 export function updateGivStakedBalanceAfterWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
@@ -144,10 +139,8 @@ export function addAllocatedTokens(to: string, value: BigInt): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
     toBalance = new Balance(to);
-    toBalance.allocatedTokens = value;
-  } else {
-    toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
   }
+  toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
   toBalance.save();
 }
 
