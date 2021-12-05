@@ -46,10 +46,13 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
       originalFromValue = fromBalance.honeyswapLp;
       fromBalance.honeyswapLp = fromBalance.honeyswapLp.minus(value);
       break;
-    default:
+    case distributor == null:
       toBalance.balance = toBalance.balance.plus(value);
       originalFromValue = fromBalance.balance;
       fromBalance.balance = fromBalance.balance.minus(value);
+      break;
+    default:
+      return;
   }
 
   if (from != ZERO_ADDRESS && !originalFromValue) {
