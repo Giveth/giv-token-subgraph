@@ -13,9 +13,6 @@ import {
 import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
 export function onTransfer(from: string, to: string, value: BigInt, distributor: string | null = null): void {
-  // updateToBalance(to, value, distributor);
-  // updateFromBalance(from, value, distributor);
-
   let toBalance = Balance.load(to);
   let fromBalance = Balance.load(from);
 
@@ -60,13 +57,12 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
 
 export function handleBalancerLpStaked(userAddress: string, stakedValue: BigInt): void {
   let balance = Balance.load(userAddress);
-  if (!balance) {
-    balance = new Balance(userAddress);
-    balance.balancerLpStaked = stakedValue;
+  if (balance) {
+    balance.balancerLpStaked = balance.balancerLpStaked.plus(stakedValue);
+    balance.save();
   } else {
-    balance.balancerLpStaked.plus(stakedValue);
+    log.error('User who stake should had some transfer events before', []);
   }
-  balance.save();
 }
 export function handleBalancerLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
   const balance = Balance.load(userAddress);
