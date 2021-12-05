@@ -28,22 +28,33 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
     }
   }
 
+  let originalFromValue;
+
   switch (true) {
     case distributor === BALANCER_LP:
       toBalance.balancerLp = toBalance.balancerLp ? toBalance.balancerLp.plus(value) : value;
+      originalFromValue = fromBalance.balancerLp;
       fromBalance.balancerLp = fromBalance.balancerLp ? fromBalance.balancerLp.minus(value) : BigInt.fromString('0');
       break;
     case distributor === SUSHISWAP_LP:
       toBalance.sushiswapLp = toBalance.sushiswapLp ? toBalance.sushiswapLp.plus(value) : value;
+      originalFromValue = fromBalance.sushiswapLp;
       fromBalance.sushiswapLp = fromBalance.sushiswapLp ? fromBalance.sushiswapLp.minus(value) : BigInt.fromString('0');
       break;
     case distributor === HONEYSWAP_LP:
       toBalance.honeyswapLp = toBalance.honeyswapLp ? toBalance.honeyswapLp.plus(value) : value;
+      originalFromValue = fromBalance.honeyswapLp;
       fromBalance.honeyswapLp = fromBalance.honeyswapLp ? fromBalance.honeyswapLp.minus(value) : BigInt.fromString('0');
       break;
     default:
       toBalance.balance = toBalance.balance ? toBalance.balance.plus(value) : value;
+      originalFromValue = fromBalance.balance;
       fromBalance.balance = fromBalance.balance ? fromBalance.balance.minus(value) : BigInt.fromString('0');
+  }
+
+  if (from != ZERO_ADDRESS && !originalFromValue) {
+    log.error('From value was null in transferring {} from {}', [distributor || 'GIV', from]);
+    return;
   }
 
   if (from != ZERO_ADDRESS) {
