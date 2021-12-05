@@ -30,20 +30,20 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
 
   switch (true) {
     case distributor === BALANCER_LP:
-      toBalance.balancerLp = toBalance.balancerLp ? toBalance.balancerLp.minus(value) : value;
-      fromBalance.balancerLp = fromBalance.balancerLp ? fromBalance.balancerLp.minus(value) : value;
+      toBalance.balancerLp = toBalance.balancerLp ? toBalance.balancerLp.plus(value) : value;
+      fromBalance.balancerLp = fromBalance.balancerLp ? fromBalance.balancerLp.minus(value) : BigInt.fromString('0');
       break;
     case distributor === SUSHISWAP_LP:
-      toBalance.sushiswapLp = toBalance.sushiswapLp ? toBalance.sushiswapLp.minus(value) : value;
-      fromBalance.sushiswapLp = fromBalance.sushiswapLp ? fromBalance.sushiswapLp.minus(value) : value;
+      toBalance.sushiswapLp = toBalance.sushiswapLp ? toBalance.sushiswapLp.plus(value) : value;
+      fromBalance.sushiswapLp = fromBalance.sushiswapLp ? fromBalance.sushiswapLp.minus(value) : BigInt.fromString('0');
       break;
     case distributor === HONEYSWAP_LP:
-      toBalance.honeyswapLp = toBalance.honeyswapLp ? toBalance.honeyswapLp.minus(value) : value;
-      fromBalance.honeyswapLp = fromBalance.honeyswapLp ? fromBalance.honeyswapLp.minus(value) : value;
+      toBalance.honeyswapLp = toBalance.honeyswapLp ? toBalance.honeyswapLp.plus(value) : value;
+      fromBalance.honeyswapLp = fromBalance.honeyswapLp ? fromBalance.honeyswapLp.minus(value) : BigInt.fromString('0');
       break;
     default:
-      toBalance.balance = toBalance.balance ? toBalance.balance.minus(value) : value;
-      fromBalance.balance = fromBalance.balance ? fromBalance.balance.minus(value) : value;
+      toBalance.balance = toBalance.balance ? toBalance.balance.plus(value) : value;
+      fromBalance.balance = fromBalance.balance ? fromBalance.balance.minus(value) : BigInt.fromString('0');
   }
 
   if (from != ZERO_ADDRESS) {
