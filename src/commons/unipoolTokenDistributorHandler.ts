@@ -8,6 +8,7 @@ export function onRewardUpdated(contractAddress: Address, userAddress: string, c
   createUnipoolContractInfoIfNotExists(contractAddress);
   updateRewardRate(contractAddress);
   updateLastUpdateDate(contractAddress);
+  updateTotalSupply(contractAddress);
   const rewardPerTokenStored = updateRewardPerTokenStored(contractAddress);
   updateRewards(userAddress, contractAddress, contractName, rewardPerTokenStored);
 }
@@ -16,6 +17,7 @@ export function onRewardAdded(contractAddress: Address): void {
   createUnipoolContractInfoIfNotExists(contractAddress);
   updateRewardPerTokenStored(contractAddress);
   updateRewardRate(contractAddress);
+  updatePeriodFinish(contractAddress);
   updateLastUpdateDate(contractAddress);
 }
 
@@ -112,7 +114,7 @@ function updateTotalSupply(address: Address): void {
   }
 }
 
-export function updatePeriodFinish(address: Address): void {
+function updatePeriodFinish(address: Address): void {
   //TODO value changes in notifyRewardAmount() function in contract, I dont know when should I change that
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
