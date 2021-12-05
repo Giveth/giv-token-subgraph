@@ -10,12 +10,11 @@ import { onRewardAdded, onRewardUpdated } from '../commons/unipoolTokenDistribut
 import { Address } from '@graphprotocol/graph-ts';
 import { GARDEN_POOL } from '../helpers/constants';
 import { onGivStaked, onGivWithdrawal } from '../commons/balanceHandler';
-const contractAddress = Address.fromString('0x26F033515ce926658def0939A8D9a0592D0F5cc9');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handleRewardAdded(event: RewardAdded): void {
-  onRewardAdded(contractAddress);
+  onRewardAdded(event.address);
 }
 
 export function handleRewardPaid(event: RewardPaid): void {
@@ -23,11 +22,11 @@ export function handleRewardPaid(event: RewardPaid): void {
 }
 
 export function handleStaked(event: Staked): void {
-  onRewardUpdated(contractAddress, event.params.user.toHex(), GARDEN_POOL);
+  onRewardUpdated(event.address, event.params.user.toHex(), GARDEN_POOL);
   onGivStaked(event.params.user.toHex(), event.params.amount);
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  onRewardUpdated(contractAddress, event.params.user.toHex(), GARDEN_POOL);
+  onRewardUpdated(event.address, event.params.user.toHex(), GARDEN_POOL);
   onGivWithdrawal(event.params.user.toHex(), event.params.amount);
 }

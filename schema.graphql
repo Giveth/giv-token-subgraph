@@ -42,6 +42,7 @@ type Balance @entity{
 type UnipoolContractInfo @entity {
     id: ID!
     periodFinish: BigInt
+    totalSupply : BigInt
     rewardRate: BigInt
     lastUpdateTime: BigInt
     rewardPerTokenStored: BigInt

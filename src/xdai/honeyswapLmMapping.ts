@@ -9,24 +9,23 @@ import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipool
 import { Address } from '@graphprotocol/graph-ts';
 import { GIV_HNY } from '../helpers/constants';
 import { onHoneyswapLpWithdrawal, onHoneyswapStaked } from '../commons/balanceHandler';
-const contractAddress = Address.fromString('0x523e671E6922B10c6157b265195e24e687224Fd1');
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handleRewardAdded(event: RewardAdded): void {
-  onRewardAdded(contractAddress);
+  onRewardAdded(event.address);
 }
 
 export function handleRewardPaid(event: RewardPaid): void {
-  onRewardPaid(contractAddress, event.transaction.hash.toHex(), event.params.user.toHex(), GIV_HNY);
+  onRewardPaid(event.address, event.transaction.hash.toHex(), event.params.user.toHex(), GIV_HNY);
 }
 
 export function handleStaked(event: Staked): void {
-  onRewardUpdated(contractAddress, event.params.user.toHex(), GIV_HNY);
+  onRewardUpdated(event.address, event.params.user.toHex(), GIV_HNY);
   onHoneyswapStaked(event.params.user.toHex(), event.params.amount);
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  onRewardUpdated(contractAddress, event.params.user.toHex(), GIV_HNY);
+  onRewardUpdated(event.address, event.params.user.toHex(), GIV_HNY);
   onHoneyswapLpWithdrawal(event.params.user.toHex(), event.params.amount);
 }

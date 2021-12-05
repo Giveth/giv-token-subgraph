@@ -40,6 +40,7 @@ export function createUnipoolContractInfoIfNotExists(address: Address): void {
   contractInfo.periodFinish = contract.periodFinish();
   contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
   contractInfo.rewardRate = contract.rewardRate();
+  contractInfo.totalSupply = contract.totalSupply();
   contractInfo.save();
 }
 
@@ -56,7 +57,7 @@ export function updateContractInfo(address: Address): void {
   contractInfo.save();
 }
 
-export function updateRewardPerTokenStored(address: Address): BigInt | null {
+function updateRewardPerTokenStored(address: Address): BigInt | null {
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (!contractInfo) {
@@ -69,7 +70,7 @@ export function updateRewardPerTokenStored(address: Address): BigInt | null {
   return rewardPerTokenStored;
 }
 
-export function updateRewardRate(address: Address): void {
+function updateRewardRate(address: Address): void {
   // rewardRate has been called in below line, but I couldn't find usage of notifyRewardAmount()
   // so I call it when I call rewardPerTokenStored
   // https://github.com/Giveth/giv-token-contracts/blob/develop/contracts/Distributors/UnipoolTokenDistributor.sol#L171-L186
@@ -85,7 +86,7 @@ export function updateRewardRate(address: Address): void {
   }
 }
 
-export function updateLastUpdateDate(address: Address): void {
+function updateLastUpdateDate(address: Address): void {
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (!contractInfo) {
@@ -94,6 +95,19 @@ export function updateLastUpdateDate(address: Address): void {
   const callResult = contract.try_lastUpdateTime();
   if (!callResult.reverted) {
     contractInfo.lastUpdateTime = callResult.value;
+    contractInfo.save();
+  }
+}
+
+function updateTotalSupply(address: Address): void {
+  const contract = UnipoolTokenDistributor.bind(address);
+  let contractInfo = UnipoolContractInfo.load(address.toHex());
+  if (!contractInfo) {
+    contractInfo = new UnipoolContractInfo(address.toHex());
+  }
+  const callResult = contract.try_totalSupply();
+  if (!callResult.reverted) {
+    contractInfo.totalSupply = callResult.value;
     contractInfo.save();
   }
 }
