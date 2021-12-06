@@ -144,6 +144,7 @@ export function addAllocatedTokens(to: string, value: BigInt): void {
     toBalance = new Balance(to);
   }
   toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
+  toBalance.allocationCount = toBalance.allocationCount.plus(BigInt.fromI32(1));
   toBalance.save();
 }
 
