@@ -247,3 +247,41 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/xdai/honeySwapLpMapping.ts
+
+
+  - kind: ethereum/contract
+    name: givLiquidityMiningTokenDistributor
+    network: xdai
+    source:
+      address: "0x26F033515ce926658def0939A8D9a0592D0F5cc9"
+      startBlock: 19133741
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      callHandlers:
+        - function: initialize(address,address,uint256)
+          handler: handleInitialize
+
+      file: ./src/xdai/givLiquidityMiningMapping.ts
