@@ -231,7 +231,7 @@ dataSources:
     name: honeyswapLP
     network: xdai
     source:
-      address: "0x69F79C9eA174d4659B18c7993c7EFbBbB58cF068"
+      address: "0xc81c327f43eC566E14C64AedE5DCf5d9c120D5eb"
       abi: MinimalERC20
       startBlock: 18671312
     mapping:
