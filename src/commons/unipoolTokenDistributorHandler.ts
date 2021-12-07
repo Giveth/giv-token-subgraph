@@ -9,8 +9,8 @@ export function onRewardUpdated(contractAddress: Address, userAddress: string, c
   updateRewardRate(contractAddress);
   updateLastUpdateDate(contractAddress);
   updateTotalSupply(contractAddress);
-  const rewardPerTokenStored = updateRewardPerTokenStored(contractAddress);
-  updateRewards(userAddress, contractAddress, contractName, rewardPerTokenStored);
+  updateRewardPerTokenStored(contractAddress);
+  updateRewards(userAddress, contractAddress, contractName);
 }
 
 export function onRewardAdded(contractAddress: Address): void {
@@ -59,7 +59,7 @@ export function updateContractInfo(address: Address): void {
   contractInfo.save();
 }
 
-function updateRewardPerTokenStored(address: Address): BigInt | null {
+function updateRewardPerTokenStored(address: Address): void {
   const contract = UnipoolTokenDistributor.bind(address);
   let contractInfo = UnipoolContractInfo.load(address.toHex());
   if (!contractInfo) {
@@ -69,7 +69,6 @@ function updateRewardPerTokenStored(address: Address): BigInt | null {
 
   contractInfo.rewardPerTokenStored = rewardPerTokenStored;
   contractInfo.save();
-  return rewardPerTokenStored;
 }
 
 function updateRewardRate(address: Address): void {

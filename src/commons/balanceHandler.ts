@@ -158,37 +158,29 @@ export function addClaimed(to: string, value: BigInt): void {
   toBalance.save();
 }
 
-export function updateRewards(
-  address: string,
-  contractAddress: Address,
-  distributor: string,
-  rewardPerTokenStored: BigInt | null = null
-): void {
+export function updateRewards(userAddress: string, contractAddress: Address, distributor: string): void {
   const contract = UnipoolTokenDistributor.bind(contractAddress);
-  const rewards = contract.rewards(Address.fromString(address));
-  let balance = Balance.load(address);
+  const rewards = contract.rewards(Address.fromString(userAddress));
+  const userRewardPerTokenPaid = contract.userRewardPerTokenPaid(Address.fromString(userAddress));
+  let balance = Balance.load(userAddress);
   if (!balance) {
-    balance = new Balance(address);
-  }
-  if (!rewardPerTokenStored) {
-    balance.save();
-    return;
+    balance = new Balance(userAddress);
   }
   switch (true) {
     case distributor === BALANCER_LIQUIDITY:
-      balance.rewardPerTokenPaidBalancer = rewardPerTokenStored;
+      balance.rewardPerTokenPaidBalancer = userRewardPerTokenPaid;
       balance.rewardsBalancer = rewards;
       break;
     case distributor === GIV_ETH:
-      balance.rewardPerTokenPaidSushiSwap = rewardPerTokenStored;
+      balance.rewardPerTokenPaidSushiSwap = userRewardPerTokenPaid;
       balance.rewardsSushiSwap = rewards;
       break;
     case distributor === GIV_HNY:
-      balance.rewardPerTokenPaidHoneyswap = rewardPerTokenStored;
+      balance.rewardPerTokenPaidHoneyswap = userRewardPerTokenPaid;
       balance.rewardsHoneyswap = rewards;
       break;
     case distributor === GIV_LIQUIDITY:
-      balance.rewardPerTokenPaidGivLm = rewardPerTokenStored;
+      balance.rewardPerTokenPaidGivLm = userRewardPerTokenPaid;
       balance.rewardsGivLm = rewards;
       break;
   }
