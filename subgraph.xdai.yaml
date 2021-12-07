@@ -4,29 +4,29 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-#  - kind: ethereum/contract
-#    name: MerkleDistro
-#    network: xdai
-#    source:
-#      address: "0x8ECebE69d45d357e5aa2719999B69d7c65003932"
-#      abi: MerkleDistro
-#      startBlock: 18722209
-#    mapping:
-#      kind: ethereum/events
-#      apiVersion: 0.0.5
-#      language: wasm/assemblyscript
-#      entities:
-#        - Claimed
-#        - OwnershipTransferred
-#      abis:
-#        - name: MerkleDistro
-#          file: ./abis/MerkleDistro.json
-#      eventHandlers:
-#        - event: Claimed(uint256,address,address,uint256)
-#          handler: handleClaimed
-#        - event: OwnershipTransferred(indexed address,indexed address)
-#          handler: handleOwnershipTransferred
-#      file: ./src/xdai/merkleDistroMapping.ts
+  #  - kind: ethereum/contract
+  #    name: MerkleDistro
+  #    network: xdai
+  #    source:
+  #      address: "0x8ECebE69d45d357e5aa2719999B69d7c65003932"
+  #      abi: MerkleDistro
+  #      startBlock: 18722209
+  #    mapping:
+  #      kind: ethereum/events
+  #      apiVersion: 0.0.5
+  #      language: wasm/assemblyscript
+  #      entities:
+  #        - Claimed
+  #        - OwnershipTransferred
+  #      abis:
+  #        - name: MerkleDistro
+  #          file: ./abis/MerkleDistro.json
+  #      eventHandlers:
+  #        - event: Claimed(uint256,address,address,uint256)
+  #          handler: handleClaimed
+  #        - event: OwnershipTransferred(indexed address,indexed address)
+  #          handler: handleOwnershipTransferred
+  #      file: ./src/xdai/merkleDistroMapping.ts
 
   - kind: ethereum/contract
     name: TokenDistro
@@ -111,7 +111,7 @@ dataSources:
     network: xdai
     source:
       address: "0x7B4b9BdC1fC87f9aff08bE428e797beA642C3bAc"
-      startBlock: 19133718
+      startBlock: 19369434
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -208,7 +208,7 @@ dataSources:
     source:
       address: "0x8C77Ba1d90C57D584aEEd57bC9B55258B8BE3438"
       abi: SushiSwapLpToken
-      startBlock: 19132744
+      startBlock: 19369445
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
