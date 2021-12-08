@@ -1,5 +1,6 @@
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { GIVBACK } from "../helpers/constants";
 
 export function saveTokenAllocation(
   recipient: string,
@@ -51,6 +52,7 @@ export function onGivBackPaid(txHash: string): void {
       continue;
     }
     tokenAllocation.givback = true;
+    tokenAllocation.distributor = GIVBACK;
     tokenAllocation.save();
     const balance = Balance.load(tokenAllocation.recipient);
     if (!balance) {
