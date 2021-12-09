@@ -99,7 +99,7 @@ export function onSushiswapLpWithdrawal(userAddress: string, withdrawnValue: Big
   if (!balance) {
     return;
   }
-  balance.sushiSwapLpStaked.minus(withdrawnValue);
+  balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.minus(withdrawnValue);
   balance.save();
 }
 
@@ -134,7 +134,7 @@ export function onGivWithdrawal(userAddress: string, withdrawnValue: BigInt): vo
   if (!balance) {
     return;
   }
-  balance.givStaked.minus(withdrawnValue);
+  balance.givStaked = balance.givStaked.minus(withdrawnValue);
   balance.save();
 }
 

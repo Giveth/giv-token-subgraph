@@ -5,18 +5,11 @@ import {
   Staked,
   Withdrawn,
 } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
-import {
-  createUnipoolContractInfoIfNotExists,
-  onRewardAdded,
-  onRewardPaid,
-  onRewardUpdated,
-} from '../commons/unipoolTokenDistributorHandler';
+import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
 import { GIV_LIQUIDITY } from '../helpers/constants';
 import { onGivStaked, onGivWithdrawal } from '../commons/balanceHandler';
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-  createUnipoolContractInfoIfNotExists(event.address);
-}
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handleRewardAdded(event: RewardAdded): void {
   onRewardAdded(event.address);

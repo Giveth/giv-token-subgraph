@@ -7,7 +7,6 @@ import {
 } from '../../generated/GardenUnipoolTokenDistributor/GardenUnipoolTokenDistributor';
 import { updateTokenAllocationDistributor } from '../commons/tokenAllocation';
 import { onRewardAdded, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
-import { Address } from '@graphprotocol/graph-ts';
 import { GARDEN_POOL } from '../helpers/constants';
 import { onGivStaked, onGivWithdrawal } from '../commons/balanceHandler';
 
