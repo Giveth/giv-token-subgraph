@@ -6,7 +6,6 @@ import {
   Withdrawn,
 } from '../../generated/givHNYUnipoolTokenDistributor/UnipoolTokenDistributor';
 import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
-import { Address } from '@graphprotocol/graph-ts';
 import { GIV_HNY } from '../helpers/constants';
 import { onHoneyswapLpWithdrawal, onHoneyswapStaked } from '../commons/balanceHandler';
 
