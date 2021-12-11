@@ -171,6 +171,18 @@ Query sample:
     tickLower
     tickUpper
     owner
+    staker
   }
 }
+```
+
+* **Get UniswapV3Pools
+ ```
+ {
+  uniswapV3Pools{
+    id
+    sqrtPriceX96
+    tick
+  }
+ }
 ```

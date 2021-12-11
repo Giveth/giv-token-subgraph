@@ -77,3 +77,9 @@ type UniswapPosition @entity {
     staker: String
     staked: Boolean
 }
+
+type UniswapV3Pool @entity {
+    id: ID!
+    sqrtPriceX96: BigInt!
+    tick: BigInt!
+}

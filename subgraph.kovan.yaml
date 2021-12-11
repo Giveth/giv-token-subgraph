@@ -178,8 +178,8 @@ dataSources:
         - name: GIV
           file: ./abis/GIV.json
         # We should pass all ABIs to every subgraph that use that ABI
-        - name: uniswapV3Pool
-          file: ./abis/uniswapV3Pool.json
+        - name: uniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
@@ -213,12 +213,12 @@ dataSources:
 #      file: ./src/kovan/uniswapV3Mapping.ts
 
   - kind: ethereum/contract
-    name: uniswapV3Pool
+    name: uniswapV2Pair
     network: kovan
     source:
       # I dont know where come from this address, it's not in Notion
       address: "0xa48C26fF05F47a2eEd88C09664de1cb604A21b01"
-      abi: uniswapV3Pool
+      abi: uniswapV2Pair
       startBlock: 28083840
     mapping:
       kind: ethereum/events
@@ -226,14 +226,43 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Transfer
+        - Initialize
+        - Swap
       abis:
-        - name: uniswapV3Pool
-          file: ./abis/uniswapV3Pool.json
+        - name: uniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
       eventHandlers:
         # We don't need this event handler, but data source should have at least one event handler
-        - event:  Sync(uint112,uint112)
+        - event: Sync(uint112,uint112)
           handler: handleSync
-      file: ./src/kovan/uniswapV3PoolMapping.ts
+      file: ./src/kovan/uniswapV2PairMapping.ts
+
+  - kind: ethereum/contract
+    name: uniswapV3Pool
+    network: kovan
+    source:
+      # I dont know where come from this address, it's not in Notion
+      address: "0x487195072fB88ddE7DDA2Ef1A688C6380b995478"
+      abi: uniswapV3Pool
+      startBlock: 27855004
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+        - Initialize
+        - Swap
+      abis:
+        - name: uniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
+      eventHandlers:
+        # We don't need this event handler, but data source should have at least one event handler
+        - event: Initialize(uint160,int24)
+          handler: handleInitialize
+        - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
+          handler: handleSwap
+      file: ./src/kovan/UniswapV3PoolMapping.ts
 
   - kind: ethereum/contract
     name: balancerLP
