@@ -250,7 +250,6 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - Transfer
         - Initialize
         - Swap
       abis:
