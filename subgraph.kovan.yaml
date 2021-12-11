@@ -278,4 +278,25 @@ dataSources:
           handler: handleTokenStaked
         - event: TokenUnstaked(indexed uint256,indexed bytes32)
           handler: handleTokenUnstaked
-      file: ./src/kovan/uniswapV3TokenStakerMapping.ts
+      file: ./src/kovan/uniswapV3/uniswapV3TokenStakerMapping.ts
+
+  - kind: ethereum/contract
+    name: uniswapV3PositionsNFT
+    network: kovan
+    source:
+      address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
+      abi: UniswapV3PositionsNFT
+      startBlock: 27853090
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - IncreaseLiquidity
+      abis:
+        - name: UniswapV3PositionsNFT
+          file: ./abis/UniswapV3PositionsNFT.json
+      eventHandlers:
+        - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleIncreaseLiquidity
+      file: ./src/kovan/uniswapV3/uniswapV3PositionsNftMapping.ts

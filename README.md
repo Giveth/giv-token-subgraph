@@ -166,8 +166,11 @@ Query sample:
   uniswapPositions{
     id
     tokenId
-    walletAddress
     staked
+    liquidity
+    tickLower
+    tickUpper
+    owner
   }
 }
 ```

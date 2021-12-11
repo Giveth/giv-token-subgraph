@@ -70,6 +70,9 @@ type Price @entity {
 type UniswapPosition @entity {
     id: ID!
     tokenId: String!
-    walletAddress: String!
-    staked: Boolean!
+    liquidity: BigInt!
+    tickLower: String!
+    tickUpper: String!
+    owner: String
+    staked: Boolean
 }
