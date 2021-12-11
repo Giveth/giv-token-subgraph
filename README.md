@@ -159,3 +159,15 @@ Query sample:
   }
 }
 ```
+
+* **Get UniswapStakedPositions**
+```
+{
+  uniswapPositions{
+    id
+    tokenId
+    walletAddress
+    staked
+  }
+}
+```
