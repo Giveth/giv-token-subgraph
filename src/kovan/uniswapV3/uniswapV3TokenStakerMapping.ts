@@ -15,8 +15,9 @@ export function handleTokenStaked(event: TokenStaked): void {
   }
 
   const tokenId = event.params.tokenId;
-  const owner = contract.deposits(tokenId).value0.toHex();
+  const staker = contract.deposits(tokenId).value0.toHex();
   uniswapStakedPosition.staked = true;
+  uniswapStakedPosition.staker = staker;
   uniswapStakedPosition.tokenId = tokenId.toString();
   uniswapStakedPosition.save();
 }
@@ -29,6 +30,7 @@ export function handleTokenUnstaked(event: TokenUnstaked): void {
       return;
     }
     uniswapStakedPosition.staked = false;
+    uniswapStakedPosition.staker = null;
     uniswapStakedPosition.save();
   }
 }

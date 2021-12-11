@@ -73,6 +73,7 @@ type UniswapPosition @entity {
     liquidity: BigInt!
     tickLower: String!
     tickUpper: String!
-    owner: String
+    owner: String!
+    staker: String
     staked: Boolean
 }

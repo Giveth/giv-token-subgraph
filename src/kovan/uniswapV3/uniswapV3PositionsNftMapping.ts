@@ -1,9 +1,9 @@
 import {
   IncreaseLiquidity,
   UniswapV3PositionsNFT,
+  Transfer,
 } from '../../../generated/uniswapV3PositionsNFT/UniswapV3PositionsNFT';
 import { UniswapPosition } from '../../../generated/schema';
-import { log } from '@graphprotocol/graph-ts/index';
 
 const fee: i32 = 3000;
 
@@ -30,4 +30,13 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     uniswapStakedPosition.owner = owner;
     uniswapStakedPosition.save();
   }
+}
+
+export function handleTransfer(event: Transfer): void {
+  const position = UniswapPosition.load(event.params.tokenId.toString());
+  if (!position) {
+    return;
+  }
+  position.owner = event.params.to.toHex();
+  position.save();
 }
