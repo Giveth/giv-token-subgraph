@@ -18,7 +18,6 @@ export function handleTokenStaked(event: TokenStaked): void {
   const owner = contract.deposits(tokenId).value0.toHex();
   uniswapStakedPosition.staked = true;
   uniswapStakedPosition.tokenId = tokenId.toString();
-  uniswapStakedPosition.owner = owner;
   uniswapStakedPosition.save();
 }
 

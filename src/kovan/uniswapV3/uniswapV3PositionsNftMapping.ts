@@ -21,11 +21,13 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
 
   //value4 is fee
   if (positions.value4 == fee && isGivEthLiquidity == true) {
+    const owner = contract.ownerOf(event.params.tokenId).toHex();
     const uniswapStakedPosition = new UniswapPosition(tokenId);
     uniswapStakedPosition.tokenId = tokenId;
     uniswapStakedPosition.liquidity = positions.value7;
     uniswapStakedPosition.tickLower = positions.value5.toString();
     uniswapStakedPosition.tickUpper = positions.value6.toString();
+    uniswapStakedPosition.owner = owner;
     uniswapStakedPosition.save();
   }
 }
