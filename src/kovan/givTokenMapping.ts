@@ -1,8 +1,8 @@
 import { Approval, AuthorizationUsed, ChangeMinter, Transfer } from '../../generated/GIV/GIV';
 import { onTransfer } from '../commons/balanceHandler';
 import { Address, log } from '@graphprotocol/graph-ts/index';
-import { uniswapV3Pool } from '../../generated/uniswapV3Pool/uniswapV3Pool';
 import { Price } from '../../generated/schema';
+import { UniswapV2Pair } from "../../generated/UniswapV2Pair/UniswapV2Pair";
 
 export function handleApproval(event: Approval): void {}
 
@@ -18,7 +18,7 @@ export function handleTransfer(event: Transfer): void {
 
 function updateTokenPrice(): void {
   const uniswapEthGivPoolAddress = Address.fromString('0xa48C26fF05F47a2eEd88C09664de1cb604A21b01');
-  const contract = uniswapV3Pool.bind(uniswapEthGivPoolAddress);
+  const contract = UniswapV2Pair.bind(uniswapEthGivPoolAddress);
   const tokensResult = contract.try_getReserves();
   if (tokensResult.reverted) {
     return;

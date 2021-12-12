@@ -4,7 +4,7 @@ import {
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+} from '../../generated/GivLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import {
   createUnipoolContractInfoIfNotExists,
   onRewardAdded,

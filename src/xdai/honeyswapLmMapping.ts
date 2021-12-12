@@ -1,13 +1,13 @@
+import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
+import { GIV_HNY } from '../helpers/constants';
+import { onHoneyswapLpWithdrawal, onHoneyswapStaked } from '../commons/balanceHandler';
 import {
   OwnershipTransferred,
   RewardAdded,
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/givHNYUnipoolTokenDistributor/UnipoolTokenDistributor';
-import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
-import { GIV_HNY } from '../helpers/constants';
-import { onHoneyswapLpWithdrawal, onHoneyswapStaked } from '../commons/balanceHandler';
+} from '../../generated/HoneyswapLm/UnipoolTokenDistributor';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 

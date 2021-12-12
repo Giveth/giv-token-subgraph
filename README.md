@@ -166,8 +166,23 @@ Query sample:
   uniswapPositions{
     id
     tokenId
-    walletAddress
     staked
+    liquidity
+    tickLower
+    tickUpper
+    owner
+    staker
   }
 }
+```
+
+* **Get UniswapV3Pools
+ ```
+ {
+  uniswapV3Pools{
+    id
+    sqrtPriceX96
+    tick
+  }
+ }
 ```
