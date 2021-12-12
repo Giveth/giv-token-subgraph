@@ -4,6 +4,7 @@ import { Price } from '../../generated/schema';
 import { Transfer } from '../../generated/GIV/GIV';
 import { onTransfer } from '../commons/balanceHandler';
 import { SUSHISWAP_LP } from '../helpers/constants';
+import { SUSHISWAP_ETH_GIV } from '../configuration';
 
 export function handleTransfer(event: Transfer): void {
   onTransfer(event.params.from.toHex(), event.params.to.toHex(), event.params.value, SUSHISWAP_LP);
@@ -14,7 +15,7 @@ export function handleSync(event: Sync): void {
 }
 
 function updateTokenPrice(): void {
-  const sushiSwapContractAddress = Address.fromString('0x8C77Ba1d90C57D584aEEd57bC9B55258B8BE3438');
+  const sushiSwapContractAddress = Address.fromString(SUSHISWAP_ETH_GIV);
   const contract = SushiSwapLpToken.bind(sushiSwapContractAddress);
   const tokensResult = contract.try_getReserves();
   if (tokensResult.reverted) {
