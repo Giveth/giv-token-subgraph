@@ -66,3 +66,10 @@ type Price @entity {
     source: String!
     blockTimeStamp: BigInt
 }
+
+type UniswapPosition @entity {
+    id: ID!
+    tokenId: String!
+    walletAddress: String!
+    staked: Boolean!
+}

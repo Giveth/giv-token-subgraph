@@ -255,3 +255,27 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/kovan/balancerLpMapping.ts
+
+  - kind: ethereum/contract
+    name: uniswapV3Staker
+    network: kovan
+    source:
+      address: "0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d"
+      abi: UniswapV3Staker
+      startBlock: 27853090
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TokenStaked
+        - TokenUnstaked
+      abis:
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        - event: TokenStaked(indexed uint256,indexed bytes32,uint128)
+          handler: handleTokenStaked
+        - event: TokenUnstaked(indexed uint256,indexed bytes32)
+          handler: handleTokenUnstaked
+      file: ./src/kovan/uniswapV3TokenStakerMapping.ts

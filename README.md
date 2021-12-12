@@ -24,8 +24,14 @@ https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
 Our subgraphs: 
-* **Kovan** : https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
-* **Xdai**: https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
+* **Kovan** 
+  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
+  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan
+
+* **Xdai**
+  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
+  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
+
 
 
 Query sample:
@@ -150,6 +156,18 @@ Query sample:
     value
     source
     blockTimeStamp
+  }
+}
+```
+
+* **Get UniswapStakedPositions**
+```
+{
+  uniswapPositions{
+    id
+    tokenId
+    walletAddress
+    staked
   }
 }
 ```
