@@ -1,5 +1,5 @@
-import { Initialize, Swap, UniswapV3Pool } from '../../generated/UniswapV3Pool/UniswapV3Pool';
-import { UniswapV3Pool as Pool } from '../../generated/schema';
+import { Initialize, Swap, UniswapV3Pool } from '../../../generated/uniswapV3Pool/uniswapV3Pool';
+import { UniswapV3Pool as Pool } from '../../../generated/schema';
 import { BigInt, log } from '@graphprotocol/graph-ts';
 
 export function handleInitialize(event: Initialize): void {
