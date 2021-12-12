@@ -4,7 +4,7 @@ import {
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+} from '../../generated/GivLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
 import { GIV_LIQUIDITY } from '../helpers/constants';
 import { onGivStaked, onGivWithdrawal } from '../commons/balanceHandler';

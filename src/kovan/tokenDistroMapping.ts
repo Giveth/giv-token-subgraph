@@ -4,7 +4,6 @@ import {
   ChangeAddress,
   Claim,
   GivBackPaid,
-  InitializeCall,
   RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
@@ -12,9 +11,6 @@ import {
 } from '../../generated/TokenDistro/TokenDistro';
 import { saveTokenAllocation, onGivBackPaid } from '../commons/tokenAllocation';
 import { addAllocatedTokens, addClaimed } from '../commons/balanceHandler';
-import { createUnipoolContractInfoIfNotExists } from '../commons/unipoolTokenDistributorHandler';
-import { Address } from '@graphprotocol/graph-ts/index';
-import { log } from '@graphprotocol/graph-ts';
 import { createTokenDistroContractInfoIfNotExists } from '../commons/TokenDistroHandler';
 
 export function handleAllocate(event: Allocate): void {

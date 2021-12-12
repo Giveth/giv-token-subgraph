@@ -85,7 +85,7 @@ dataSources:
       file: ./src/kovan/uniswapV3RewardTokenMapping.ts
 
   - kind: ethereum/contract
-    name: balancerLiquidityMiningTokenDistributor
+    name: BalancerLiquidityMiningTokenDistributor
     network: kovan
     source:
       address: "0xd5CA205eBa8a1438e9C625F6FfDDEAF5e126F526"
@@ -122,7 +122,7 @@ dataSources:
       file: ./src/kovan/balancerLiquidityMiningMapping.ts
 
   - kind: ethereum/contract
-    name: givLiquidityMiningTokenDistributor
+    name: GivLiquidityMiningTokenDistributor
     network: kovan
     source:
       address: "0xE1039af141101CB4A3C6D7B88FD0dFaB246Bab97"
@@ -189,7 +189,7 @@ dataSources:
           handler: handleChangeMinter
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/kovan/GivTokenMapping.ts
+      file: ./src/kovan/givTokenMapping.ts
 
 #  - kind: ethereum/contract
 #    name: uniswapV3
@@ -213,12 +213,12 @@ dataSources:
 #      file: ./src/kovan/uniswapV3Mapping.ts
 
   - kind: ethereum/contract
-    name: uniswapV2Pair
+    name: UniswapV2Pair
     network: kovan
     source:
       # I dont know where come from this address, it's not in Notion
       address: "0xa48C26fF05F47a2eEd88C09664de1cb604A21b01"
-      abi: uniswapV2Pair
+      abi: UniswapV2Pair
       startBlock: 28083840
     mapping:
       kind: ethereum/events
@@ -229,7 +229,7 @@ dataSources:
         - Initialize
         - Swap
       abis:
-        - name: uniswapV2Pair
+        - name: UniswapV2Pair
           file: ./abis/UniswapV2Pair.json
       eventHandlers:
         # We don't need this event handler, but data source should have at least one event handler
@@ -238,12 +238,12 @@ dataSources:
       file: ./src/kovan/uniswapV2PairMapping.ts
 
   - kind: ethereum/contract
-    name: uniswapV3Pool
+    name: UniswapV3Pool
     network: kovan
     source:
       # I dont know where come from this address, it's not in Notion
       address: "0x487195072fB88ddE7DDA2Ef1A688C6380b995478"
-      abi: uniswapV3Pool
+      abi: UniswapV3Pool
       startBlock: 27855004
     mapping:
       kind: ethereum/events
@@ -253,7 +253,7 @@ dataSources:
         - Initialize
         - Swap
       abis:
-        - name: uniswapV3Pool
+        - name: UniswapV3Pool
           file: ./abis/UniswapV3Pool.json
       eventHandlers:
         # We don't need this event handler, but data source should have at least one event handler
@@ -264,7 +264,7 @@ dataSources:
       file: ./src/kovan/UniswapV3PoolMapping.ts
 
   - kind: ethereum/contract
-    name: balancerLP
+    name: BalancerLP
     network: kovan
     source:
       address: "0x1ee71e1ed744ae6d4058f5c7797c2e583dbfb095"
@@ -285,7 +285,7 @@ dataSources:
       file: ./src/kovan/balancerLpMapping.ts
 
   - kind: ethereum/contract
-    name: uniswapV3Staker
+    name: UniswapV3Staker
     network: kovan
     source:
       address: "0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d"
@@ -309,7 +309,7 @@ dataSources:
       file: ./src/kovan/uniswapV3/uniswapV3TokenStakerMapping.ts
 
   - kind: ethereum/contract
-    name: uniswapV3PositionsNFT
+    name: UniswapV3PositionsNFT
     network: kovan
     source:
       address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"

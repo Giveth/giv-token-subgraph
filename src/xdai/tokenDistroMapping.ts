@@ -12,8 +12,6 @@ import {
 } from '../../generated/TokenDistro/TokenDistro';
 import { addAllocatedTokens, addClaimed } from '../commons/balanceHandler';
 import { createTokenDistroContractInfoIfNotExists } from '../commons/TokenDistroHandler';
-import { Address } from '@graphprotocol/graph-ts';
-import { log } from '@graphprotocol/graph-ts/index';
 
 export function handleAllocate(event: Allocate): void {
   saveTokenAllocation(

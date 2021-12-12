@@ -74,7 +74,7 @@ dataSources:
       file: ./src/xdai/tokenDistroMapping.ts
 
   - kind: ethereum/contract
-    name: sushiSwapLm
+    name: SushiSwapLm
     network: xdai
     source:
       address: "0x579869ADcB3a3203D7876be889D58C5cbe089F05"
@@ -107,7 +107,7 @@ dataSources:
       file: ./src/xdai/sushiSwapLmMapping.ts
 
   - kind: ethereum/contract
-    name: honeyswapLm
+    name: HoneyswapLm
     network: xdai
     source:
       address: "0x7B4b9BdC1fC87f9aff08bE428e797beA642C3bAc"
@@ -200,7 +200,7 @@ dataSources:
           handler: handleChangeMinter
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/xdai/GivTokenMapping.ts
+      file: ./src/xdai/givTokenMapping.ts
 
   - kind: ethereum/contract
     name: SushiSwapLpToken
@@ -228,7 +228,7 @@ dataSources:
 
 
   - kind: ethereum/contract
-    name: honeyswapLP
+    name: HoneyswapLP
     network: xdai
     source:
       address: "0xc81c327f43eC566E14C64AedE5DCf5d9c120D5eb"
@@ -250,7 +250,7 @@ dataSources:
 
 
   - kind: ethereum/contract
-    name: givLiquidityMiningTokenDistributor
+    name: GivLiquidityMiningTokenDistributor
     network: xdai
     source:
       address: "0x860C72092b7FBca277F94ba1Df11e33043724eAF"

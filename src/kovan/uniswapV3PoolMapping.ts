@@ -1,4 +1,4 @@
-import { Initialize, Swap } from '../../generated/uniswapV3Pool/uniswapV3Pool';
+import { Initialize, Swap } from '../../generated/UniswapV3Pool/uniswapV3Pool';
 import { UniswapV3Pool } from '../../generated/schema';
 import { BigInt, log } from '@graphprotocol/graph-ts';
 
