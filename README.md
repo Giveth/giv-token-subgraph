@@ -93,6 +93,7 @@ Query sample:
     honeyswapLp 
     honeyswapLpStaked 
     givStaked
+    givDropClaimed
   }
 }
 ```

@@ -37,6 +37,7 @@ type Balance @entity{
     honeyswapLpStaked : BigInt!
     givStaked: BigInt!
     allocationCount: BigInt!
+    givDropClaimed: Boolean!
 }
 
 type UnipoolContractInfo @entity {
