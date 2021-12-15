@@ -2,7 +2,7 @@ import {
   IncreaseLiquidity,
   UniswapV3PositionsNFT,
   Transfer,
-} from '../../../generated/uniswapV3PositionsNFT/UniswapV3PositionsNFT';
+} from '../../../generated/UniswapV3PositionsNFT/UniswapV3PositionsNFT';
 import { UniswapPosition } from '../../../generated/schema';
 import { MAINNET_GIV_TOKEN_ADDRESS, MAINNET_WETH_TOKEN_ADDRESS } from '../../configuration';
 

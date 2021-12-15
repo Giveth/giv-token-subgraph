@@ -1,4 +1,4 @@
-import { TokenStaked, TokenUnstaked, UniswapV3Staker } from '../../../generated/uniswapV3Staker/UniswapV3Staker';
+import { TokenStaked, TokenUnstaked, UniswapV3Staker } from '../../../generated/UniswapV3Staker/UniswapV3Staker';
 import { UniswapPosition, UniswapV3Pool } from '../../../generated/schema';
 import { UNISWAP_V3_INCENTIVE_ID, UNISWAP_V3_POOL_ADDRESS } from '../../configuration';
 
