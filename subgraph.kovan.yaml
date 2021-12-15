@@ -261,7 +261,7 @@ dataSources:
           handler: handleInitialize
         - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
           handler: handleSwap
-      file: ./src/mappings/uniswapV3/UniswapV3PoolMapping.ts
+      file: ./src/mappings/uniswapV3/uniswapV3PoolMapping.ts
 
   - kind: ethereum/contract
     name: BalancerLP
@@ -324,7 +324,7 @@ dataSources:
         - Transfer
       abis:
         - name: UniswapV3PositionsNFT
-          file: ./abis/UniswapV3PositionsNFT.json
+          file: ./abis/uniswapV3PositionsNFT.json
       eventHandlers:
         - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
           handler: handleIncreaseLiquidity

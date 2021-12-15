@@ -4,29 +4,30 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-  #  - kind: ethereum/contract
-  #    name: MerkleDistro
-  #    network: xdai
-  #    source:
-  #      address: "0x8ECebE69d45d357e5aa2719999B69d7c65003932"
-  #      abi: MerkleDistro
-  #      startBlock: 18722209
-  #    mapping:
-  #      kind: ethereum/events
-  #      apiVersion: 0.0.5
-  #      language: wasm/assemblyscript
-  #      entities:
-  #        - Claimed
-  #        - OwnershipTransferred
-  #      abis:
-  #        - name: MerkleDistro
-  #          file: ./abis/MerkleDistro.json
-  #      eventHandlers:
-  #        - event: Claimed(uint256,address,address,uint256)
-  #          handler: handleClaimed
-  #        - event: OwnershipTransferred(indexed address,indexed address)
-  #          handler: handleOwnershipTransferred
-  #      file: ./src/mappings/merkleDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: MerkleDistro
+    network: xdai
+    source:
+      address: "0x8ECebE69d45d357e5aa2719999B69d7c65003932"
+      abi: MerkleDistro
+      startBlock: 18722209
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Claimed
+        - OwnershipTransferred
+      abis:
+        - name: MerkleDistro
+          file: ./abis/MerkleDistro.json
+      eventHandlers:
+        - event: Claimed(uint256,address,address,uint256)
+          handler: handleClaimed
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mappings/merkleDistroMapping.ts
 
   - kind: ethereum/contract
     name: TokenDistro
