@@ -1,11 +1,30 @@
 name: Deploy Graph
 
-on:
-  push:
-    branches: master
+on: [push, pull_request]
 
 jobs:
-  deploy-kovan:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Codegen kovan
+        run: yarn codegen:kovan
+      - name: Build
+        run: yarn build:kovan
+      - name: Codegen xdai
+        run: yarn codegen:xdai
+      - name: Build
+        run: yarn build:xdai
+
+  deploy-kovan-master:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -26,8 +45,31 @@ jobs:
           graph_subgraph_name: "giv-economy-kovan"
           graph_account: "mohammadranjbarz"
           graph_config_file: "subgraph.kovan.yaml"
+  deploy-kovan-develop:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: graph
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Codegen
+        run: yarn codegen:kovan
+      - name: Build
+        run: yarn build:kovan
+      - uses: gtaschuk/graph-deploy@v0.1.5
+        with:
+          graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
+          graph_subgraph_name: "giv-economy-kovan-develop"
+          graph_account: "mohammadranjbarz"
+          graph_config_file: "subgraph.kovan.yaml"
 
-  deploy-xdai:
+  deploy-xdai-master:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -48,6 +90,30 @@ jobs:
         with:
           graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
           graph_subgraph_name: "giv-economy-xdai"
+          graph_account: "mohammadranjbarz"
+          graph_config_file: "subgraph.xdai.yaml"
+  deploy-xdai-develop:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: graph
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: list-files
+        run: ls src/xdai
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Codegen
+        run: yarn codegen:xdai
+      - name: Build
+        run: yarn build:xdai
+      - uses: gtaschuk/graph-deploy@v0.1.5
+        with:
+          graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
+          graph_subgraph_name: "giv-economy-xdai-develop"
           graph_account: "mohammadranjbarz"
           graph_config_file: "subgraph.xdai.yaml"
 

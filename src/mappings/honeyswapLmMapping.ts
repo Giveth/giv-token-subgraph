@@ -7,7 +7,7 @@ import {
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/honeyswapLm/UnipoolTokenDistributor';
+} from '../../generated/HoneyswapLm/UnipoolTokenDistributor';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 

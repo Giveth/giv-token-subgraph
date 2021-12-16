@@ -7,7 +7,7 @@ import {
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/sushiSwapLm/UnipoolTokenDistributor';
+} from '../../generated/SushiSwapLm/UnipoolTokenDistributor';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 

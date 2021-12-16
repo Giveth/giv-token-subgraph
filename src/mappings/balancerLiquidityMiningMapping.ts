@@ -4,7 +4,7 @@ import {
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+} from '../../generated/BalancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import {
   createUnipoolContractInfoIfNotExists,
   onRewardAdded,
