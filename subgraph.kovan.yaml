@@ -314,7 +314,7 @@ dataSources:
     source:
       address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
       abi: UniswapV3PositionsNFT
-      startBlock: 27853090
+      startBlock: 28783241
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
