@@ -8,9 +8,9 @@ dataSources:
     name: TokenDistro
     network: kovan
     source:
-      address: "0x35f8414Ca6d5629887b9049cE99C7B592E583dd3"
+      address: "0xA43C366b0360Da3A6021a91991652cc8806423dB"
       abi: TokenDistro
-      startBlock: 28437795
+      startBlock: 28801770
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -58,9 +58,9 @@ dataSources:
     name: UniswapV3RewardToken
     network: kovan
     source:
-      address: "0xe413eFa093a8dE8a2E792cC1B3a8C8D7d6B83fFa"
+      address: "0x43A440176FDB70aA3730564B0D1e435628f61D3F"
       abi: UniswapV3RewardToken
-      startBlock: 28437802
+      startBlock: 28801783
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
