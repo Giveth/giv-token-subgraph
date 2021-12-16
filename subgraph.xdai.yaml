@@ -4,29 +4,30 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-  #  - kind: ethereum/contract
-  #    name: MerkleDistro
-  #    network: xdai
-  #    source:
-  #      address: "0x8ECebE69d45d357e5aa2719999B69d7c65003932"
-  #      abi: MerkleDistro
-  #      startBlock: 18722209
-  #    mapping:
-  #      kind: ethereum/events
-  #      apiVersion: 0.0.5
-  #      language: wasm/assemblyscript
-  #      entities:
-  #        - Claimed
-  #        - OwnershipTransferred
-  #      abis:
-  #        - name: MerkleDistro
-  #          file: ./abis/MerkleDistro.json
-  #      eventHandlers:
-  #        - event: Claimed(uint256,address,address,uint256)
-  #          handler: handleClaimed
-  #        - event: OwnershipTransferred(indexed address,indexed address)
-  #          handler: handleOwnershipTransferred
-  #      file: ./src/xdai/merkleDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: MerkleDistro
+    network: xdai
+    source:
+      address: "0x8ECebE69d45d357e5aa2719999B69d7c65003932"
+      abi: MerkleDistro
+      startBlock: 18722209
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Claimed
+        - OwnershipTransferred
+      abis:
+        - name: MerkleDistro
+          file: ./abis/MerkleDistro.json
+      eventHandlers:
+        - event: Claimed(uint256,address,address,uint256)
+          handler: handleClaimed
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mappings/merkleDistroMapping.ts
 
   - kind: ethereum/contract
     name: TokenDistro
@@ -71,10 +72,10 @@ dataSources:
           handler: handleRoleRevoked
         - event: StartTimeChanged(uint256,uint256)
           handler: handleStartTimeChanged
-      file: ./src/xdai/tokenDistroMapping.ts
+      file: ./src/mappings/tokenDistroMapping.ts
 
   - kind: ethereum/contract
-    name: sushiSwapLm
+    name: SushiSwapLm
     network: xdai
     source:
       address: "0x579869ADcB3a3203D7876be889D58C5cbe089F05"
@@ -104,10 +105,10 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      file: ./src/xdai/sushiSwapLmMapping.ts
+      file: ./src/mappings/sushiSwapLmMapping.ts
 
   - kind: ethereum/contract
-    name: honeyswapLm
+    name: HoneyswapLm
     network: xdai
     source:
       address: "0x7B4b9BdC1fC87f9aff08bE428e797beA642C3bAc"
@@ -137,7 +138,7 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      file: ./src/xdai/honeyswapLmMapping.ts
+      file: ./src/mappings/honeyswapLmMapping.ts
 
 #  - kind: ethereum/contract
 #    name: GardenUnipoolTokenDistributor
@@ -170,7 +171,7 @@ dataSources:
 #          handler: handleStaked
 #        - event: Withdrawn(indexed address,uint256)
 #          handler: handleWithdrawn
-#      file: ./src/xdai/gardenUnipoolTokenDistributorMapping.ts
+#      file: ./src/mappings/gardenUnipoolTokenDistributorMapping.ts
 
   - kind: ethereum/contract
     name: GIV
@@ -200,7 +201,7 @@ dataSources:
           handler: handleChangeMinter
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/xdai/GivTokenMapping.ts
+      file: ./src/mappings/givTokenMapping.ts
 
   - kind: ethereum/contract
     name: SushiSwapLpToken
@@ -224,11 +225,11 @@ dataSources:
           handler: handleSync
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/xdai/sushiSwapLpMapping.ts
+      file: ./src/mappings/sushiSwapLpMapping.ts
 
 
   - kind: ethereum/contract
-    name: honeyswapLP
+    name: HoneyswapLP
     network: xdai
     source:
       address: "0xc81c327f43eC566E14C64AedE5DCf5d9c120D5eb"
@@ -246,11 +247,11 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/xdai/honeySwapLpMapping.ts
+      file: ./src/mappings/honeySwapLpMapping.ts
 
 
   - kind: ethereum/contract
-    name: givLiquidityMiningTokenDistributor
+    name: GivLiquidityMiningTokenDistributor
     network: xdai
     source:
       address: "0x860C72092b7FBca277F94ba1Df11e33043724eAF"
@@ -284,4 +285,4 @@ dataSources:
         - function: initialize(address,address,uint256)
           handler: handleInitialize
 
-      file: ./src/xdai/givLiquidityMiningMapping.ts
+      file: ./src/mappings/givLiquidityMiningMapping.ts

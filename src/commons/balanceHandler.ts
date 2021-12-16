@@ -10,7 +10,7 @@ import {
   SUSHISWAP_LP,
   ZERO_ADDRESS,
 } from '../helpers/constants';
-import { UnipoolTokenDistributor } from '../../generated/balancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+import { UnipoolTokenDistributor } from '../../generated/BalancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
 export function onTransfer(from: string, to: string, value: BigInt, distributor: string | null = null): void {
   let toBalance = Balance.load(to);

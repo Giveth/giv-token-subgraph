@@ -37,6 +37,7 @@ type Balance @entity{
     honeyswapLpStaked : BigInt!
     givStaked: BigInt!
     allocationCount: BigInt!
+    givDropClaimed: Boolean!
 }
 
 type UnipoolContractInfo @entity {
@@ -70,6 +71,18 @@ type Price @entity {
 type UniswapPosition @entity {
     id: ID!
     tokenId: String!
-    walletAddress: String!
-    staked: Boolean!
+    liquidity: BigInt!
+    tickLower: String!
+    tickUpper: String!
+    owner: String!
+    staker: String
+    staked: Boolean
+}
+
+type UniswapV3Pool @entity {
+    id: ID!
+    sqrtPriceX96: BigInt!
+    tick: BigInt!
+    liquidity: BigInt!
+    stakedLiquidity: BigInt!
 }

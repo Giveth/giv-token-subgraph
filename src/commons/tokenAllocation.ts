@@ -1,6 +1,6 @@
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
-import { GIVBACK } from "../helpers/constants";
+import { GIVBACK } from '../helpers/constants';
 
 export function saveTokenAllocation(
   recipient: string,

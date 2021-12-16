@@ -25,12 +25,20 @@ Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
 Our subgraphs: 
 * **Kovan** 
-  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
-  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan
+  * **Develop**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan-develop
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan-develop
+  * **Production**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan
 
 * **Xdai**
-  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
-  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
+  * **Develop**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai-develop
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai-develop
+  * **Production**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
 
 
 
@@ -93,6 +101,7 @@ Query sample:
     honeyswapLp 
     honeyswapLpStaked 
     givStaked
+    givDropClaimed
   }
 }
 ```
@@ -166,10 +175,25 @@ Query sample:
   uniswapPositions{
     id
     tokenId
-    walletAddress
     staked
+    liquidity
+    tickLower
+    tickUpper
+    owner
+    staker
   }
 }
+```
+
+* **Get UniswapV3Pools
+ ```
+ {
+  uniswapV3Pools{
+    id
+    sqrtPriceX96
+    tick
+  }
+ }
 ```
 
 * Create and Update tokenAllocation flow

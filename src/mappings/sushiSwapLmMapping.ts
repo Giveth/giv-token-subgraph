@@ -1,14 +1,13 @@
+import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
+import { GIV_ETH } from '../helpers/constants';
+import { onSushiswapLpWithdrawal, onSushiswapStaked } from '../commons/balanceHandler';
 import {
   OwnershipTransferred,
   RewardAdded,
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/givETHUnipoolTokenDistributor/UnipoolTokenDistributor';
-import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
-import { Address } from '@graphprotocol/graph-ts';
-import { GIV_ETH } from '../helpers/constants';
-import { onSushiswapLpWithdrawal, onSushiswapStaked } from '../commons/balanceHandler';
+} from '../../generated/SushiSwapLm/UnipoolTokenDistributor';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 

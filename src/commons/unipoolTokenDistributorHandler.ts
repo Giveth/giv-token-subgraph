@@ -1,6 +1,6 @@
-import { UnipoolTokenDistributor } from '../../generated/givLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+import { UnipoolTokenDistributor } from '../../generated/GivLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { UnipoolContractInfo } from '../../generated/schema';
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { Address, log } from '@graphprotocol/graph-ts';
 import { updateRewards } from './balanceHandler';
 import { updateTokenAllocationDistributor } from './tokenAllocation';
 

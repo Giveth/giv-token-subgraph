@@ -4,10 +4,9 @@ import {
   RewardPaid,
   Staked,
   Withdrawn,
-} from '../../generated/GardenUnipoolTokenDistributor/GardenUnipoolTokenDistributor';
-import { updateTokenAllocationDistributor } from '../commons/tokenAllocation';
-import { onRewardAdded, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
-import { GARDEN_POOL } from '../helpers/constants';
+} from '../../generated/GivLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
+import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
+import { GIV_LIQUIDITY } from '../helpers/constants';
 import { onGivStaked, onGivWithdrawal } from '../commons/balanceHandler';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
@@ -17,15 +16,15 @@ export function handleRewardAdded(event: RewardAdded): void {
 }
 
 export function handleRewardPaid(event: RewardPaid): void {
-  updateTokenAllocationDistributor(event.transaction.hash.toHex(), GARDEN_POOL);
+  onRewardPaid(event.address, event.transaction.hash.toHex(), event.params.user.toHex(), GIV_LIQUIDITY);
 }
 
 export function handleStaked(event: Staked): void {
-  onRewardUpdated(event.address, event.params.user.toHex(), GARDEN_POOL);
+  onRewardUpdated(event.address, event.params.user.toHex(), GIV_LIQUIDITY);
   onGivStaked(event.params.user.toHex(), event.params.amount);
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  onRewardUpdated(event.address, event.params.user.toHex(), GARDEN_POOL);
+  onRewardUpdated(event.address, event.params.user.toHex(), GIV_LIQUIDITY);
   onGivWithdrawal(event.params.user.toHex(), event.params.amount);
 }
