@@ -162,9 +162,9 @@ dataSources:
     name: GIV
     network: kovan
     source:
-      address: "0x03472537CB64652Aa1224E4aaF6f33a34e73E877"
+      address: "0x900d7e4985461ef158f04ca2Ef1aBd136c620DA0"
       abi: GIV
-      startBlock: 27851733
+      startBlock: 28769098
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -242,9 +242,9 @@ dataSources:
     network: kovan
     source:
       # I dont know where come from this address, it's not in Notion
-      address: "0x487195072fB88ddE7DDA2Ef1A688C6380b995478"
+      address: "0x05f9c5ccc01bc4658516b664be14fb89121c9d15"
       abi: UniswapV3Pool
-      startBlock: 27855004
+      startBlock: 28783242
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
