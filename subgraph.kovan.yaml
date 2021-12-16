@@ -88,8 +88,8 @@ dataSources:
     name: BalancerLiquidityMiningTokenDistributor
     network: kovan
     source:
-      address: "0xd5CA205eBa8a1438e9C625F6FfDDEAF5e126F526"
-      startBlock: 28437812
+      address: "0x9aF8e5FF803D64f1e10688413e75C656d883Ca70"
+      startBlock: 28801793
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -125,8 +125,8 @@ dataSources:
     name: GivLiquidityMiningTokenDistributor
     network: kovan
     source:
-      address: "0xE1039af141101CB4A3C6D7B88FD0dFaB246Bab97"
-      startBlock: 28437821
+      address: "0xbDD6F1865E882a412D88d903cDB2817d919B0d36"
+      startBlock: 28801810
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
