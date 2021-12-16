@@ -25,6 +25,7 @@ jobs:
 
   deploy-kovan-master:
     if: github.ref == 'refs/heads/master'
+    needs: build
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -36,7 +37,7 @@ jobs:
       - name: Install
         run: yarn --frozen-lockfile
       - name: Codegen
-        run: yarn codegen:kovan
+        run: yarn codegen
       - name: Build
         run: yarn build:kovan
       - uses: gtaschuk/graph-deploy@v0.1.5
@@ -47,6 +48,7 @@ jobs:
           graph_config_file: "subgraph.kovan.yaml"
   deploy-kovan-develop:
     if: github.ref == 'refs/heads/develop'
+    needs: build
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -58,7 +60,7 @@ jobs:
       - name: Install
         run: yarn --frozen-lockfile
       - name: Codegen
-        run: yarn codegen:kovan
+        run: yarn codegen
       - name: Build
         run: yarn build:kovan
       - uses: gtaschuk/graph-deploy@v0.1.5
@@ -70,6 +72,7 @@ jobs:
 
   deploy-xdai-master:
     if: github.ref == 'refs/heads/master'
+    needs: build
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -81,7 +84,7 @@ jobs:
       - name: Install
         run: yarn --frozen-lockfile
       - name: Codegen
-        run: yarn codegen:xdai
+        run: yarn codegen
       - name: Build
         run: yarn build:xdai
       - uses: gtaschuk/graph-deploy@v0.1.5
@@ -92,6 +95,7 @@ jobs:
           graph_config_file: "subgraph.xdai.yaml"
   deploy-xdai-develop:
     if: github.ref == 'refs/heads/develop'
+    needs: build
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -103,7 +107,7 @@ jobs:
       - name: Install
         run: yarn --frozen-lockfile
       - name: Codegen
-        run: yarn codegen:xdai
+        run: yarn codegen
       - name: Build
         run: yarn build:xdai
       - uses: gtaschuk/graph-deploy@v0.1.5
