@@ -25,12 +25,20 @@ Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
 Our subgraphs: 
 * **Kovan** 
-  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
-  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan
+  * **Develop**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan-develop
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan-develop
+  * **Production**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan
 
 * **Xdai**
-  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
-  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
+  * **Develop**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai-develop
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai-develop
+  * **Production**
+    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
+    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
 
 
 
