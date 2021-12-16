@@ -267,9 +267,9 @@ dataSources:
     name: BalancerLP
     network: kovan
     source:
-      address: "0x1ee71e1ed744ae6d4058f5c7797c2e583dbfb095"
+      address: "0x81343c08cccd0e13f3c49c8270c93edc5f3d0fc6"
       abi: MinimalERC20
-      startBlock: 27853090
+      startBlock: 28783480
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
