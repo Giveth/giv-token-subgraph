@@ -78,8 +78,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: list-files
-        run: ls src/xdai
       - name: Install
         run: yarn --frozen-lockfile
       - name: Codegen
@@ -102,8 +100,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: list-files
-        run: ls src/xdai
       - name: Install
         run: yarn --frozen-lockfile
       - name: Codegen
