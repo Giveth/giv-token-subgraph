@@ -48,9 +48,6 @@ dataSources:
           handler: handleRoleRevoked
         - event: StartTimeChanged(uint256,uint256)
           handler: handleStartTimeChanged
-      callHandlers:
-        - function: initialize(uint256,uint256,uint256,uint256,uint256,address,bool)
-          handler: handleInitialize
 
       file: ./src/mappings/tokenDistroMapping.ts
 
@@ -115,9 +112,6 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      callHandlers:
-        - function: initialize(address,address,uint256)
-          handler: handleInitialize
 
       file: ./src/mappings/balancerLiquidityMiningMapping.ts
 
@@ -152,9 +146,6 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      callHandlers:
-        - function: initialize(address,address,uint256)
-          handler: handleInitialize
 
       file: ./src/mappings/givLiquidityMiningMapping.ts
 
