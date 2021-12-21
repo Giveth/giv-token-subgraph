@@ -6,6 +6,8 @@ export function handleInitialize(event: Initialize): void {
   const poolContract = UniswapV3Pool.bind(event.address);
   const liquidity = poolContract.liquidity();
   const pool = new Pool(event.address.toHex());
+  pool.token0 = poolContract.token0().toHex();
+  pool.token1 = poolContract.token1().toHex();
   pool.sqrtPriceX96 = event.params.sqrtPriceX96;
   pool.tick = BigInt.fromI32(event.params.tick);
   pool.liquidity = liquidity;

@@ -26,6 +26,9 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     const uniswapStakedPosition = new UniswapPosition(tokenId);
     uniswapStakedPosition.tokenId = tokenId;
     uniswapStakedPosition.liquidity = positions.value7;
+    uniswapStakedPosition.token0 = token0;
+    uniswapStakedPosition.token1 = token1;
+    uniswapStakedPosition.tokenURI = contract.tokenURI(event.params.tokenId);
     uniswapStakedPosition.tickLower = positions.value5.toString();
     uniswapStakedPosition.tickUpper = positions.value6.toString();
     uniswapStakedPosition.owner = owner;
