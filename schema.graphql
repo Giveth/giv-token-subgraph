@@ -70,9 +70,12 @@ type Price @entity {
 type UniswapPosition @entity {
     id: ID!
     tokenId: String!
+    token0: String!
+    token1: String!
     liquidity: BigInt!
     tickLower: String!
     tickUpper: String!
+    tokenURI: String!
     owner: String!
     staker: String
     staked: Boolean
@@ -80,6 +83,8 @@ type UniswapPosition @entity {
 
 type UniswapV3Pool @entity {
     id: ID!
+    token0: String!
+    token1: String!
     sqrtPriceX96: BigInt!
     tick: BigInt!
     liquidity: BigInt!
