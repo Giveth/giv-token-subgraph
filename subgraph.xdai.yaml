@@ -280,8 +280,5 @@ dataSources:
           handler: handleStaked
         - event: Withdrawn(indexed address,uint256)
           handler: handleWithdrawn
-      callHandlers:
-        - function: initialize(address,address,uint256)
-          handler: handleInitialize
 
       file: ./src/mappings/givLiquidityMiningMapping.ts
