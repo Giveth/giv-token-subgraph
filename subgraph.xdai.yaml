@@ -254,8 +254,8 @@ dataSources:
     name: GivLiquidityMiningTokenDistributor
     network: xdai
     source:
-      address: "0x448d5E09620752f031Ea629993050f8581118438"
-      startBlock: 19713026
+      address: "0x898Baa558A401e59Cb2aA77bb8b2D89978Cf506F"
+      startBlock: 19713038
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
