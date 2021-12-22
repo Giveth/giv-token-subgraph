@@ -11,7 +11,7 @@ dataSources:
       address: "0x373bAa19E92F6204b461b791094012fd259996F4"
       abi: TokenDistro
       startBlock: 28896896
-mapping:
+    mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
