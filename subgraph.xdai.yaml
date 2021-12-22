@@ -9,6 +9,7 @@ dataSources:
     name: MerkleDistro
     network: xdai
     source:
+      # xdai MerkleDistributor
       address: "0x06BA4122FC4F3AbCdAFD2fF1dD83A88A63842309"
       abi: MerkleDistro
       startBlock: 19713011
@@ -33,6 +34,7 @@ dataSources:
     name: TokenDistro
     network: xdai
     source:
+      # xDai Token Distro
       address: "0x74B557bec1A496a8E9BE57e9A1530A15364C87Be"
       abi: TokenDistro
       startBlock: 19713005
@@ -78,6 +80,7 @@ dataSources:
     name: SushiSwapLm
     network: xdai
     source:
+      # xDai UNI LM (ETH/GIV)
       address: "0x448d5E09620752f031Ea629993050f8581118438"
       startBlock: 19713026
       abi: UnipoolTokenDistributor
@@ -111,6 +114,7 @@ dataSources:
     name: HoneyswapLm
     network: xdai
     source:
+      # xDai UNI LM (HNY/GIV)
       address: "0x34F8Cc88b872f13d32084464af56f1052A2eF0f6"
       startBlock: 19713018
       abi: UnipoolTokenDistributor
@@ -177,6 +181,7 @@ dataSources:
     name: GIV
     network: xdai
     source:
+      # xDai Token (DRGIV2)
       address: "0x780FE5de651a3ea62E572f591BF848cFEBaf2163"
       abi: GIV
       startBlock: 19711044
@@ -207,6 +212,7 @@ dataSources:
     name: SushiSwapLpToken
     network: xdai
     source:
+      # xDai SushiSwap (GIV/WETH)
       address: "0x0346B748Ce9bdd42995452b5D30b46c296336f07"
       abi: SushiSwapLpToken
       startBlock: 19711732
@@ -232,6 +238,7 @@ dataSources:
     name: HoneyswapLP
     network: xdai
     source:
+      # xDai Honeyswap (GIV/HNY)
       address: "0xE5021d9B578b84f7D272CFDE3E8B58c0Bf37B402"
       abi: MinimalERC20
       startBlock: 19711564
@@ -254,6 +261,7 @@ dataSources:
     name: GivLiquidityMiningTokenDistributor
     network: xdai
     source:
+      # xDai GIV LM (Garden Unipool)
       address: "0x898Baa558A401e59Cb2aA77bb8b2D89978Cf506F"
       startBlock: 19713038
       abi: UnipoolTokenDistributor
