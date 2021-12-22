@@ -8,6 +8,7 @@ dataSources:
     name: TokenDistro
     network: kovan
     source:
+      # kovan Token Distro
       address: "0xA43C366b0360Da3A6021a91991652cc8806423dB"
       abi: TokenDistro
       startBlock: 28801770
@@ -55,6 +56,7 @@ dataSources:
     name: UniswapV3RewardToken
     network: kovan
     source:
+      # kovan Uniswap Reward Token
       address: "0x43A440176FDB70aA3730564B0D1e435628f61D3F"
       abi: UniswapV3RewardToken
       startBlock: 28801783
@@ -85,6 +87,7 @@ dataSources:
     name: BalancerLiquidityMiningTokenDistributor
     network: kovan
     source:
+      # kovan BAL LM
       address: "0x9aF8e5FF803D64f1e10688413e75C656d883Ca70"
       startBlock: 28801793
       abi: UnipoolTokenDistributor
@@ -119,6 +122,7 @@ dataSources:
     name: GivLiquidityMiningTokenDistributor
     network: kovan
     source:
+      # kovan GIV LM
       address: "0xbDD6F1865E882a412D88d903cDB2817d919B0d36"
       startBlock: 28801810
       abi: UnipoolTokenDistributor
@@ -153,6 +157,7 @@ dataSources:
     name: GIV
     network: kovan
     source:
+      # kovan Token (DRGIV2)
       address: "0x900d7e4985461ef158f04ca2Ef1aBd136c620DA0"
       abi: GIV
       startBlock: 28769098
@@ -233,6 +238,7 @@ dataSources:
     network: kovan
     source:
       # I dont know where come from this address, it's not in Notion
+      # Uniswap (ETH/GIV), Pool Address
       address: "0x05f9c5ccc01bc4658516b664be14fb89121c9d15"
       abi: UniswapV3Pool
       startBlock: 28783242
@@ -258,6 +264,7 @@ dataSources:
     name: BalancerLP
     network: kovan
     source:
+      # kovan BAL(20%WETH - 80% GIV)
       address: "0x81343c08cccd0e13f3c49c8270c93edc5f3d0fc6"
       abi: MinimalERC20
       startBlock: 28783480
