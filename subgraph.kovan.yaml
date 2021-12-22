@@ -9,7 +9,7 @@ dataSources:
     network: kovan
     source:
       # kovan Token Distro
-      address: "0x373bAa19E92F6204b461b791094012fd259996F4"
+      address: ""
       abi: TokenDistro
       startBlock: 28896896
     mapping:
@@ -57,7 +57,7 @@ dataSources:
     network: kovan
     source:
       # kovan Uniswap Reward Token
-      address: "0x6397b874BC81c4c9bEb8D8f2a0fd121b304F21B2"
+      address: ""
       abi: UniswapV3RewardToken
       startBlock: 28896903
     mapping:
@@ -88,7 +88,7 @@ dataSources:
     network: kovan
     source:
       # kovan BAL LM
-      address: "0xc3092EeED159be05dF1c103e3CaAC3DacAe1EdF9"
+      address: ""
       startBlock: 28896918
       abi: UnipoolTokenDistributor
     mapping:
@@ -123,7 +123,7 @@ dataSources:
     network: kovan
     source:
       # kovan GIV LM
-      address: "0xDfdBDA44b2b9C113475a372c078aAC1279C4d7BE"
+      address: ""
       startBlock: 28896934
       abi: UnipoolTokenDistributor
     mapping:
@@ -158,7 +158,7 @@ dataSources:
     network: kovan
     source:
       # kovan Token (DRGIV2)
-      address: "0x6c16216484069C19530a57762AD6630fB678D00E"
+      address: "0x29434A25abd94AE882aA883eea81585Aaa5b078D"
       abi: GIV
       startBlock: 28895444
     mapping:
@@ -238,7 +238,7 @@ dataSources:
     network: kovan
     source:
       # Uniswap (ETH/GIV), Pool Address
-      address: "0x05f9c5ccc01bc4658516b664be14fb89121c9d15"
+      address: "0x3c2455a3ee0d824941c9329c01a66b86078c3e82"
       abi: UniswapV3Pool
       startBlock: 28783242
     mapping:
@@ -264,7 +264,7 @@ dataSources:
     network: kovan
     source:
       # kovan BAL(20%WETH - 80% GIV)
-      address: "0x02653cae0cad6b3cd73e7dbc4f7a3ce6693c3ed7"
+      address: "0x8a6b25e33b12d1bb6929a8793961076bd1f9d3eb"
       abi: MinimalERC20
       startBlock: 28895593
     mapping:

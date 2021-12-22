@@ -10,7 +10,7 @@ dataSources:
     network: xdai
     source:
       # xdai MerkleDistributor
-      address: "0x06BA4122FC4F3AbCdAFD2fF1dD83A88A63842309"
+      address: ""
       abi: MerkleDistro
       startBlock: 19713011
     mapping:
@@ -35,7 +35,7 @@ dataSources:
     network: xdai
     source:
       # xDai Token Distro
-      address: "0x74B557bec1A496a8E9BE57e9A1530A15364C87Be"
+      address: ""
       abi: TokenDistro
       startBlock: 19713005
     mapping:
@@ -81,7 +81,7 @@ dataSources:
     network: xdai
     source:
       # xDai UNI LM (ETH/GIV)
-      address: "0x448d5E09620752f031Ea629993050f8581118438"
+      address: ""
       startBlock: 19713026
       abi: UnipoolTokenDistributor
     mapping:
@@ -115,7 +115,7 @@ dataSources:
     network: xdai
     source:
       # xDai UNI LM (HNY/GIV)
-      address: "0x34F8Cc88b872f13d32084464af56f1052A2eF0f6"
+      address: ""
       startBlock: 19713018
       abi: UnipoolTokenDistributor
     mapping:
@@ -182,7 +182,7 @@ dataSources:
     network: xdai
     source:
       # xDai Token (DRGIV2)
-      address: "0x780FE5de651a3ea62E572f591BF848cFEBaf2163"
+      address: "0x83a8eea6427985C523a0c4d9d3E62C051B6580d3"
       abi: GIV
       startBlock: 19711044
     mapping:
@@ -213,7 +213,7 @@ dataSources:
     network: xdai
     source:
       # xDai SushiSwap (GIV/WETH)
-      address: "0x0346B748Ce9bdd42995452b5D30b46c296336f07"
+      address: "0x437B0da7932b21F54488fD80Ee09b519a6f4d8AD"
       abi: SushiSwapLpToken
       startBlock: 19711732
     mapping:
@@ -239,7 +239,7 @@ dataSources:
     network: xdai
     source:
       # xDai Honeyswap (GIV/HNY)
-      address: "0xE5021d9B578b84f7D272CFDE3E8B58c0Bf37B402"
+      address: "0x31A5AeA76Af79F592a3A3F46a9f6Cb118990433b"
       abi: MinimalERC20
       startBlock: 19711564
     mapping:
@@ -262,7 +262,7 @@ dataSources:
     network: xdai
     source:
       # xDai GIV LM (Garden Unipool)
-      address: "0x898Baa558A401e59Cb2aA77bb8b2D89978Cf506F"
+      address: ""
       startBlock: 19713038
       abi: UnipoolTokenDistributor
     mapping:
