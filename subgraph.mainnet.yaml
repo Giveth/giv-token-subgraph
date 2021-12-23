@@ -241,7 +241,7 @@ dataSources:
       # Uniswap (ETH/GIV), Pool Address
       address: "0xc763b6b3d0f75167db95daa6a0a0d75dd467c4e1"
       abi: UniswapV3Pool
-      startBlock:
+      startBlock: 13821537
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -267,7 +267,7 @@ dataSources:
       # mainnet BAL(20%WETH - 80% GIV)
       address: "0x7819f1532c49388106f7762328c51ee70edd134c"
       abi: MinimalERC20
-      startBlock:
+      startBlock: 13816861
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -289,7 +289,7 @@ dataSources:
       # https://github.com/BrightID/fairdrop/blob/main/src/utils/constants.ts
       address: "0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d"
       abi: UniswapV3Staker
-      startBlock:
+      startBlock: 12723374
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -314,7 +314,7 @@ dataSources:
       # https://github.com/BrightID/fairdrop/blob/main/src/utils/constants.ts
       address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
       abi: UniswapV3PositionsNFT
-      startBlock:
+      startBlock: 12723374
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
