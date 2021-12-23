@@ -12,7 +12,11 @@ const fee: i32 = 3000;
 export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
   const contract = UniswapV3PositionsNFT.bind(event.address);
   const tokenId = event.params.tokenId.toString();
-  const positions = contract.positions(event.params.tokenId);
+  const positionsResult = contract.try_positions(event.params.tokenId);
+  if (positionsResult.reverted) {
+    return;
+  }
+  const positions = positionsResult.value;
   const token0 = positions.value2.toHex();
   const token1 = positions.value3.toHex();
 

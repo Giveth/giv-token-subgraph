@@ -289,7 +289,7 @@ dataSources:
       # https://github.com/BrightID/fairdrop/blob/main/src/utils/constants.ts
       address: "0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d"
       abi: UniswapV3Staker
-      startBlock: 12723374
+      startBlock: 13821537
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -314,7 +314,7 @@ dataSources:
       # https://github.com/BrightID/fairdrop/blob/main/src/utils/constants.ts
       address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
       abi: UniswapV3PositionsNFT
-      startBlock: 12723374
+      startBlock: 13821537
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
