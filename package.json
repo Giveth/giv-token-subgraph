@@ -4,9 +4,10 @@
   "scripts": {
     "lint": "eslint --max-warnings 0 . --ext .ts",
     "codegen:kovan": "graph codegen subgraph.kovan.yaml",
+    "codegen:mainnet": "graph codegen subgraph.mainnet.yaml",
     "codegen:xdai": "graph codegen subgraph.xdai.yaml",
     "codegen": "yarn codegen:xdai && yarn codegen:kovan && yarn codegen:mainnet",
-    "build:mainnet": "NETWORK=mainnet graph build subgraph.mainnet.yaml",
+    "build:mainnet": "graph build subgraph.mainnet.yaml",
     "build:kovan": "graph build subgraph.kovan.yaml",
     "build:xdai": "graph build subgraph.xdai.yaml",
     "build": "yarn build:xdai && yarn build:kovan && build:mainnet",

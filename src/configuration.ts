@@ -3,7 +3,7 @@
 // Mainnet https://www.notion.so/giveth/Deployment-52935e6579034f1b940bbef161e82229
 
 //kovan, Uniswap Reward Token, Incentive Id:
-export const UNISWAP_V3_INCENTIVE_ID ='0x07421267a74d7dc99279300571a9eb5035c96b6807c1a2a8d5ff284d065c3d24'
+export const UNISWAP_V3_INCENTIVE_ID = '0x07421267a74d7dc99279300571a9eb5035c96b6807c1a2a8d5ff284d065c3d24';
 
 //kovan, Uniswap (ETH/GIV)
 export const UNISWAP_V3_POOL_ADDRESS = '0xc763b6b3d0f75167db95daa6a0a0d75dd467c4e1';

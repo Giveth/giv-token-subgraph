@@ -26,6 +26,7 @@ Online graphql client link: You can go here https://graphiql-online.com/graphiql
 Our subgraphs: 
 * **Mainnet**
   * **Production**
+    * https://api.thegraph.com/studio/subgraph/giv-economy-mainnet
     * https://thegraph.com/studio/subgraph/giv-economy-mainnet
     
 * **Kovan** 
