@@ -24,6 +24,14 @@ https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
 Our subgraphs: 
+* **Mainnet** 
+  * **Develop**
+    * 
+    * https://thegraph.com/studio/subgraph/giv-economy-mainnet-develop
+  * **Production**
+    * 
+    * https://thegraph.com/studio/subgraph/giv-economy-mainnet
+    
 * **Kovan** 
   * **Develop**
     * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan-develop
