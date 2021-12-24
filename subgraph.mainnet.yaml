@@ -157,7 +157,7 @@ dataSources:
     name: GIV
     network: mainnet
     source:
-      # mainnet Token (DRGIV2)
+      # mainnet Token (DRGIV2)https://thegraph.com/hosted-service/dashboard
       address: "0x900db999074d9277c5da2a43f252d74366230da0"
       abi: GIV
       startBlock: 13862875

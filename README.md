@@ -26,9 +26,9 @@ Online graphql client link: You can go here https://graphiql-online.com/graphiql
 Our subgraphs: 
 * **Mainnet**
   * **Production**
-    * https://api.studio.thegraph.com/query/13351/giv-economy-mainnet/0.0.2
-    * https://thegraph.com/studio/subgraph/giv-economy-mainnet
-    
+    * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-mainnet
+    * https://thegraph.com/explorer/subgraph/giveth/giveth-economy-mainnet
+
 * **Kovan** 
   * **Develop**
     * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan-develop
@@ -42,8 +42,8 @@ Our subgraphs:
     * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai-develop
     * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai-develop
   * **Production**
-    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
-    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
+    * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai
+    * https://thegraph.com/explorer/subgraph/giveth/giveth-economy-xdai
 
 
 
@@ -85,6 +85,7 @@ Query sample:
 ```
 {
   balances( first: 10 ) {
+    id 
     balance
     allocatedTokens
     claimed
