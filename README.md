@@ -20,6 +20,23 @@
 You can see the smart contracts here
 https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
 
+## Get subgraphs info
+* **URL**: https://api.thegraph.com/index-node/graphql
+* Query sample
+```
+query{
+  indexingStatusForCurrentVersion(subgraphName: "giveth/giveth-economy-mainnet"){
+    subgraph
+    synced
+    health
+    entityCount
+    node
+  }
+}
+```
+
+
+
 ## Test
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
