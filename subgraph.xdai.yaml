@@ -184,7 +184,8 @@ dataSources:
       # xDai Token (DRGIV2)
       address: "0x4f4F9b8D5B4d0Dc10506e5551B0513B61fD59e75"
       abi: GIV
-      startBlock: 19611189
+      # First transaction of giv token minus one
+      startBlock: 19612044
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
