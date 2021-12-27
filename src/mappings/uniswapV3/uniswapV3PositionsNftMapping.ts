@@ -2,17 +2,26 @@ import {
   IncreaseLiquidity,
   UniswapV3PositionsNFT,
   Transfer,
+  DecreaseLiquidity,
 } from '../../../generated/UniswapV3PositionsNFT/UniswapV3PositionsNFT';
 import { UniswapPosition } from '../../../generated/schema';
 import { MAINNET_GIV_TOKEN_ADDRESS, MAINNET_WETH_TOKEN_ADDRESS } from '../../configuration';
-import { log } from '@graphprotocol/graph-ts/index';
+import { BigInt } from '@graphprotocol/graph-ts';
 
 const fee: i32 = 3000;
 
 export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
+  const tokenId = event.params.tokenId;
+  const uniswapToken = UniswapPosition.load(tokenId.toString());
+  if (uniswapToken) {
+    uniswapToken.liquidity = uniswapToken.liquidity.plus(event.params.liquidity);
+    uniswapToken.closed = false;
+    uniswapToken.txHash = event.transaction.hash.toHex();
+    uniswapToken.save();
+    return;
+  }
   const contract = UniswapV3PositionsNFT.bind(event.address);
-  const tokenId = event.params.tokenId.toString();
-  const positions = contract.positions(event.params.tokenId);
+  const positions = contract.positions(tokenId);
   const token0 = positions.value2.toHex();
   const token1 = positions.value3.toHex();
 
@@ -23,8 +32,8 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
   //value4 is fee
   if (positions.value4 == fee && isGivEthLiquidity == true) {
     const owner = contract.ownerOf(event.params.tokenId).toHex();
-    const uniswapStakedPosition = new UniswapPosition(tokenId);
-    uniswapStakedPosition.tokenId = tokenId;
+    const uniswapStakedPosition = new UniswapPosition(tokenId.toString());
+    uniswapStakedPosition.tokenId = tokenId.toString();
     uniswapStakedPosition.liquidity = positions.value7;
     uniswapStakedPosition.token0 = token0;
     uniswapStakedPosition.token1 = token1;
@@ -32,8 +41,25 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     uniswapStakedPosition.tickLower = positions.value5.toString();
     uniswapStakedPosition.tickUpper = positions.value6.toString();
     uniswapStakedPosition.owner = owner;
+    uniswapStakedPosition.txHash = event.transaction.hash.toHex();
+    uniswapStakedPosition.closed = false;
     uniswapStakedPosition.save();
   }
+}
+
+export function handleDecreaseLiquidity(event: DecreaseLiquidity): void {
+  const tokenId = event.params.tokenId;
+  const uniswapStakedPosition = UniswapPosition.load(tokenId.toString());
+  if (!uniswapStakedPosition) {
+    // In decrease we dont check token0, token1, we just check if we have it we know it's our NFT otherwise we do nothing
+    return;
+  }
+  uniswapStakedPosition.liquidity = uniswapStakedPosition.liquidity.minus(event.params.liquidity);
+  uniswapStakedPosition.txHash = event.transaction.hash.toHex();
+  if (uniswapStakedPosition.liquidity.equals(BigInt.fromString('0'))) {
+    uniswapStakedPosition.closed = true;
+  }
+  uniswapStakedPosition.save();
 }
 
 export function handleTransfer(event: Transfer): void {

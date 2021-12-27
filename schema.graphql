@@ -80,6 +80,8 @@ type UniswapPosition @entity {
     owner: String!
     staker: String
     staked: Boolean
+    closed: Boolean
+    txHash: String
 }
 
 type UniswapV3Pool @entity {
