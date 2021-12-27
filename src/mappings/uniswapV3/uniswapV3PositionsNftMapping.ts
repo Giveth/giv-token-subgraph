@@ -16,7 +16,6 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
   if (uniswapToken) {
     uniswapToken.liquidity = uniswapToken.liquidity.plus(event.params.liquidity);
     uniswapToken.closed = false;
-    uniswapToken.txHash = event.transaction.hash.toHex();
     uniswapToken.save();
     return;
   }
@@ -41,7 +40,6 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     uniswapStakedPosition.tickLower = positions.value5.toString();
     uniswapStakedPosition.tickUpper = positions.value6.toString();
     uniswapStakedPosition.owner = owner;
-    uniswapStakedPosition.txHash = event.transaction.hash.toHex();
     uniswapStakedPosition.closed = false;
     uniswapStakedPosition.save();
   }
@@ -55,7 +53,6 @@ export function handleDecreaseLiquidity(event: DecreaseLiquidity): void {
     return;
   }
   uniswapStakedPosition.liquidity = uniswapStakedPosition.liquidity.minus(event.params.liquidity);
-  uniswapStakedPosition.txHash = event.transaction.hash.toHex();
   if (uniswapStakedPosition.liquidity.equals(BigInt.fromString('0'))) {
     uniswapStakedPosition.closed = true;
   }
