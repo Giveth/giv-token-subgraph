@@ -204,6 +204,7 @@ Query sample:
     tickUpper
     owner
     staker
+    closed
   }
 }
 ```

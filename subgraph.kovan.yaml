@@ -8,10 +8,10 @@ dataSources:
     name: TokenDistro
     network: kovan
     source:
-      # kovan Token Distro
-      address: "0xA43C366b0360Da3A6021a91991652cc8806423dB"
+      # kovan: Token Distro
+      address: "0x2C84Ab41b53C52959a794830fe296Fd717c33337"
       abi: TokenDistro
-      startBlock: 28801770
+      startBlock: 28901401
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -56,10 +56,10 @@ dataSources:
     name: UniswapV3RewardToken
     network: kovan
     source:
-      # kovan Uniswap Reward Token
-      address: "0x43A440176FDB70aA3730564B0D1e435628f61D3F"
+      # kovan: Uniswap Reward Token
+      address: "0xDfbb5C70006B357d30BB335f55a01e6b0151Bcb5"
       abi: UniswapV3RewardToken
-      startBlock: 28801783
+      startBlock: 28901409
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -87,9 +87,9 @@ dataSources:
     name: BalancerLiquidityMiningTokenDistributor
     network: kovan
     source:
-      # kovan BAL LM
-      address: "0x9aF8e5FF803D64f1e10688413e75C656d883Ca70"
-      startBlock: 28801793
+      # kovan: BAL LM (BAL 80/20 Unipool Instance)
+      address: "0x4B319c068685aF260c91407B651918307df30061"
+      startBlock: 28901423
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -122,9 +122,9 @@ dataSources:
     name: GivLiquidityMiningTokenDistributor
     network: kovan
     source:
-      # kovan GIV LM
-      address: "0xbDD6F1865E882a412D88d903cDB2817d919B0d36"
-      startBlock: 28801810
+      # kovan: GIV LM (GIV Staking Unipool Instance)
+      address: "0x17207684344B206A06BF8651d6e5e1833660418b"
+      startBlock: 28901438
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -157,10 +157,10 @@ dataSources:
     name: GIV
     network: kovan
     source:
-      # kovan Token (DRGIV2)
-      address: "0x900d7e4985461ef158f04ca2Ef1aBd136c620DA0"
+      # kovan: Token (DRGIV)
+      address: "0x29434A25abd94AE882aA883eea81585Aaa5b078D"
       abi: GIV
-      startBlock: 28769098
+      startBlock: 28898339
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -237,11 +237,10 @@ dataSources:
     name: UniswapV3Pool
     network: kovan
     source:
-      # I dont know where come from this address, it's not in Notion
       # Uniswap (ETH/GIV), Pool Address
-      address: "0x05f9c5ccc01bc4658516b664be14fb89121c9d15"
+      address: "0x3c2455a3ee0d824941c9329c01a66b86078c3e82"
       abi: UniswapV3Pool
-      startBlock: 28783242
+      startBlock: 28898483
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -264,10 +263,10 @@ dataSources:
     name: BalancerLP
     network: kovan
     source:
-      # kovan BAL(20%WETH - 80% GIV)
-      address: "0x81343c08cccd0e13f3c49c8270c93edc5f3d0fc6"
+      # kovan: BAL(20%WETH - 80% GIV)
+      address: "0x8a6b25e33b12d1bb6929a8793961076bd1f9d3eb"
       abi: MinimalERC20
-      startBlock: 28783480
+      startBlock: 28898529
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -288,7 +287,7 @@ dataSources:
     source:
       address: "0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d"
       abi: UniswapV3Staker
-      startBlock: 28783242
+      startBlock: 25735931
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -312,6 +311,7 @@ dataSources:
     source:
       address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
       abi: UniswapV3PositionsNFT
+      # It's not our contract, so not needed to set start block to contract creation block
       startBlock: 28683241
     mapping:
       kind: ethereum/events
@@ -319,6 +319,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - IncreaseLiquidity
+        - DecreaseLiquidity
         - Transfer
       abis:
         - name: UniswapV3PositionsNFT
@@ -326,6 +327,8 @@ dataSources:
       eventHandlers:
         - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
           handler: handleIncreaseLiquidity
+        - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleDecreaseLiquidity
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mappings/uniswapV3/uniswapV3PositionsNftMapping.ts
