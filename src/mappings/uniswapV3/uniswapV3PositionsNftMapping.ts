@@ -30,13 +30,13 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
 
   //value4 is fee
   if (positions.value4 == fee && isGivEthLiquidity == true) {
-    const owner = contract.ownerOf(event.params.tokenId).toHex();
+    const owner = contract.ownerOf(tokenId).toHex();
     const uniswapStakedPosition = new UniswapPosition(tokenId.toString());
     uniswapStakedPosition.tokenId = tokenId.toString();
     uniswapStakedPosition.liquidity = positions.value7;
     uniswapStakedPosition.token0 = token0;
     uniswapStakedPosition.token1 = token1;
-    uniswapStakedPosition.tokenURI = contract.tokenURI(event.params.tokenId);
+    uniswapStakedPosition.tokenURI = contract.tokenURI(tokenId);
     uniswapStakedPosition.tickLower = positions.value5.toString();
     uniswapStakedPosition.tickUpper = positions.value6.toString();
     uniswapStakedPosition.owner = owner;
