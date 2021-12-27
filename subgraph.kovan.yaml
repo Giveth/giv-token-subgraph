@@ -319,7 +319,6 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - IncreaseLiquidity
-        - DecreaseLiquidity
         - Transfer
       abis:
         - name: UniswapV3PositionsNFT
@@ -327,8 +326,6 @@ dataSources:
       eventHandlers:
         - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
           handler: handleIncreaseLiquidity
-        - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
-          handler: handleDecreaseLiquidity
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mappings/uniswapV3/uniswapV3PositionsNftMapping.ts
