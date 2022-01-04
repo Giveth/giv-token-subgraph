@@ -41,8 +41,8 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     uniswapStakedPosition.token0 = token0;
     uniswapStakedPosition.token1 = token1;
     uniswapStakedPosition.tokenURI = contract.tokenURI(tokenId);
-    uniswapStakedPosition.tickLower = positions.value5.toString();
-    uniswapStakedPosition.tickUpper = positions.value6.toString();
+    uniswapStakedPosition.tickLower = positions.value5;
+    uniswapStakedPosition.tickUpper = positions.value6;
     uniswapStakedPosition.owner = owner;
     uniswapStakedPosition.closed = false;
     uniswapStakedPosition.save();
