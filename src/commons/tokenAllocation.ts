@@ -1,6 +1,7 @@
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { GIVBACK } from '../helpers/constants';
+import { TokenDistro } from '../../generated/TokenDistro/TokenDistro';
 
 export function saveTokenAllocation(
   recipient: string,
@@ -41,8 +42,11 @@ export function updateTokenAllocationDistributor(txHash: string, distributor: st
   }
 }
 
-export function onGivBackPaid(txHash: string): void {
+export function onGivBackPaid(txHash: string, contractAddress: Address): void {
   const transactionTokenAllocations = TransactionTokenAllocation.load(txHash);
+  const tokenDistroContract = TokenDistro.bind(contractAddress);
+  // You can call smart contract functions here
+
   if (!transactionTokenAllocations) {
     return;
   }

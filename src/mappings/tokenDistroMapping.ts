@@ -35,7 +35,7 @@ export function handleClaim(event: Claim): void {
 }
 
 export function handleGivBackPaid(event: GivBackPaid): void {
-  onGivBackPaid(event.transaction.hash.toHex());
+  onGivBackPaid(event.transaction.hash.toHex(), event.address);
 }
 
 export function handleRoleAdminChanged(event: RoleAdminChanged): void {}
