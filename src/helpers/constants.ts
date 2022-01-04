@@ -9,3 +9,4 @@ export const GARDEN_POOL = 'gardenPool';
 export const GIV_ETH = 'givETH';
 export const GIV_HNY = 'givHNYPool';
 export const GIVBACK = 'givback';
+export const GIVDROP = 'givdrop';
