@@ -41,28 +41,3 @@ export function updateTokenAllocationDistributor(txHash: string, distributor: st
     entity.save();
   }
 }
-
-export function onGivBackPaid(txHash: string, contractAddress: Address): void {
-  const transactionTokenAllocations = TransactionTokenAllocation.load(txHash);
-  const tokenDistroContract = TokenDistro.bind(contractAddress);
-  // You can call smart contract functions here
-
-  if (!transactionTokenAllocations) {
-    return;
-  }
-  for (let i = 0; i < transactionTokenAllocations.tokenAllocationIds.length; i++) {
-    const tokenAllocation = TokenAllocation.load(transactionTokenAllocations.tokenAllocationIds[i]);
-    if (!tokenAllocation) {
-      continue;
-    }
-    tokenAllocation.givback = true;
-    tokenAllocation.distributor = GIVBACK;
-    tokenAllocation.save();
-    const balance = Balance.load(tokenAllocation.recipient);
-    if (!balance) {
-      continue;
-    }
-    balance.givback = balance.givback.plus(tokenAllocation.amount);
-    balance.save();
-  }
-}
