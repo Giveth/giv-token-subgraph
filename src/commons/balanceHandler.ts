@@ -155,6 +155,7 @@ export function addClaimed(to: string, value: BigInt): void {
   }
   toBalance.claimed = toBalance.claimed.plus(value);
   toBalance.givback = BigInt.zero();
+  toBalance.givbackLiquidPart = BigInt.zero();
   toBalance.save();
 }
 
