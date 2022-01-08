@@ -15,6 +15,7 @@ import { addAllocatedTokens, addClaimed } from '../commons/balanceHandler';
 import { createTokenDistroContractInfoIfNotExists } from '../commons/TokenDistroHandler';
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
 import { GIVBACK } from '../helpers/constants';
+import { BigInt, log } from '@graphprotocol/graph-ts';
 
 export function handleAllocate(event: Allocate): void {
   saveTokenAllocation(
@@ -31,7 +32,34 @@ export function handleAssign(event: Assign): void {
   createTokenDistroContractInfoIfNotExists(event.address);
 }
 
-export function handleChangeAddress(event: ChangeAddress): void {}
+export function handleChangeAddress(event: ChangeAddress): void {
+  const oldBalance = Balance.load(event.params.oldAddress.toHex());
+  if (!oldBalance) {
+    log.debug('Change Address oldAddress {} balance is null!', [event.params.oldAddress.toHex()]);
+    return;
+  }
+  let newBalance = Balance.load(event.params.newAddress.toHex());
+  if (!newBalance) {
+    newBalance = new Balance(event.params.newAddress.toHex());
+  }
+
+  // New Address allocatedTokens amount should be zero
+  newBalance.allocatedTokens = oldBalance.allocatedTokens;
+  oldBalance.allocatedTokens = BigInt.zero();
+
+  // New Address claimed amount should be zero
+  newBalance.claimed = oldBalance.claimed;
+  oldBalance.claimed = BigInt.zero();
+
+  newBalance.givback = newBalance.givback.plus(oldBalance.givback);
+  oldBalance.givback = BigInt.zero();
+
+  newBalance.givbackLiquidPart = newBalance.givbackLiquidPart.plus(oldBalance.givbackLiquidPart);
+  oldBalance.givbackLiquidPart = BigInt.zero();
+
+  oldBalance.save();
+  newBalance.save();
+}
 
 export function handleClaim(event: Claim): void {
   addClaimed(event.params.grantee.toHex(), event.params.amount);
