@@ -215,7 +215,7 @@ dataSources:
     source:
       # xDai SushiSwap (GIV/WETH)
       address: "0x55FF0cef43F0DF88226E9D87D09fA036017F5586"
-      abi: SushiSwapLpToken
+      abi: UniswapV2Pair
       startBlock: 19612212
     mapping:
       kind: ethereum/events
@@ -225,8 +225,8 @@ dataSources:
         - Sync
         - Transfer
       abis:
-        - name: SushiSwapLpToken
-          file: ./abis/SushiSwapLpToken.json
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
       eventHandlers:
         - event: Sync(uint112,uint112)
           handler: handleSync

@@ -13,7 +13,7 @@ type TransactionTokenAllocation @entity {
     tokenAllocationIds : [String!]!
 }
 
-type Balance @entity{
+type Balance @entity {
     id: ID!
     balance: BigInt!
     allocatedTokens: BigInt!
@@ -41,6 +41,14 @@ type Balance @entity{
     givDropClaimed: Boolean!
 }
 
+type Pair @entity {
+    id: ID!
+    reserve0: BigInt!
+    reserve1: BigInt!
+    token0: String!
+    token1: String!
+}
+
 type UnipoolContractInfo @entity {
     id: ID!
     periodFinish: BigInt
@@ -58,15 +66,6 @@ type TokenDistroContractInfo @entity {
     duration: BigInt
     initialAmount: BigInt
     lockedAmount: BigInt
-}
-
-type Price @entity {
-    id: ID!
-    from: String!
-    to: String!
-    value: BigInt!
-    source: String!
-    blockTimeStamp: BigInt
 }
 
 type UniswapPosition @entity {
@@ -91,5 +90,4 @@ type UniswapV3Pool @entity {
     sqrtPriceX96: BigInt!
     tick: BigInt!
     liquidity: BigInt!
-    stakedLiquidity: BigInt!
 }
