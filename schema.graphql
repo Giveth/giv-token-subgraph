@@ -91,5 +91,4 @@ type UniswapV3Pool @entity {
     sqrtPriceX96: BigInt!
     tick: BigInt!
     liquidity: BigInt!
-    stakedLiquidity: BigInt!
 }
