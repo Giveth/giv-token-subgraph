@@ -1,13 +1,15 @@
-//https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
+// Kovan,Xdai https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
 
-// kovan: Uniswap Reward Token, Incentive Id:
-export const UNISWAP_V3_INCENTIVE_ID = '0xe95ce1ce8cc1078b98ea9585ea7e54af8b8f75cd4051267820ab3028af7514fd';
+// Mainnet https://www.notion.so/giveth/Deployment-52935e6579034f1b940bbef161e82229
 
-// kovan: Uniswap (ETH/GIV) Pool Address
-export const UNISWAP_V3_POOL_ADDRESS = '0x3c2455a3ee0d824941c9329c01a66b86078c3e82';
+//kovan, Uniswap Reward Token, Incentive Id:
+export const UNISWAP_V3_INCENTIVE_ID = '0x07421267a74d7dc99279300571a9eb5035c96b6807c1a2a8d5ff284d065c3d24';
 
-// kovan: Token (DRGIV)
-export const MAINNET_GIV_TOKEN_ADDRESS = '0x29434A25abd94AE882aA883eea81585Aaa5b078D';
+//kovan, Uniswap (ETH/GIV)
+export const UNISWAP_V3_POOL_ADDRESS = '0xc763b6b3d0f75167db95daa6a0a0d75dd467c4e1';
 
-// kovan: WETH (Uniswap)
-export const MAINNET_WETH_TOKEN_ADDRESS = '0xd0a1e359811322d97991e03f863a0c30c2cf029c';
+// kovan Token (DRGIV2)
+export const MAINNET_GIV_TOKEN_ADDRESS = '0x900db999074d9277c5da2a43f252d74366230da0';
+
+// kovan WETH (Uniswap)
+export const MAINNET_WETH_TOKEN_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
