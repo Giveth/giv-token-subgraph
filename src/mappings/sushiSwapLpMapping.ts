@@ -3,7 +3,7 @@ import { Pair } from '../../generated/schema';
 import { Transfer } from '../../generated/GIV/GIV';
 import { onTransfer } from '../commons/balanceHandler';
 import { SUSHISWAP_LP } from '../helpers/constants';
-import { UniswapV2Pair } from '../../generated/uniswapV2Pair/uniswapV2Pair';
+import { UniswapV2Pair } from "../../generated/SushiSwapLpToken/UniswapV2Pair";
 
 export function handleTransfer(event: Transfer): void {
   onTransfer(event.params.from.toHex(), event.params.to.toHex(), event.params.value, SUSHISWAP_LP);
