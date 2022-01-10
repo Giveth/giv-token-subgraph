@@ -7,6 +7,7 @@
     "codegen:kovan": "graph codegen subgraph.kovan.yaml",
     "codegen:xdai": "graph codegen subgraph.xdai.yaml",
     "codegen": "yarn codegen:xdai && yarn codegen:kovan",
+    "clean": "rm -r generated build",
     "build:kovan": "graph build subgraph.kovan.yaml",
     "build:xdai": "graph build subgraph.xdai.yaml",
     "build": "yarn build:xdai && yarn build:kovan",
