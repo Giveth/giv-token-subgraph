@@ -251,6 +251,8 @@ dataSources:
       abis:
         - name: UniswapV3Pool
           file: ./abis/UniswapV3Pool.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
       eventHandlers:
         # We don't need this event handler, but data source should have at least one event handler
         - event: Initialize(uint160,int24)
@@ -276,6 +278,8 @@ dataSources:
       abis:
         - name: MinimalERC20
           file: ./abis/MinimalERC20.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
@@ -324,6 +328,8 @@ dataSources:
       abis:
         - name: UniswapV3PositionsNFT
           file: ./abis/uniswapV3PositionsNFT.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
       eventHandlers:
         - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
           handler: handleIncreaseLiquidity
