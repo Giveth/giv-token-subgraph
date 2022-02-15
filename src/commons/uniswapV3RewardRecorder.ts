@@ -13,11 +13,6 @@ class UniswapV3IncentiveKey extends UniswapV3Staker__getRewardInfoInputKeyStruct
     for (let i = 0; i < tuple.length; i++) {
       this[i] = tuple[i];
     }
-    // this[0] = tuple[0];
-    // this[1] = tuple[1];
-    // this[2] = tuple[2];
-    // this[3] = tuple[3];
-    // this[4] = tuple[4];
   }
 }
 
