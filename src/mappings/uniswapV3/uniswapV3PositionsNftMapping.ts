@@ -5,9 +5,13 @@ import {
   DecreaseLiquidity,
 } from '../../../generated/UniswapV3PositionsNFT/UniswapV3PositionsNFT';
 import { UniswapInfinitePosition, UniswapPosition } from '../../../generated/schema';
-import { MAINNET_GIV_TOKEN_ADDRESS, MAINNET_WETH_TOKEN_ADDRESS, UNISWAP_INFINITE_POSITION } from '../../configuration';
-import { BigInt } from '@graphprotocol/graph-ts';
+import { MAINNET_GIV_TOKEN_ADDRESS, MAINNET_WETH_TOKEN_ADDRESS, networkUniswapV3Config } from '../../configuration';
+import { BigInt, dataSource } from '@graphprotocol/graph-ts';
 import { recordUniswapV3InfinitePositionReward } from '../../commons/uniswapV3RewardRecorder';
+
+const network = dataSource.network();
+
+const uniswapV3Config = network === 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
 
 const fee: i32 = 3000;
 
@@ -46,7 +50,7 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     uniswapStakedPosition.closed = false;
     uniswapStakedPosition.save();
 
-    if (UNISWAP_INFINITE_POSITION == tokenId.toString()) {
+    if (uniswapV3Config.UNISWAP_INFINITE_POSITION == tokenId.toString()) {
       const uniswapInfinitePosition = new UniswapInfinitePosition(tokenId.toString());
       uniswapInfinitePosition.lastRewardAmount = BigInt.zero();
       uniswapInfinitePosition.lastUpdateTimeStamp = event.block.timestamp;
