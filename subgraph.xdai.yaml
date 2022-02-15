@@ -1,0 +1,294 @@
+# Contract Addresses: https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
+
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+
+  - kind: ethereum/contract
+    name: MerkleDistro
+    network: xdai
+    source:
+      # xdai MerkleDistributor
+      address: "0xFad63adEFb8203F7605F25f6a921c8bf45604A5e"
+      abi: MerkleDistro
+      startBlock: 19731578
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Claimed
+        - OwnershipTransferred
+      abis:
+        - name: MerkleDistro
+          file: ./abis/MerkleDistro.json
+      eventHandlers:
+        - event: Claimed(uint256,address,address,uint256)
+          handler: handleClaimed
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mappings/merkleDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: TokenDistro
+    network: xdai
+    source:
+      # xDai Token Distro
+      address: "0xc0dbDcA66a0636236fAbe1B3C16B1bD4C84bB1E1"
+      abi: TokenDistro
+      startBlock: 19731573
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Allocate
+        - Assign
+        - ChangeAddress
+        - Claim
+        - GivBackPaid
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StartTimeChanged
+      abis:
+        - name: TokenDistro
+          file: ./abis/TokenDistro.json
+      eventHandlers:
+        - event: Allocate(indexed address,indexed address,uint256)
+          handler: handleAllocate
+        - event: Assign(indexed address,indexed address,uint256)
+          handler: handleAssign
+        - event: ChangeAddress(indexed address,indexed address)
+          handler: handleChangeAddress
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: GivBackPaid(address)
+          handler: handleGivBackPaid
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StartTimeChanged(uint256,uint256)
+          handler: handleStartTimeChanged
+      file: ./src/mappings/tokenDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: SushiSwapLm
+    network: xdai
+    source:
+      # xDai UNI LM (ETH/GIV)
+      address: "0xfB429010C1e9D08B7347F968a7d88f0207807EF0"
+      startBlock: 19731591
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/mappings/sushiSwapLmMapping.ts
+
+  - kind: ethereum/contract
+    name: HoneyswapLm
+    network: xdai
+    source:
+      # xDai UNI LM (HNY/GIV)
+      address: "0x4B9EfAE862a1755F7CEcb021856D467E86976755"
+      startBlock: 19731583
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/mappings/honeyswapLmMapping.ts
+
+  #  - kind: ethereum/contract
+  #    name: GardenUnipoolTokenDistributor
+  #    network: xdai
+  #    source:
+  #      address: "0x860C72092b7FBca277F94ba1Df11e33043724eAF"
+  #      startBlock: 19133741
+  #      abi: UnipoolTokenDistributor
+  #    mapping:
+  #      kind: ethereum/events
+  #      apiVersion: 0.0.5
+  #      language: wasm/assemblyscript
+  #      entities:
+  #        - OwnershipTransferred
+  #        - RewardAdded
+  #        - RewardPaid
+  #        - Staked
+  #        - Withdrawn
+  #      abis:
+  #        - name: UnipoolTokenDistributor
+  #          file: ./abis/UnipoolTokenDistributor.json
+  #      eventHandlers:
+  #        - event: OwnershipTransferred(indexed address,indexed address)
+  #          handler: handleOwnershipTransferred
+  #        - event: RewardAdded(uint256)
+  #          handler: handleRewardAdded
+  #        - event: RewardPaid(indexed address,uint256)
+  #          handler: handleRewardPaid
+  #        - event: Staked(indexed address,uint256)
+  #          handler: handleStaked
+  #        - event: Withdrawn(indexed address,uint256)
+  #          handler: handleWithdrawn
+  #      file: ./src/mappings/gardenUnipoolTokenDistributorMapping.ts
+
+  - kind: ethereum/contract
+    name: GIV
+    network: xdai
+    source:
+      # xDai Token (DRGIV2)
+      address: "0x4f4F9b8D5B4d0Dc10506e5551B0513B61fD59e75"
+      abi: GIV
+      # First transaction of giv token minus one
+      startBlock: 19611188
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - AuthorizationUsed
+        - ChangeMinter
+        - Transfer
+      abis:
+        - name: GIV
+          file: ./abis/GIV.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: AuthorizationUsed(indexed address,indexed bytes32)
+          handler: handleAuthorizationUsed
+        - event: ChangeMinter(indexed address)
+          handler: handleChangeMinter
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/givTokenMapping.ts
+
+  - kind: ethereum/contract
+    name: SushiSwapLpToken
+    network: xdai
+    source:
+      # xDai SushiSwap (GIV/WETH)
+      address: "0x55FF0cef43F0DF88226E9D87D09fA036017F5586"
+      abi: UniswapV2Pair
+      startBlock: 19612212
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Sync
+        - Transfer
+      abis:
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
+      eventHandlers:
+        - event: Sync(uint112,uint112)
+          handler: handleSync
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/sushiSwapLpMapping.ts
+
+
+  - kind: ethereum/contract
+    name: HoneyswapLP
+    network: xdai
+    source:
+      # xDai Honeyswap (GIV/HNY)
+      address: "0x08ea9f608656A4a775EF73f5B187a2F1AE2ae10e"
+      abi: MinimalERC20
+      startBlock: 19612062
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/honeySwapLpMapping.ts
+
+
+  - kind: ethereum/contract
+    name: GivLiquidityMiningTokenDistributor
+    network: xdai
+    source:
+      # xDai GIV LM (Garden Unipool)
+      address: "0xD93d3bDBa18ebcB3317a57119ea44ed2Cf41C2F2"
+      startBlock: 19731598
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+
+      file: ./src/mappings/givLiquidityMiningMapping.ts
