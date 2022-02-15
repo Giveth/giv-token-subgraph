@@ -1,6 +1,6 @@
 import { TokenStaked, TokenUnstaked, UniswapV3Staker } from '../../../generated/UniswapV3Staker/UniswapV3Staker';
-import { UniswapPosition, UniswapV3Pool } from '../../../generated/schema';
-import { UNISWAP_V3_INCENTIVE_ID, UNISWAP_V3_POOL_ADDRESS } from '../../configuration';
+import { UniswapPosition } from '../../../generated/schema';
+import { UNISWAP_V3_INCENTIVE_ID } from '../../configuration';
 
 const uniswapRewardTokenIncentiveId = UNISWAP_V3_INCENTIVE_ID;
 

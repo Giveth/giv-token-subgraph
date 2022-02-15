@@ -4,9 +4,14 @@ import {
   Transfer,
   DecreaseLiquidity,
 } from '../../../generated/UniswapV3PositionsNFT/UniswapV3PositionsNFT';
-import { UniswapPosition } from '../../../generated/schema';
-import { MAINNET_GIV_TOKEN_ADDRESS, MAINNET_WETH_TOKEN_ADDRESS } from '../../configuration';
-import { BigInt } from '@graphprotocol/graph-ts';
+import { UniswapInfinitePosition, UniswapPosition } from '../../../generated/schema';
+import { MAINNET_GIV_TOKEN_ADDRESS, MAINNET_WETH_TOKEN_ADDRESS, networkUniswapV3Config } from '../../configuration';
+import { BigInt, dataSource } from '@graphprotocol/graph-ts';
+import { recordUniswapV3InfinitePositionReward } from '../../commons/uniswapV3RewardRecorder';
+
+const network = dataSource.network();
+
+const uniswapV3Config = network == 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
 
 const fee: i32 = 3000;
 
@@ -17,6 +22,8 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     uniswapToken.liquidity = uniswapToken.liquidity.plus(event.params.liquidity);
     uniswapToken.closed = false;
     uniswapToken.save();
+
+    recordUniswapV3InfinitePositionReward(event.block.timestamp);
     return;
   }
   const contract = UniswapV3PositionsNFT.bind(event.address);
@@ -46,6 +53,15 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     uniswapStakedPosition.owner = owner;
     uniswapStakedPosition.closed = false;
     uniswapStakedPosition.save();
+
+    if (uniswapV3Config.UNISWAP_INFINITE_POSITION == tokenId.toString()) {
+      const uniswapInfinitePosition = new UniswapInfinitePosition(tokenId.toString());
+      uniswapInfinitePosition.lastRewardAmount = BigInt.zero();
+      uniswapInfinitePosition.lastUpdateTimeStamp = event.block.timestamp;
+      uniswapInfinitePosition.save();
+    } else {
+      recordUniswapV3InfinitePositionReward(event.block.timestamp);
+    }
   }
 }
 
@@ -61,6 +77,8 @@ export function handleDecreaseLiquidity(event: DecreaseLiquidity): void {
     uniswapStakedPosition.closed = true;
   }
   uniswapStakedPosition.save();
+
+  recordUniswapV3InfinitePositionReward(event.block.timestamp);
 }
 
 export function handleTransfer(event: Transfer): void {

@@ -91,3 +91,9 @@ type UniswapV3Pool @entity {
     tick: BigInt!
     liquidity: BigInt!
 }
+
+type UniswapInfinitePosition @entity {
+    id: ID!
+    lastUpdateTimeStamp: BigInt!
+    lastRewardAmount: BigInt!
+}
