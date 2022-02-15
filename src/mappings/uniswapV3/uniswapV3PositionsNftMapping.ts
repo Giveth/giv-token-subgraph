@@ -27,7 +27,11 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     return;
   }
   const contract = UniswapV3PositionsNFT.bind(event.address);
-  const positions = contract.positions(tokenId);
+  const positionsResult = contract.try_positions(tokenId);
+  if (positionsResult.reverted) {
+    return;
+  }
+  const positions = positionsResult.value;
   const token0 = positions.value2.toHex();
   const token1 = positions.value3.toHex();
 
