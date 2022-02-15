@@ -28,8 +28,7 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.16.0",
     "@graphprotocol/graph-cli": "0.23.1",
-    "@graphprotocol/graph-ts": "0.23.1",
-    "source-map-support": "^0.5.21"
+    "@graphprotocol/graph-ts": "0.23.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.1.1",
