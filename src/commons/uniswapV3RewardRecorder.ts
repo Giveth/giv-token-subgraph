@@ -24,7 +24,7 @@ class UniswapV3IncentiveKey extends UniswapV3Staker__getRewardInfoInputKeyStruct
 const network = dataSource.network();
 
 const uniswapV3Config: IUniswapV3Config =
-  network === 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
+  network == 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
 
 const UNISWAP_V3_INCENTIVE: Array<ethereum.Value> = [
   ethereum.Value.fromAddress(Address.fromString(uniswapV3Config.UNISWAP_V3_REWARD_TOKEN)),

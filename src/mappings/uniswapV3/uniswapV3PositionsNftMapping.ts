@@ -11,7 +11,7 @@ import { recordUniswapV3InfinitePositionReward } from '../../commons/uniswapV3Re
 
 const network = dataSource.network();
 
-const uniswapV3Config = network === 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
+const uniswapV3Config = network == 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
 
 const fee: i32 = 3000;
 
