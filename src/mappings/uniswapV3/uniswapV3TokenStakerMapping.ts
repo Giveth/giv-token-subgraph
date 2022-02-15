@@ -1,8 +1,13 @@
 import { TokenStaked, TokenUnstaked, UniswapV3Staker } from '../../../generated/UniswapV3Staker/UniswapV3Staker';
 import { UniswapPosition } from '../../../generated/schema';
-import { UNISWAP_V3_INCENTIVE_ID } from '../../configuration';
+import { networkUniswapV3Config } from '../../configuration';
+import { dataSource } from '@graphprotocol/graph-ts';
 
-const uniswapRewardTokenIncentiveId = UNISWAP_V3_INCENTIVE_ID;
+const network = dataSource.network();
+
+const uniswapV3Config = network == 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
+
+const uniswapRewardTokenIncentiveId = uniswapV3Config.UNISWAP_V3_INCENTIVE_ID;
 
 export function handleTokenStaked(event: TokenStaked): void {
   const incentiveId = event.params.incentiveId.toHex();
