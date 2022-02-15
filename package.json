@@ -17,6 +17,8 @@
     "build:develop": "yarn build:xdai:develop && yarn build:kovan",
     "deploy:kovan": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan subgraph.kovan.yaml",
     "deploy:kovan:develop": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan-develop subgraph.kovan.yaml",
+    "deploy:xdai:develop": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai-develop subgraph.xdai.develop.yaml",
+    "deploy:xdai:deployment7": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai-deployment-seven subgraph.xdai.develop.yaml",
     "deploy:xdai": "graph deploy --product hosted-service giveth/giveth-economy-xdai subgraph.xdai.yaml",
     "deploy:xdai:develop": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai-develop subgraph.xdai.develop.yaml",
     "deploy:mainnet": "graph deploy  --product hosted-service  giveth/giveth-economy-mainnet subgraph.mainnet.yaml",
