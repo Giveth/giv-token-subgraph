@@ -34,14 +34,14 @@ const UNISWAP_V3_INCENTIVE: Array<ethereum.Value> = [
   ethereum.Value.fromAddress(Address.fromString(uniswapV3Config.INCENTIVE_REFUNDEE_ADDRESS)),
 ];
 
-const intensiveKey = new UniswapV3IncentiveKey(UNISWAP_V3_INCENTIVE);
+const incentiveKey = new UniswapV3IncentiveKey(UNISWAP_V3_INCENTIVE);
 
 export function recordUniswapV3InfinitePositionReward(timestamp: BigInt): void {
   const position = UniswapInfinitePosition.load(uniswapV3Config.UNISWAP_INFINITE_POSITION);
   if (position) {
     const contract = UniswapV3Staker.bind(Address.fromString(uniswapV3Config.UNISWAP_V3_STAKER_ADDRESS));
     const result = contract.try_getRewardInfo(
-      intensiveKey,
+      incentiveKey,
       BigInt.fromString(uniswapV3Config.UNISWAP_INFINITE_POSITION)
     );
     if (result.reverted) {
