@@ -5,7 +5,7 @@ import {
   DecreaseLiquidity,
 } from '../../../generated/UniswapV3PositionsNFT/UniswapV3PositionsNFT';
 import { UniswapInfinitePosition, UniswapPosition } from '../../../generated/schema';
-import { MAINNET_GIV_TOKEN_ADDRESS, MAINNET_WETH_TOKEN_ADDRESS, networkUniswapV3Config } from '../../configuration';
+import { networkUniswapV3Config } from '../../configuration';
 import { BigInt, dataSource } from '@graphprotocol/graph-ts';
 import { recordUniswapV3InfinitePositionReward } from '../../commons/uniswapV3RewardRecorder';
 
@@ -36,8 +36,10 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
   const token1 = positions.value3.toHex();
 
   const isGivEthLiquidity: boolean =
-    (token0 == MAINNET_GIV_TOKEN_ADDRESS.toLowerCase() && token1 == MAINNET_WETH_TOKEN_ADDRESS.toLowerCase()) ||
-    (token0 == MAINNET_WETH_TOKEN_ADDRESS.toLowerCase() && token1 == MAINNET_GIV_TOKEN_ADDRESS.toLowerCase());
+    (token0 == uniswapV3Config.MAINNET_GIV_TOKEN_ADDRESS.toLowerCase() &&
+      token1 == uniswapV3Config.MAINNET_WETH_TOKEN_ADDRESS.toLowerCase()) ||
+    (token0 == uniswapV3Config.MAINNET_WETH_TOKEN_ADDRESS.toLowerCase() &&
+      token1 == uniswapV3Config.MAINNET_GIV_TOKEN_ADDRESS.toLowerCase());
 
   //value4 is fee
   if (positions.value4 == fee && isGivEthLiquidity == true) {
