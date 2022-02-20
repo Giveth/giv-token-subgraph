@@ -10,6 +10,8 @@ export const GIV_ETH = 'givETH';
 export const GIV_HNY = 'givHNYPool';
 export const GIVBACK = 'givback';
 export const GIVDROP = 'givdrop';
+export const FOX_HNY_LIQUIDITY = 'foxHnyLM';
+export const FOX_HNY_LP = 'foxHnyLp';
 
 export const GIV_TOKEN_DISTRO = 'GIV_TOKEN_DISTRO';
 export const FOX_TOKEN_DISTRO = 'FOX_TOKEN_DISTRO';

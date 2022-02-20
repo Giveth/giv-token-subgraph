@@ -3,6 +3,8 @@ import { Balance } from '../../generated/schema';
 import {
   BALANCER_LIQUIDITY,
   BALANCER_LP,
+  FOX_HNY_LIQUIDITY,
+  FOX_HNY_LP,
   FOX_TOKEN_DISTRO,
   GIV_ETH,
   GIV_HNY,
@@ -47,6 +49,11 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
       toBalance.honeyswapLp = toBalance.honeyswapLp.plus(value);
       originalFromValue = fromBalance.honeyswapLp;
       fromBalance.honeyswapLp = fromBalance.honeyswapLp.minus(value);
+      break;
+    case distributor === FOX_HNY_LP:
+      toBalance.foxHnyLp = toBalance.foxHnyLp.plus(value);
+      originalFromValue = fromBalance.foxHnyLp;
+      fromBalance.foxHnyLp = fromBalance.foxHnyLp.minus(value);
       break;
     case distributor == null:
       toBalance.balance = toBalance.balance.plus(value);
@@ -140,6 +147,24 @@ export function onGivWithdrawal(userAddress: string, withdrawnValue: BigInt): vo
   balance.save();
 }
 
+export function handleFoxHnyLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+  const balance = Balance.load(userAddress);
+  if (!balance) {
+    return;
+  }
+  balance.foxHnyLpStaked = balance.foxHnyLpStaked.minus(withdrawnValue);
+  balance.save();
+}
+export function handleFoxHnyLpStaked(userAddress: string, stakedValue: BigInt): void {
+  let balance = Balance.load(userAddress);
+  if (balance) {
+    balance.foxHnyLpStaked = balance.foxHnyLpStaked.plus(stakedValue);
+    balance.save();
+  } else {
+    log.error('User who stake should had some transfer events before', []);
+  }
+}
+
 export function addAllocatedTokens(to: string, value: BigInt, tokenDistroType: string): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
@@ -198,6 +223,9 @@ export function updateRewards(userAddress: string, contractAddress: Address, dis
       balance.rewardPerTokenPaidGivLm = userRewardPerTokenPaid;
       balance.rewardsGivLm = rewards;
       break;
+    case distributor === FOX_HNY_LIQUIDITY:
+      balance.rewardPerTokenPaidFoxHnyLm = userRewardPerTokenPaid;
+      balance.rewardsFoxHnyLm = rewards;
   }
   balance.save();
 }

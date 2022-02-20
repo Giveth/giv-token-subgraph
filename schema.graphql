@@ -41,6 +41,10 @@ type Balance @entity {
     givDropClaimed: Boolean!
     foxAllocatedTokens: BigInt!
     foxClaimed: BigInt!
+    rewardPerTokenPaidFoxHnyLm: BigInt
+    rewardsFoxHnyLm: BigInt
+    foxHnyLp: BigInt!
+    foxHnyLpStaked: BigInt!
 }
 
 type Pair @entity {

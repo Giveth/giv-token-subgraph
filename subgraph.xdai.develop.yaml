@@ -291,3 +291,60 @@ dataSources:
           handler: handleWithdrawn
 
       file: ./src/mappings/givLiquidityMiningMapping.ts
+
+  - kind: ethereum/contract
+    name: FoxHnyLm
+    network: xdai
+    source:
+      # xDai: UNIPOOL LM (FOX/HNY)
+      address: "0x06851400866e065972ff21e1ECdE035b4772736d"
+      startBlock: 20735379
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/mappings/foxHnyLmMapping.ts
+
+  - kind: ethereum/contract
+    name: FoxHnyLP
+    network: xdai
+    source:
+      # xDai: Honeyswap (GIV/HNY)
+      address: "0xD28C07F802212F04AF41834ec0CC81d2d283124B"
+      abi: MinimalERC20
+      startBlock: 20732925
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/honeySwapLpMapping.ts
+

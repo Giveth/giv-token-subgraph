@@ -1,7 +1,7 @@
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
-import { FOX_TOKEN_DISTRO, GIV_TOKEN_DISTRO, GIVBACK } from '../helpers/constants';
-import { Allocate, ChangeAddress, TokenDistro } from '../../generated/TokenDistro/TokenDistro';
+import { BigInt, log } from '@graphprotocol/graph-ts';
+import { FOX_TOKEN_DISTRO, GIV_TOKEN_DISTRO } from '../helpers/constants';
+import { Allocate, ChangeAddress } from '../../generated/TokenDistro/TokenDistro';
 import { addAllocatedTokens } from './balanceHandler';
 
 export function saveTokenAllocation(
