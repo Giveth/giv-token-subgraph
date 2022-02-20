@@ -10,22 +10,14 @@ import {
   StartTimeChanged,
   TokenDistro,
 } from '../../generated/TokenDistro/TokenDistro';
-import { saveTokenAllocation } from '../commons/tokenAllocation';
-import { addAllocatedTokens, addClaimed } from '../commons/balanceHandler';
+import { onAllocate, onChangeAddress } from '../commons/tokenAllocation';
+import { addClaimed } from '../commons/balanceHandler';
 import { createTokenDistroContractInfoIfNotExists } from '../commons/TokenDistroHandler';
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
-import { GIVBACK } from '../helpers/constants';
-import { BigInt, log } from '@graphprotocol/graph-ts';
+import { GIV_TOKEN_DISTRO, GIVBACK } from '../helpers/constants';
 
 export function handleAllocate(event: Allocate): void {
-  saveTokenAllocation(
-    event.params.grantee.toHex(),
-    event.transaction.hash.toHex(),
-    event.transactionLogIndex,
-    event.params.amount,
-    event.block.timestamp
-  );
-  addAllocatedTokens(event.params.grantee.toHex(), event.params.amount);
+  onAllocate(event, GIV_TOKEN_DISTRO);
 }
 
 export function handleAssign(event: Assign): void {
@@ -33,36 +25,11 @@ export function handleAssign(event: Assign): void {
 }
 
 export function handleChangeAddress(event: ChangeAddress): void {
-  const oldBalance = Balance.load(event.params.oldAddress.toHex());
-  if (!oldBalance) {
-    log.debug('Change Address oldAddress {} balance is null!', [event.params.oldAddress.toHex()]);
-    return;
-  }
-  let newBalance = Balance.load(event.params.newAddress.toHex());
-  if (!newBalance) {
-    newBalance = new Balance(event.params.newAddress.toHex());
-  }
-
-  // New Address allocatedTokens amount should be zero
-  newBalance.allocatedTokens = oldBalance.allocatedTokens;
-  oldBalance.allocatedTokens = BigInt.zero();
-
-  // New Address claimed amount should be zero
-  newBalance.claimed = oldBalance.claimed;
-  oldBalance.claimed = BigInt.zero();
-
-  newBalance.givback = newBalance.givback.plus(oldBalance.givback);
-  oldBalance.givback = BigInt.zero();
-
-  newBalance.givbackLiquidPart = newBalance.givbackLiquidPart.plus(oldBalance.givbackLiquidPart);
-  oldBalance.givbackLiquidPart = BigInt.zero();
-
-  oldBalance.save();
-  newBalance.save();
+  onChangeAddress(event, GIV_TOKEN_DISTRO);
 }
 
 export function handleClaim(event: Claim): void {
-  addClaimed(event.params.grantee.toHex(), event.params.amount);
+  addClaimed(event.params.grantee.toHex(), event.params.amount, GIV_TOKEN_DISTRO);
 }
 
 export function handleGivBackPaid(event: GivBackPaid): void {

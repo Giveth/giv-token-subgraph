@@ -39,6 +39,8 @@ type Balance @entity {
     givStaked: BigInt!
     allocationCount: BigInt!
     givDropClaimed: Boolean!
+    foxAllocatedTokens: BigInt!
+    foxClaimed: BigInt!
 }
 
 type Pair @entity {

@@ -3,9 +3,11 @@ import { Balance } from '../../generated/schema';
 import {
   BALANCER_LIQUIDITY,
   BALANCER_LP,
+  FOX_TOKEN_DISTRO,
   GIV_ETH,
   GIV_HNY,
   GIV_LIQUIDITY,
+  GIV_TOKEN_DISTRO,
   HONEYSWAP_LP,
   SUSHISWAP_LP,
   ZERO_ADDRESS,
@@ -138,24 +140,36 @@ export function onGivWithdrawal(userAddress: string, withdrawnValue: BigInt): vo
   balance.save();
 }
 
-export function addAllocatedTokens(to: string, value: BigInt): void {
+export function addAllocatedTokens(to: string, value: BigInt, tokenDistroType: string): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
     toBalance = new Balance(to);
   }
-  toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
-  toBalance.allocationCount = toBalance.allocationCount.plus(BigInt.fromI32(1));
+  if (tokenDistroType === GIV_TOKEN_DISTRO) {
+    toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
+    toBalance.allocationCount = toBalance.allocationCount.plus(BigInt.fromI32(1));
+  } else if (tokenDistroType === FOX_TOKEN_DISTRO) {
+    toBalance.foxAllocatedTokens = toBalance.foxAllocatedTokens.plus(value);
+  } else {
+    log.error('Token Distro Type is not defined {}', [tokenDistroType]);
+  }
   toBalance.save();
 }
 
-export function addClaimed(to: string, value: BigInt): void {
+export function addClaimed(to: string, value: BigInt, tokenDistroType: string): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
     toBalance = new Balance(to);
   }
-  toBalance.claimed = toBalance.claimed.plus(value);
-  toBalance.givback = BigInt.zero();
-  toBalance.givbackLiquidPart = BigInt.zero();
+  if (tokenDistroType === GIV_TOKEN_DISTRO) {
+    toBalance.claimed = toBalance.claimed.plus(value);
+    toBalance.givback = BigInt.zero();
+    toBalance.givbackLiquidPart = BigInt.zero();
+  } else if (tokenDistroType === FOX_TOKEN_DISTRO) {
+    toBalance.foxClaimed = toBalance.foxClaimed.plus(value);
+  } else {
+    log.error('Token Distro Type is not defined {}', [tokenDistroType]);
+  }
   toBalance.save();
 }
 
