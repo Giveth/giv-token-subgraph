@@ -314,8 +314,6 @@ dataSources:
         - name: UnipoolTokenDistributor
           file: ./abis/UnipoolTokenDistributor.json
       eventHandlers:
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
         - event: RewardAdded(uint256)
           handler: handleRewardAdded
         - event: RewardPaid(indexed address,uint256)
@@ -346,5 +344,48 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/mappings/honeySwapLpMapping.ts
+      file: ./src/mappings/foxHnyLpMapping.ts
+
+  - kind: ethereum/contract
+    name: FoxTokenDistro
+    network: xdai
+    source:
+      # xDai: Fox Token Distro
+      address: "0xCA29ec6F4218E230294993E0d77d5ece5a6573D8"
+      abi: TokenDistro
+      startBlock: 20735375
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Allocate
+        - Assign
+        - ChangeAddress
+        - Claim
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StartTimeChanged
+      abis:
+        - name: TokenDistro
+          file: ./abis/TokenDistro.json
+      eventHandlers:
+        - event: Allocate(indexed address,indexed address,uint256)
+          handler: handleAllocate
+        - event: Assign(indexed address,indexed address,uint256)
+          handler: handleAssign
+        - event: ChangeAddress(indexed address,indexed address)
+          handler: handleChangeAddress
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StartTimeChanged(uint256,uint256)
+          handler: handleStartTimeChanged
+      file: ./src/mappings/foxTokenDistroMapping.ts
 
