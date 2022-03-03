@@ -4,16 +4,30 @@ import {
   Transfer,
   DecreaseLiquidity,
 } from '../../../generated/UniswapV3PositionsNFT/UniswapV3PositionsNFT';
-import { UniswapInfinitePosition, UniswapPosition } from '../../../generated/schema';
+import { UniswapInfinitePosition, UniswapPosition, UniswapV3Pool as Pool } from '../../../generated/schema';
 import { networkUniswapV3Config } from '../../configuration';
-import { BigInt, dataSource } from '@graphprotocol/graph-ts';
+import { Address, BigInt, dataSource, log } from '@graphprotocol/graph-ts';
 import { recordUniswapV3InfinitePositionReward } from '../../commons/uniswapV3RewardRecorder';
+import { UniswapV3Pool } from '../../../generated/UniswapV3Pool/UniswapV3Pool';
 
 const network = dataSource.network();
 
 const uniswapV3Config = network == 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
 
 const fee: i32 = 3000;
+
+function updateUniswapV3PoolLiquidity(): void {
+  const pool = Pool.load(uniswapV3Config.UNISWAP_V3_POOL_ADDRESS.toLowerCase());
+  if (!pool) {
+    log.error('Increase/Decrease liquidity: UniswapV3Pool {} does not saved', [
+      uniswapV3Config.UNISWAP_V3_POOL_ADDRESS,
+    ]);
+    return;
+  }
+  const poolContract = UniswapV3Pool.bind(Address.fromString(uniswapV3Config.UNISWAP_V3_POOL_ADDRESS));
+  pool.liquidity = poolContract.liquidity();
+  pool.save();
+}
 
 export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
   const tokenId = event.params.tokenId;
@@ -64,6 +78,8 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
     } else {
       recordUniswapV3InfinitePositionReward(event.block.timestamp);
     }
+
+    updateUniswapV3PoolLiquidity();
   }
 }
 
@@ -81,6 +97,7 @@ export function handleDecreaseLiquidity(event: DecreaseLiquidity): void {
   uniswapStakedPosition.save();
 
   recordUniswapV3InfinitePositionReward(event.block.timestamp);
+  updateUniswapV3PoolLiquidity();
 }
 
 export function handleTransfer(event: Transfer): void {
