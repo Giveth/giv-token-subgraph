@@ -1,6 +1,6 @@
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
 import { BigInt, log } from '@graphprotocol/graph-ts';
-import { FOX_TOKEN_DISTRO, GIV_TOKEN_DISTRO } from '../helpers/constants';
+import { ELK_TOKEN_DISTRO, FOX_TOKEN_DISTRO, GIV_TOKEN_DISTRO } from '../helpers/constants';
 import { Allocate, ChangeAddress } from '../../generated/TokenDistro/TokenDistro';
 import { addAllocatedTokens } from './balanceHandler';
 
@@ -89,6 +89,14 @@ export function onChangeAddress(event: ChangeAddress, tokenDistroType: string): 
     // New Address claimed amount should be zero
     newBalance.foxClaimed = oldBalance.foxClaimed;
     oldBalance.foxClaimed = BigInt.zero();
+  } else if (tokenDistroType === ELK_TOKEN_DISTRO) {
+    // New Address allocatedTokens amount should be zero
+    newBalance.elkAllocatedTokens = oldBalance.elkAllocatedTokens;
+    oldBalance.elkAllocatedTokens = BigInt.zero();
+
+    // New Address claimed amount should be zero
+    newBalance.elkClaimed = oldBalance.elkClaimed;
+    oldBalance.elkClaimed = BigInt.zero();
   } else {
     log.error('Token Distro Type is not defined {}', [tokenDistroType]);
   }
