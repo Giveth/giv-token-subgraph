@@ -22,3 +22,5 @@ export const ELK_GIV_LP = 'elkGivLp';
 export const GIV_TOKEN_DISTRO = 'GIV_TOKEN_DISTRO';
 export const FOX_TOKEN_DISTRO = 'FOX_TOKEN_DISTRO';
 export const ELK_TOKEN_DISTRO = 'ELK_TOKEN_DISTRO';
+
+export const UNISWAP_POOL = 'uniswapPool';

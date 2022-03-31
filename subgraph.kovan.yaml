@@ -330,6 +330,8 @@ dataSources:
           file: ./abis/uniswapV3PositionsNFT.json
         - name: UniswapV3Staker
           file: ./abis/UniswapV3Staker.json
+        - name: UniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
       eventHandlers:
         - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
           handler: handleIncreaseLiquidity
