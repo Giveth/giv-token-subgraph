@@ -1,11 +1,18 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { Balance } from '../../generated/schema';
 import {
-  BALANCER_LIQUIDITY,
+  BALANCER_LM,
   BALANCER_LP,
-  GIV_ETH,
-  GIV_HNY,
-  GIV_LIQUIDITY,
+  ELK_TOKEN_DISTRO,
+  FOX_HNY_LM,
+  ELK_GIV_LM,
+  FOX_HNY_LP,
+  ELK_GIV_LP,
+  FOX_TOKEN_DISTRO,
+  GIV_ETH_LM,
+  GIV_HNY_LM,
+  GIV_LM,
+  GIV_TOKEN_DISTRO,
   HONEYSWAP_LP,
   SUSHISWAP_LP,
   ZERO_ADDRESS,
@@ -46,6 +53,16 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
       originalFromValue = fromBalance.honeyswapLp;
       fromBalance.honeyswapLp = fromBalance.honeyswapLp.minus(value);
       break;
+    case distributor === FOX_HNY_LP:
+      toBalance.foxHnyLp = toBalance.foxHnyLp.plus(value);
+      originalFromValue = fromBalance.foxHnyLp;
+      fromBalance.foxHnyLp = fromBalance.foxHnyLp.minus(value);
+      break;
+    case distributor === ELK_GIV_LP:
+      toBalance.elkGivLp = toBalance.elkGivLp.plus(value);
+      originalFromValue = fromBalance.elkGivLp;
+      fromBalance.elkGivLp = fromBalance.elkGivLp.minus(value);
+      break;
     case distributor == null:
       toBalance.balance = toBalance.balance.plus(value);
       originalFromValue = fromBalance.balance;
@@ -69,93 +86,102 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
   }
 }
 
-export function handleBalancerLpStaked(userAddress: string, stakedValue: BigInt): void {
+export function onStaked(userAddress: string, stakedValue: BigInt, contractName: string): void {
   let balance = Balance.load(userAddress);
-  if (balance) {
-    balance.balancerLpStaked = balance.balancerLpStaked.plus(stakedValue);
-    balance.save();
-  } else {
+  if (!balance) {
     log.error('User who stake should had some transfer events before', []);
+    return;
   }
+
+  switch (true) {
+    case contractName === BALANCER_LM:
+      balance.balancerLpStaked = balance.balancerLpStaked.plus(stakedValue);
+      break;
+
+    case contractName === GIV_ETH_LM:
+      balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.plus(stakedValue);
+      break;
+
+    case contractName === GIV_HNY_LM:
+      balance.honeyswapLpStaked = balance.honeyswapLpStaked.plus(stakedValue);
+      break;
+
+    case contractName === GIV_LM:
+      balance.givStaked = balance.givStaked.plus(stakedValue);
+      break;
+
+    case contractName === FOX_HNY_LM:
+      balance.foxHnyLpStaked = balance.foxHnyLpStaked.plus(stakedValue);
+      break;
+    case contractName === ELK_GIV_LM:
+      balance.elkGivLpStaked = balance.elkGivLpStaked.plus(stakedValue);
+      break;
+  }
+  balance.save();
 }
-export function handleBalancerLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
+
+export function onWithdraw(userAddress: string, withdrawnValue: BigInt, contractName: string): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
   }
-  balance.balancerLpStaked = balance.balancerLpStaked.minus(withdrawnValue);
-  balance.save();
-}
-export function onSushiswapStaked(userAddress: string, stakedValue: BigInt): void {
-  let balance = Balance.load(userAddress);
-  if (!balance) {
-    balance = new Balance(userAddress);
+  switch (true) {
+    case contractName === BALANCER_LM:
+      balance.balancerLpStaked = balance.balancerLpStaked.minus(withdrawnValue);
+      break;
+    case contractName === GIV_ETH_LM:
+      balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.minus(withdrawnValue);
+      break;
+    case contractName === GIV_HNY_LM:
+      balance.honeyswapLpStaked = balance.honeyswapLpStaked.minus(withdrawnValue);
+      break;
+    case contractName === GIV_LM:
+      balance.givStaked = balance.givStaked.minus(withdrawnValue);
+      break;
+    case contractName === FOX_HNY_LM:
+      balance.foxHnyLpStaked = balance.foxHnyLpStaked.minus(withdrawnValue);
+      break;
+    case contractName === ELK_GIV_LM:
+      balance.elkGivLpStaked = balance.elkGivLpStaked.minus(withdrawnValue);
+      break;
   }
-  balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.plus(stakedValue);
-  balance.save();
-}
-export function onSushiswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
-  const balance = Balance.load(userAddress);
-  if (!balance) {
-    return;
-  }
-  balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.minus(withdrawnValue);
   balance.save();
 }
 
-export function onHoneyswapStaked(userAddress: string, stakedValue: BigInt): void {
-  let balance = Balance.load(userAddress);
-  if (!balance) {
-    balance = new Balance(userAddress);
-  }
-  balance.honeyswapLpStaked = balance.honeyswapLpStaked.plus(stakedValue);
-
-  balance.save();
-}
-export function onHoneyswapLpWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
-  const balance = Balance.load(userAddress);
-  if (!balance) {
-    return;
-  }
-  balance.honeyswapLpStaked = balance.honeyswapLpStaked.minus(withdrawnValue);
-  balance.save();
-}
-
-export function onGivStaked(userAddress: string, stakedValue: BigInt): void {
-  let balance = Balance.load(userAddress);
-  if (!balance) {
-    balance = new Balance(userAddress);
-  }
-  balance.givStaked = balance.givStaked.plus(stakedValue);
-  balance.save();
-}
-export function onGivWithdrawal(userAddress: string, withdrawnValue: BigInt): void {
-  const balance = Balance.load(userAddress);
-  if (!balance) {
-    return;
-  }
-  balance.givStaked = balance.givStaked.minus(withdrawnValue);
-  balance.save();
-}
-
-export function addAllocatedTokens(to: string, value: BigInt): void {
+export function addAllocatedTokens(to: string, value: BigInt, tokenDistroType: string): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
     toBalance = new Balance(to);
   }
-  toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
-  toBalance.allocationCount = toBalance.allocationCount.plus(BigInt.fromI32(1));
+  if (tokenDistroType === GIV_TOKEN_DISTRO) {
+    toBalance.allocatedTokens = toBalance.allocatedTokens.plus(value);
+    toBalance.allocationCount = toBalance.allocationCount.plus(BigInt.fromI32(1));
+  } else if (tokenDistroType === FOX_TOKEN_DISTRO) {
+    toBalance.foxAllocatedTokens = toBalance.foxAllocatedTokens.plus(value);
+  } else if (tokenDistroType === ELK_TOKEN_DISTRO) {
+    toBalance.elkAllocatedTokens = toBalance.elkAllocatedTokens.plus(value);
+  } else {
+    log.error('Token Distro Type is not defined {}', [tokenDistroType]);
+  }
   toBalance.save();
 }
 
-export function addClaimed(to: string, value: BigInt): void {
+export function addClaimed(to: string, value: BigInt, tokenDistroType: string): void {
   let toBalance = Balance.load(to);
   if (!toBalance) {
     toBalance = new Balance(to);
   }
-  toBalance.claimed = toBalance.claimed.plus(value);
-  toBalance.givback = BigInt.zero();
-  toBalance.givbackLiquidPart = BigInt.zero();
+  if (tokenDistroType === GIV_TOKEN_DISTRO) {
+    toBalance.claimed = toBalance.claimed.plus(value);
+    toBalance.givback = BigInt.zero();
+    toBalance.givbackLiquidPart = BigInt.zero();
+  } else if (tokenDistroType === FOX_TOKEN_DISTRO) {
+    toBalance.foxClaimed = toBalance.foxClaimed.plus(value);
+  } else if (tokenDistroType === ELK_TOKEN_DISTRO) {
+    toBalance.elkClaimed = toBalance.elkClaimed.plus(value);
+  } else {
+    log.error('Token Distro Type is not defined {}', [tokenDistroType]);
+  }
   toBalance.save();
 }
 
@@ -168,21 +194,29 @@ export function updateRewards(userAddress: string, contractAddress: Address, dis
     balance = new Balance(userAddress);
   }
   switch (true) {
-    case distributor === BALANCER_LIQUIDITY:
+    case distributor === BALANCER_LM:
       balance.rewardPerTokenPaidBalancer = userRewardPerTokenPaid;
       balance.rewardsBalancer = rewards;
       break;
-    case distributor === GIV_ETH:
+    case distributor === GIV_ETH_LM:
       balance.rewardPerTokenPaidSushiSwap = userRewardPerTokenPaid;
       balance.rewardsSushiSwap = rewards;
       break;
-    case distributor === GIV_HNY:
+    case distributor === GIV_HNY_LM:
       balance.rewardPerTokenPaidHoneyswap = userRewardPerTokenPaid;
       balance.rewardsHoneyswap = rewards;
       break;
-    case distributor === GIV_LIQUIDITY:
+    case distributor === GIV_LM:
       balance.rewardPerTokenPaidGivLm = userRewardPerTokenPaid;
       balance.rewardsGivLm = rewards;
+      break;
+    case distributor === FOX_HNY_LM:
+      balance.rewardPerTokenPaidFoxHnyLm = userRewardPerTokenPaid;
+      balance.rewardsFoxHnyLm = rewards;
+      break;
+    case distributor === ELK_GIV_LM:
+      balance.rewardPerTokenPaidElkGivLm = userRewardPerTokenPaid;
+      balance.rewardsElkGivLm = rewards;
       break;
   }
   balance.save();

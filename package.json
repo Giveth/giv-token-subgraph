@@ -26,7 +26,8 @@
     "create-local": "graph create --node http://localhost:8020/ mohammadranjbarz/gardenUnipool",
     "remove-local": "graph remove --node http://localhost:8020/ mohammadranjbarz/gardenUnipool",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 mohammadranjbarz/gardenUnipool",
-    "deploy:mainnet:test": "graph deploy  --product hosted-service  aminlatifi/giveth-economy subgraph.mainnet.yaml"
+    "deploy:mainnet:test": "graph deploy  --product hosted-service  aminlatifi/giveth-economy subgraph.mainnet.yaml",
+    "deploy:xdai:test": "graph deploy  --product hosted-service  aminlatifi/giveth-economy-xdai subgraph.xdai.yaml"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.16.0",

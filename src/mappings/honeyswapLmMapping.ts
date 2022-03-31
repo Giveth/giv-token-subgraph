@@ -1,6 +1,6 @@
 import { onRewardAdded, onRewardPaid, onRewardUpdated } from '../commons/unipoolTokenDistributorHandler';
-import { GIV_HNY } from '../helpers/constants';
-import { onHoneyswapLpWithdrawal, onHoneyswapStaked } from '../commons/balanceHandler';
+import { GIV_HNY_LM } from '../helpers/constants';
+import { onWithdraw, onStaked } from '../commons/balanceHandler';
 import {
   OwnershipTransferred,
   RewardAdded,
@@ -16,15 +16,15 @@ export function handleRewardAdded(event: RewardAdded): void {
 }
 
 export function handleRewardPaid(event: RewardPaid): void {
-  onRewardPaid(event.address, event.transaction.hash.toHex(), event.params.user.toHex(), GIV_HNY);
+  onRewardPaid(event.address, event.transaction.hash.toHex(), event.params.user.toHex(), GIV_HNY_LM);
 }
 
 export function handleStaked(event: Staked): void {
-  onRewardUpdated(event.address, event.params.user.toHex(), GIV_HNY);
-  onHoneyswapStaked(event.params.user.toHex(), event.params.amount);
+  onRewardUpdated(event.address, event.params.user.toHex(), GIV_HNY_LM);
+  onStaked(event.params.user.toHex(), event.params.amount, GIV_HNY_LM);
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  onRewardUpdated(event.address, event.params.user.toHex(), GIV_HNY);
-  onHoneyswapLpWithdrawal(event.params.user.toHex(), event.params.amount);
+  onRewardUpdated(event.address, event.params.user.toHex(), GIV_HNY_LM);
+  onWithdraw(event.params.user.toHex(), event.params.amount, GIV_HNY_LM);
 }
