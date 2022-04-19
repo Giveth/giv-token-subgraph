@@ -3,10 +3,12 @@ export let ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const BALANCER_LP = 'balancerLp';
 export const SUSHISWAP_LP = 'shushiswapLp';
 export const HONEYSWAP_LP = 'honeyswapLp';
+export const UNISWAP_V2_GIV_DAI_LP = 'honeyswapLp';
 
 export const BALANCER_LM = 'balancerLm';
 export const GIV_ETH_LM = 'givEthLm';
 export const GIV_HNY_LM = 'givHnyLm';
+export const UNISWAP_V2_GIV_DAI_LM = 'uniswapV2GivDaiLm';
 export const GIV_LM = 'givLM';
 
 export const GARDEN_POOL = 'gardenPool';

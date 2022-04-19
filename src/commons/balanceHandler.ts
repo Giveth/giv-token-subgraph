@@ -16,6 +16,8 @@ import {
   HONEYSWAP_LP,
   SUSHISWAP_LP,
   ZERO_ADDRESS,
+  UNISWAP_V2_GIV_DAI_LP,
+  UNISWAP_V2_GIV_DAI_LM,
 } from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/BalancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
@@ -42,6 +44,11 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
       toBalance.balancerLp = toBalance.balancerLp.plus(value);
       originalFromValue = fromBalance.balancerLp;
       fromBalance.balancerLp = fromBalance.balancerLp.minus(value);
+      break;
+    case distributor === UNISWAP_V2_GIV_DAI_LP:
+      toBalance.uniswapV2GivDaiLp = toBalance.uniswapV2GivDaiLp.plus(value);
+      originalFromValue = fromBalance.uniswapV2GivDaiLp;
+      fromBalance.uniswapV2GivDaiLp = fromBalance.uniswapV2GivDaiLp.minus(value);
       break;
     case distributor === SUSHISWAP_LP:
       toBalance.sushiswapLp = toBalance.sushiswapLp.plus(value);
@@ -98,6 +105,10 @@ export function onStaked(userAddress: string, stakedValue: BigInt, contractName:
       balance.balancerLpStaked = balance.balancerLpStaked.plus(stakedValue);
       break;
 
+    case contractName === UNISWAP_V2_GIV_DAI_LM:
+      balance.uniswapV2GivDaiLpStaked = balance.uniswapV2GivDaiLpStaked.plus(stakedValue);
+      break;
+
     case contractName === GIV_ETH_LM:
       balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.plus(stakedValue);
       break;
@@ -128,6 +139,9 @@ export function onWithdraw(userAddress: string, withdrawnValue: BigInt, contract
   switch (true) {
     case contractName === BALANCER_LM:
       balance.balancerLpStaked = balance.balancerLpStaked.minus(withdrawnValue);
+      break;
+    case contractName === UNISWAP_V2_GIV_DAI_LM:
+      balance.uniswapV2GivDaiLpStaked = balance.uniswapV2GivDaiLpStaked.minus(withdrawnValue);
       break;
     case contractName === GIV_ETH_LM:
       balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.minus(withdrawnValue);
@@ -197,6 +211,10 @@ export function updateRewards(userAddress: string, contractAddress: Address, dis
     case distributor === BALANCER_LM:
       balance.rewardPerTokenPaidBalancer = userRewardPerTokenPaid;
       balance.rewardsBalancer = rewards;
+      break;
+    case distributor === UNISWAP_V2_GIV_DAI_LM:
+      balance.rewardPerTokenPaidUniswapV2GivDai = userRewardPerTokenPaid;
+      balance.rewardsUniswapV2GivDai = rewards;
       break;
     case distributor === GIV_ETH_LM:
       balance.rewardPerTokenPaidSushiSwap = userRewardPerTokenPaid;
