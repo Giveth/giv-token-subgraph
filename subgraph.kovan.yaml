@@ -87,7 +87,7 @@ dataSources:
     name: UniswapV2GivDaiLiquidityMiningTokenDistributor
     network: kovan
     source:
-      # kovan: Uniswap V2 DAI GIV pool
+      # kovan: Uniswap V2 DAI GIV LM
       address: "0x9e4EcF5fE5F58C888C84338525422A1D0915f6ff"
       startBlock: 31115701
       abi: UnipoolTokenDistributor
