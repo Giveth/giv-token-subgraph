@@ -292,3 +292,100 @@ dataSources:
           handler: handleWithdrawn
 
       file: ./src/mappings/givLiquidityMiningMapping.ts
+
+  - kind: ethereum/contract
+    name: FoxHnyLP
+    network: xdai
+    source:
+      address: "0x8a0bee989c591142414ad67fb604539d917889df"
+      abi: MinimalERC20
+      startBlock: 17890042
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/foxHnyLpMapping.ts
+
+  - kind: ethereum/contract
+    name: FoxTokenDistro
+    network: xdai
+    source:
+      # xDai: Fox Token Distro
+      address: "0xA9a37a14E562D0E1d335B4714E3455483ede7A9a"
+      abi: TokenDistro
+      startBlock: 21392975
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Allocate
+        - Assign
+        - ChangeAddress
+        - Claim
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StartTimeChanged
+      abis:
+        - name: TokenDistro
+          file: ./abis/TokenDistro.json
+      eventHandlers:
+        - event: Allocate(indexed address,indexed address,uint256)
+          handler: handleAllocate
+        - event: Assign(indexed address,indexed address,uint256)
+          handler: handleAssign
+        - event: ChangeAddress(indexed address,indexed address)
+          handler: handleChangeAddress
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StartTimeChanged(uint256,uint256)
+          handler: handleStartTimeChanged
+      file: ./src/mappings/foxTokenDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: FoxHnyLm
+    network: xdai
+    source:
+      # xDai: UNIPOOL LM (FOX/HNY)
+      address: "0x502EC7a040F486EE6Cb7d634D94764874B29dE68"
+      startBlock: 21392979
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/mappings/foxHnyLmMapping.ts
+
