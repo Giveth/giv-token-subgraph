@@ -3,7 +3,7 @@ export let ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const BALANCER_LP = 'balancerLp';
 export const SUSHISWAP_LP = 'shushiswapLp';
 export const HONEYSWAP_LP = 'honeyswapLp';
-export const UNISWAP_V2_GIV_DAI_LP = 'honeyswapLp';
+export const UNISWAP_V2_GIV_DAI_LP = 'uniswapV2GivDaiLp';
 
 export const BALANCER_LM = 'balancerLm';
 export const GIV_ETH_LM = 'givEthLm';
