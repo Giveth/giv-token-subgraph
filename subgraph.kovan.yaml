@@ -84,6 +84,41 @@ dataSources:
       file: ./src/mappings/uniswapV3RewardTokenMapping.ts
 
   - kind: ethereum/contract
+    name: UniswapV2GivDaiLiquidityMiningTokenDistributor
+    network: kovan
+    source:
+      # kovan: Uniswap V2 DAI GIV LM
+      address: "0x9e4EcF5fE5F58C888C84338525422A1D0915f6ff"
+      startBlock: 31115701
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+
+      file: ./src/mappings/uniswapV2GivDaiLiquidityMiningMapping.ts
+
+  - kind: ethereum/contract
     name: BalancerLiquidityMiningTokenDistributor
     network: kovan
     source:
@@ -260,6 +295,30 @@ dataSources:
         - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
           handler: handleSwap
       file: ./src/mappings/uniswapV3/uniswapV3PoolMapping.ts
+
+  - kind: ethereum/contract
+    name: UniswapV2GivDaiLP
+    network: kovan
+    source:
+      # kovan: UniswapV2 DAI GIV
+      address: "0x6D5481911052a42c109F1f56354BEB07Ec430b85"
+      abi: MinimalERC20
+      startBlock: 31113195
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/uniswapV2GivDaiLpMapping.ts
 
   - kind: ethereum/contract
     name: BalancerLP
