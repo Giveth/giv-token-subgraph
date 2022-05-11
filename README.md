@@ -61,17 +61,16 @@ query{
 ## Test
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
-* **Staging**
+### Staging
   * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-kovan-staging
   * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-kovan-staging
   * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai-staging
   * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-xdai-staging
-* **Production**
+### Production
   * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-mainnet
   * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-mainnet
   * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai
   * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-xdai
-
 
 
 Query sample:
