@@ -53,6 +53,54 @@ dataSources:
       file: ./src/mappings/tokenDistroMapping.ts
 
   - kind: ethereum/contract
+    name: CultTokenDistro
+    network: kovan
+    source:
+      # kovan: CULT Token Distro
+      address: "0xBb974e08774544a361BCF496fE61DaB9Df29AFFc"
+      abi: TokenDistro
+      startBlock: 31509486
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Allocate
+        - Assign
+        - ChangeAddress
+        - Claim
+        - GivBackPaid
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StartTimeChanged
+      abis:
+        - name: TokenDistro
+          file: ./abis/TokenDistro.json
+
+      eventHandlers:
+        - event: Allocate(indexed address,indexed address,uint256)
+          handler: handleAllocate
+        - event: Assign(indexed address,indexed address,uint256)
+          handler: handleAssign
+        - event: ChangeAddress(indexed address,indexed address)
+          handler: handleChangeAddress
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: GivBackPaid(address)
+          handler: handleGivBackPaid
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StartTimeChanged(uint256,uint256)
+          handler: handleStartTimeChanged
+
+      file: ./src/mappings/cultTokenDistroMapping.ts
+
+  - kind: ethereum/contract
     name: UniswapV3RewardToken
     network: kovan
     source:
@@ -117,6 +165,41 @@ dataSources:
           handler: handleWithdrawn
 
       file: ./src/mappings/uniswapV2GivDaiLiquidityMiningMapping.ts
+
+  - kind: ethereum/contract
+    name: cultEthLm
+    network: kovan
+    source:
+      # kovan: Uniswap V2 CULT ETH LM
+      address: "0x9D23d449Af3e2c07a286688c85ff5d3d4c219D79"
+      startBlock: 31509500
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+
+      file: ./src/mappings/cultEthLmMapping.ts
 
   - kind: ethereum/contract
     name: BalancerLiquidityMiningTokenDistributor
@@ -319,6 +402,31 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/mappings/uniswapV2GivDaiLpMapping.ts
+
+
+  - kind: ethereum/contract
+    name: cultEthLP
+    network: kovan
+    source:
+      # kovan: UniswapV2 CULT ETH
+      address: "0x6Bb32725AA31b1a99e7C782e0605B0fB57e4B9E6"
+      abi: MinimalERC20
+      startBlock: 31509190
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/cultEthLpMapping.ts
 
   - kind: ethereum/contract
     name: BalancerLP

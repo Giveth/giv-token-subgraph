@@ -18,11 +18,15 @@ export const GIVDROP = 'givdrop';
 export const FOX_HNY_LM = 'foxHnyLm';
 export const FOX_HNY_LP = 'foxHnyLp';
 
+export const CULT_ETH_LP = 'cultEthLp';
+export const CULT_ETH_LM = 'cultEthLm';
+
 export const ELK_GIV_LM = 'elkGivLm';
 export const ELK_GIV_LP = 'elkGivLp';
 
 export const GIV_TOKEN_DISTRO = 'GIV_TOKEN_DISTRO';
 export const FOX_TOKEN_DISTRO = 'FOX_TOKEN_DISTRO';
+export const CULT_TOKEN_DISTRO = 'CULT_TOKEN_DISTRO';
 export const ELK_TOKEN_DISTRO = 'ELK_TOKEN_DISTRO';
 
 export const UNISWAP_POOL = 'uniswapPool';

@@ -35,6 +35,24 @@ query{
 }
 ```
 
+## Add Regen farm steps (like foxHoney, cultEth, ..):
+* In balance schema you need to add some fields, for instance for **CULT/ETH** farm we added these
+  * `cultClaimed`
+  * `cultAllocatedTokens`
+  * `cultEthLpStaked`
+  * `cultEthLp`
+  * `rewardPerTokenPaidCultEthLm`
+  * `rewardsCultEthLm`
+* Add some constant variables in ./src/helpers/constants, for instance for **CULT/ETH**
+  * `CULT_TOKEN_DISTRO`
+  * `CULT_ETH_LP`
+  * `CULT_ETH_LM`
+* Add Lm mapping file
+* Add lm smart contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
+* Add lp mapping file
+* Add lp smart contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
+* Add token distro mapping file
+* Add token distro contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
 
 
 ## Test
