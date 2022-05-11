@@ -18,6 +18,9 @@ import {
   ZERO_ADDRESS,
   UNISWAP_V2_GIV_DAI_LP,
   UNISWAP_V2_GIV_DAI_LM,
+  CULT_ETH_LP,
+  CULT_ETH_LM,
+  CULT_TOKEN_DISTRO,
 } from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/BalancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
@@ -49,6 +52,11 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
       toBalance.uniswapV2GivDaiLp = toBalance.uniswapV2GivDaiLp.plus(value);
       originalFromValue = fromBalance.uniswapV2GivDaiLp;
       fromBalance.uniswapV2GivDaiLp = fromBalance.uniswapV2GivDaiLp.minus(value);
+      break;
+    case distributor === CULT_ETH_LP:
+      toBalance.cultEthLp = toBalance.cultEthLp.plus(value);
+      originalFromValue = fromBalance.cultEthLp;
+      fromBalance.cultEthLp = fromBalance.cultEthLp.minus(value);
       break;
     case distributor === SUSHISWAP_LP:
       toBalance.sushiswapLp = toBalance.sushiswapLp.plus(value);
@@ -109,6 +117,10 @@ export function onStaked(userAddress: string, stakedValue: BigInt, contractName:
       balance.uniswapV2GivDaiLpStaked = balance.uniswapV2GivDaiLpStaked.plus(stakedValue);
       break;
 
+    case contractName === CULT_ETH_LM:
+      balance.cultEthLpStaked = balance.cultEthLpStaked.plus(stakedValue);
+      break;
+
     case contractName === GIV_ETH_LM:
       balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.plus(stakedValue);
       break;
@@ -143,6 +155,9 @@ export function onWithdraw(userAddress: string, withdrawnValue: BigInt, contract
     case contractName === UNISWAP_V2_GIV_DAI_LM:
       balance.uniswapV2GivDaiLpStaked = balance.uniswapV2GivDaiLpStaked.minus(withdrawnValue);
       break;
+    case contractName === CULT_ETH_LM:
+      balance.cultEthLpStaked = balance.cultEthLpStaked.minus(withdrawnValue);
+      break;
     case contractName === GIV_ETH_LM:
       balance.sushiSwapLpStaked = balance.sushiSwapLpStaked.minus(withdrawnValue);
       break;
@@ -172,6 +187,8 @@ export function addAllocatedTokens(to: string, value: BigInt, tokenDistroType: s
     toBalance.allocationCount = toBalance.allocationCount.plus(BigInt.fromI32(1));
   } else if (tokenDistroType === FOX_TOKEN_DISTRO) {
     toBalance.foxAllocatedTokens = toBalance.foxAllocatedTokens.plus(value);
+  } else if (tokenDistroType === CULT_TOKEN_DISTRO) {
+    toBalance.cultAllocatedTokens = toBalance.cultAllocatedTokens.plus(value);
   } else if (tokenDistroType === ELK_TOKEN_DISTRO) {
     toBalance.elkAllocatedTokens = toBalance.elkAllocatedTokens.plus(value);
   } else {
@@ -191,6 +208,8 @@ export function addClaimed(to: string, value: BigInt, tokenDistroType: string): 
     toBalance.givbackLiquidPart = BigInt.zero();
   } else if (tokenDistroType === FOX_TOKEN_DISTRO) {
     toBalance.foxClaimed = toBalance.foxClaimed.plus(value);
+  } else if (tokenDistroType === CULT_TOKEN_DISTRO) {
+    toBalance.cultClaimed = toBalance.cultClaimed.plus(value);
   } else if (tokenDistroType === ELK_TOKEN_DISTRO) {
     toBalance.elkClaimed = toBalance.elkClaimed.plus(value);
   } else {
@@ -215,6 +234,10 @@ export function updateRewards(userAddress: string, contractAddress: Address, dis
     case distributor === UNISWAP_V2_GIV_DAI_LM:
       balance.rewardPerTokenPaidUniswapV2GivDai = userRewardPerTokenPaid;
       balance.rewardsUniswapV2GivDai = rewards;
+      break;
+    case distributor === CULT_ETH_LM:
+      balance.rewardPerTokenPaidCultEthLm = userRewardPerTokenPaid;
+      balance.rewardsCultEthLm = rewards;
       break;
     case distributor === GIV_ETH_LM:
       balance.rewardPerTokenPaidSushiSwap = userRewardPerTokenPaid;

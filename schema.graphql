@@ -42,6 +42,13 @@ type Balance @entity {
     allocationCount: BigInt!
     givDropClaimed: Boolean!
 
+    cultAllocatedTokens: BigInt!
+    cultClaimed: BigInt!
+    rewardPerTokenPaidCultEthLm:  BigInt
+    rewardsCultEthLm:  BigInt
+    cultEthLp: BigInt!
+    cultEthLpStaked: BigInt!
+
     foxAllocatedTokens: BigInt!
     foxClaimed: BigInt!
     rewardPerTokenPaidFoxHnyLm: BigInt
