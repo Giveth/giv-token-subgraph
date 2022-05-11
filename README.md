@@ -54,6 +54,7 @@ query{
 * Add token distro mapping file
 * Add token distro contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
 
+**PS** You can check https://github.com/Giveth/giv-token-subgraph/pull/53 to see a real example
 
 ## Test
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
