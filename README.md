@@ -6,8 +6,10 @@
 * `yarn`
 * `yarn codegen:xdai`
 * `yarn codegen:kovan`
+* `yarn codegen:mainnet`
 * `yarn build:xdai`
 * `yarn build:kovan`
+* `yarn build:mainnet`
 
 ### Deploy
 * `graph auth`
@@ -59,22 +61,16 @@ query{
 ## Test
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
-Our subgraphs: 
-* **Kovan** 
-  * **Develop**
-    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan-develop
-    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan-develop
-  * **Production**
-    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
-    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan
-theg
-* **Xdai**
-  * **Develop**
-    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai-develop
-    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai-develop
-  * **Production**
-    * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
-    * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
+* **Staging**
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-kovan-staging
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-kovan-staging
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai-staging
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-xdai-staging
+* **Production**
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-mainnet
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-mainnet
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-xdai
 
 
 
