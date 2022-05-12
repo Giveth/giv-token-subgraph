@@ -23,6 +23,7 @@ export function onRewardAdded(contractAddress: Address): void {
 
 export function onRewardPaid(contractAddress: Address, txHash: string, userAddress: string, distributor: string): void {
   createUnipoolContractInfoIfNotExists(contractAddress);
+  updateLastUpdateDate(contractAddress);
   updateTokenAllocationDistributor(txHash, distributor);
 
   //TODO it should be different for any farm/contract
