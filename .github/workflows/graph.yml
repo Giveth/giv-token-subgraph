@@ -45,12 +45,8 @@ jobs:
         run: yarn codegen:xdai
       - name: Codegen mainnet
         run: yarn codegen:xdai
-      - name: Build xdai
-        run: yarn build:xdai
       - name: Build kovan
         run: yarn build:kovan
-      - name: Build mainnet
-        run: yarn build:mainnet
       - uses: gtaschuk/graph-deploy@v0.1.5
         with:
           graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
@@ -80,10 +76,6 @@ jobs:
         run: yarn codegen:xdai
       - name: Build xdai
         run: yarn build:xdai
-      - name: Build kovan
-        run: yarn build:kovan
-      - name: Build mainnet
-        run: yarn build:mainnet
       - uses: gtaschuk/graph-deploy@v0.1.5
         with:
           graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
