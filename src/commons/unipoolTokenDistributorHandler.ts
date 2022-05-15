@@ -1,17 +1,36 @@
 import { UnipoolTokenDistributor } from '../../generated/GivLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 import { UnipoolContractInfo } from '../../generated/schema';
-import { Address, log } from '@graphprotocol/graph-ts';
-import { updateRewards } from './balanceHandler';
+import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { updateUserRewards, userStaked, userWithdrew } from './balanceHandler';
 import { updateTokenAllocationDistributor } from './tokenAllocation';
 
-export function onRewardUpdated(contractAddress: Address, userAddress: string, contractName: string): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
-  updateRewardRate(contractAddress);
-  updateLastUpdateDate(contractAddress);
-  updateTotalSupply(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
-  updateRewards(userAddress, contractAddress, contractName);
+export class OnRewardAddedParams {
+  contractAddress: Address;
+  distributor: string;
+  txHash: string;
+  userAddress: string;
+  constructor(contractAddress: Address, distributor: string, userAddress: string, txHash: string) {
+    this.contractAddress = contractAddress;
+    this.distributor = distributor;
+    this.userAddress = userAddress;
+    this.txHash = txHash;
+  }
 }
+
+export class OnStakedParams {
+  contractAddress: Address;
+  distributor: string;
+  amount: BigInt;
+  userAddress: string;
+  constructor(contractAddress: Address, distributor: string, userAddress: string, amount: BigInt) {
+    this.contractAddress = contractAddress;
+    this.distributor = distributor;
+    this.userAddress = userAddress;
+    this.amount = amount;
+  }
+}
+
+export class OnWithdrawnParams extends OnStakedParams {}
 
 export function onRewardAdded(contractAddress: Address): void {
   createUnipoolContractInfoIfNotExists(contractAddress);
@@ -21,13 +40,51 @@ export function onRewardAdded(contractAddress: Address): void {
   updateLastUpdateDate(contractAddress);
 }
 
-export function onRewardPaid(contractAddress: Address, txHash: string, userAddress: string, distributor: string): void {
+export function onRewardPaid(params: OnRewardAddedParams): void {
+  const contractAddress = params.contractAddress;
+  const txHash = params.txHash;
+  const userAddress = params.userAddress;
+  const distributor = params.distributor;
   createUnipoolContractInfoIfNotExists(contractAddress);
+  updateRewardPerTokenStored(contractAddress);
   updateLastUpdateDate(contractAddress);
   updateTokenAllocationDistributor(txHash, distributor);
 
   //TODO it should be different for any farm/contract
-  updateRewards(userAddress, contractAddress, distributor);
+  updateUserRewards(userAddress, contractAddress, distributor);
+}
+
+export function onStaked(params: OnStakedParams): void {
+  const contractAddress = params.contractAddress;
+  const amount = params.amount;
+  const userAddress = params.userAddress;
+  const distributor = params.distributor;
+  createUnipoolContractInfoIfNotExists(contractAddress);
+  updateLastUpdateDate(contractAddress);
+  updateTotalSupply(contractAddress);
+  updateRewardPerTokenStored(contractAddress);
+  userStaked(userAddress, amount, distributor);
+}
+
+export function onWithdrawn(params: OnStakedParams): void {
+  const contractAddress = params.contractAddress;
+  const amount = params.amount;
+  const userAddress = params.userAddress;
+  const distributor = params.distributor;
+  createUnipoolContractInfoIfNotExists(contractAddress);
+  updateLastUpdateDate(contractAddress);
+  updateTotalSupply(contractAddress);
+  updateRewardPerTokenStored(contractAddress);
+  userWithdrew(userAddress, amount, distributor);
+}
+
+export function onRewardUpdated(contractAddress: Address, userAddress: string, contractName: string): void {
+  createUnipoolContractInfoIfNotExists(contractAddress);
+  updateRewardRate(contractAddress);
+  updateLastUpdateDate(contractAddress);
+  updateTotalSupply(contractAddress);
+  updateRewardPerTokenStored(contractAddress);
+  updateUserRewards(userAddress, contractAddress, contractName);
 }
 
 // const isContractInfoInitiated: [string: boolean] = { hey: true };
@@ -44,19 +101,6 @@ export function createUnipoolContractInfoIfNotExists(address: Address): void {
   contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
   contractInfo.rewardRate = contract.rewardRate();
   contractInfo.totalSupply = contract.totalSupply();
-  contractInfo.save();
-}
-
-export function updateContractInfo(address: Address): void {
-  const contract = UnipoolTokenDistributor.bind(address);
-  let contractInfo = UnipoolContractInfo.load(address.toHex());
-  if (!contractInfo) {
-    contractInfo = new UnipoolContractInfo(address.toHex());
-  }
-  contractInfo.lastUpdateTime = contract.lastUpdateTime();
-  contractInfo.periodFinish = contract.periodFinish();
-  contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
-  contractInfo.rewardRate = contract.rewardRate();
   contractInfo.save();
 }
 
