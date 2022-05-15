@@ -101,7 +101,7 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
   }
 }
 
-export function onStaked(userAddress: string, stakedValue: BigInt, contractName: string): void {
+export function userStaked(userAddress: string, stakedValue: BigInt, contractName: string): void {
   let balance = Balance.load(userAddress);
   if (!balance) {
     log.error('User who stake should had some transfer events before', []);
@@ -143,7 +143,7 @@ export function onStaked(userAddress: string, stakedValue: BigInt, contractName:
   balance.save();
 }
 
-export function onWithdraw(userAddress: string, withdrawnValue: BigInt, contractName: string): void {
+export function userWithdrew(userAddress: string, withdrawnValue: BigInt, contractName: string): void {
   const balance = Balance.load(userAddress);
   if (!balance) {
     return;
@@ -218,7 +218,7 @@ export function addClaimed(to: string, value: BigInt, tokenDistroType: string): 
   toBalance.save();
 }
 
-export function updateRewards(userAddress: string, contractAddress: Address, distributor: string): void {
+export function updateUserRewards(userAddress: string, contractAddress: Address, distributor: string): void {
   const contract = UnipoolTokenDistributor.bind(contractAddress);
   const rewards = contract.rewards(Address.fromString(userAddress));
   const userRewardPerTokenPaid = contract.userRewardPerTokenPaid(Address.fromString(userAddress));

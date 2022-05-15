@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "eslint --max-warnings 0 . --ext .ts",
+    "lint": "eslint src/ --ext .ts",
     "codegen:kovan": "graph codegen subgraph.kovan.yaml",
     "codegen:mainnet": "graph codegen subgraph.mainnet.yaml",
     "codegen:xdai": "graph codegen subgraph.xdai.yaml",

@@ -8,11 +8,14 @@ import {
 import {
   createUnipoolContractInfoIfNotExists,
   onRewardAdded,
+  OnRewardAddedParams,
   onRewardPaid,
-  onRewardUpdated,
+  onStaked,
+  OnStakedParams,
+  onWithdrawn,
+  OnWithdrawnParams,
 } from '../commons/unipoolTokenDistributorHandler';
 import { UNISWAP_V2_GIV_DAI_LM } from '../helpers/constants';
-import { onWithdraw, onStaked } from '../commons/balanceHandler';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   createUnipoolContractInfoIfNotExists(event.address);
@@ -23,15 +26,22 @@ export function handleRewardAdded(event: RewardAdded): void {
 }
 
 export function handleRewardPaid(event: RewardPaid): void {
-  onRewardPaid(event.address, event.transaction.hash.toHex(), event.params.user.toHex(), UNISWAP_V2_GIV_DAI_LM);
+  onRewardPaid(
+    new OnRewardAddedParams(
+      event.address,
+      UNISWAP_V2_GIV_DAI_LM,
+      event.params.user.toHex(),
+      event.transaction.hash.toHex()
+    )
+  );
 }
 
 export function handleStaked(event: Staked): void {
-  onRewardUpdated(event.address, event.params.user.toHex(), UNISWAP_V2_GIV_DAI_LM);
-  onStaked(event.params.user.toHex(), event.params.amount, UNISWAP_V2_GIV_DAI_LM);
+  onStaked(new OnStakedParams(event.address, UNISWAP_V2_GIV_DAI_LM, event.params.user.toHex(), event.params.amount));
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  onRewardUpdated(event.address, event.params.user.toHex(), UNISWAP_V2_GIV_DAI_LM);
-  onWithdraw(event.params.user.toHex(), event.params.amount, UNISWAP_V2_GIV_DAI_LM);
+  onWithdrawn(
+    new OnWithdrawnParams(event.address, UNISWAP_V2_GIV_DAI_LM, event.params.user.toHex(), event.params.amount)
+  );
 }

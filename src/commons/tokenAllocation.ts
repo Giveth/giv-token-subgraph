@@ -1,6 +1,6 @@
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
 import { BigInt, log } from '@graphprotocol/graph-ts';
-import { CULT_TOKEN_DISTRO, ELK_TOKEN_DISTRO, FOX_TOKEN_DISTRO, GIV_TOKEN_DISTRO } from "../helpers/constants";
+import { CULT_TOKEN_DISTRO, ELK_TOKEN_DISTRO, FOX_TOKEN_DISTRO, GIV_TOKEN_DISTRO } from '../helpers/constants';
 import { Allocate, ChangeAddress } from '../../generated/TokenDistro/TokenDistro';
 import { addAllocatedTokens } from './balanceHandler';
 
