@@ -1,0 +1,342 @@
+# Contract Addresses: https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
+
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: TokenDistro
+    network: kovan
+    source:
+      # kovan: Token Distro
+      address: "0x373bAa19E92F6204b461b791094012fd259996F4"
+      abi: TokenDistro
+      startBlock: 28896896
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Allocate
+        - Assign
+        - ChangeAddress
+        - Claim
+        - GivBackPaid
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StartTimeChanged
+      abis:
+        - name: TokenDistro
+          file: ./abis/TokenDistro.json
+
+      eventHandlers:
+        - event: Allocate(indexed address,indexed address,uint256)
+          handler: handleAllocate
+        - event: Assign(indexed address,indexed address,uint256)
+          handler: handleAssign
+        - event: ChangeAddress(indexed address,indexed address)
+          handler: handleChangeAddress
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: GivBackPaid(address)
+          handler: handleGivBackPaid
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StartTimeChanged(uint256,uint256)
+          handler: handleStartTimeChanged
+
+      file: ./src/mappings/tokenDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: UniswapV3RewardToken
+    network: kovan
+    source:
+      # kovan: Uniswap Reward Token
+      address: "0x6397b874BC81c4c9bEb8D8f2a0fd121b304F21B2"
+      abi: UniswapV3RewardToken
+      startBlock: 28896903
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - OwnershipTransferred
+        - RewardPaid
+        - Transfer
+      abis:
+        - name: UniswapV3RewardToken
+          file: ./abis/UniswapV3RewardToken.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/uniswapV3RewardTokenMapping.ts
+
+  - kind: ethereum/contract
+    name: BalancerLiquidityMiningTokenDistributor
+    network: kovan
+    source:
+      # kovan: BAL LM (BAL 80/20 Unipool Instance)
+      address: "0xc3092EeED159be05dF1c103e3CaAC3DacAe1EdF9"
+      startBlock: 28896918
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+
+      file: ./src/mappings/balancerLiquidityMiningMapping.ts
+
+  - kind: ethereum/contract
+    name: GivLiquidityMiningTokenDistributor
+    network: kovan
+    source:
+      # kovan: GIV LM (GIV Staking Unipool Instance)
+      address: "0xDfdBDA44b2b9C113475a372c078aAC1279C4d7BE"
+      startBlock: 28896934
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+
+      file: ./src/mappings/givLiquidityMiningMapping.ts
+
+  - kind: ethereum/contract
+    name: GIV
+    network: kovan
+    source:
+      # kovan: Token (DRGIV)
+      address: "0x6c16216484069C19530a57762AD6630fB678D00E"
+      abi: GIV
+      startBlock: 28895444
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - AuthorizationUsed
+        - ChangeMinter
+        - Transfer
+      abis:
+        - name: GIV
+          file: ./abis/GIV.json
+#        # We should pass all ABIs to every subgraph that use that ABI
+#        - name: uniswapV2Pair
+#          file: ./abis/UniswapV2Pair.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: AuthorizationUsed(indexed address,indexed bytes32)
+          handler: handleAuthorizationUsed
+        - event: ChangeMinter(indexed address)
+          handler: handleChangeMinter
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/givTokenMapping.ts
+
+#  - kind: ethereum/contract
+#    name: uniswapV3
+#    network: kovan
+#    source:
+#      address: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
+#      abi: uniswapV3
+#      startBlock: 28083840
+#    mapping:
+#      kind: ethereum/events
+#      apiVersion: 0.0.5
+#      language: wasm/assemblyscript
+#      entities:
+#        - Transfer
+#      abis:
+#        - name: uniswapV3
+#          file: ./abis/uniswapV3.json
+#      eventHandlers:
+#        - event: Transfer(indexed address,indexed address,uint256)
+#          handler: handleTransfer
+#      file: ./src/mappings/uniswapV3Mapping.ts
+
+#  - kind: ethereum/contract
+#    name: UniswapV2Pair
+#    network: kovan
+#    source:
+#      # I dont know where come from this address, it's not in Notion
+#      address: "0xa48C26fF05F47a2eEd88C09664de1cb604A21b01"
+#      abi: UniswapV2Pair
+#      startBlock: 28083840
+#    mapping:
+#      kind: ethereum/events
+#      apiVersion: 0.0.5
+#      language: wasm/assemblyscript
+#      entities:
+#        - Transfer
+#        - Initialize
+#        - Swap
+#      abis:
+#        - name: UniswapV2Pair
+#          file: ./abis/UniswapV2Pair.json
+#      eventHandlers:
+#        # We don't need this event handler, but data source should have at least one event handler
+#        - event: Sync(uint112,uint112)
+#          handler: handleSync
+#      file: ./src/mappings/uniswapV2PairMapping.ts
+
+  - kind: ethereum/contract
+    name: UniswapV3Pool
+    network: kovan
+    source:
+      # Uniswap (ETH/GIV), Pool Address
+      address: "0x77c3a14a9dffaa4b4b94f4f274cdbeb0518be24d"
+      abi: UniswapV3Pool
+      startBlock: 28895711
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Initialize
+        - Swap
+      abis:
+        - name: UniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        # We don't need this event handler, but data source should have at least one event handler
+        - event: Initialize(uint160,int24)
+          handler: handleInitialize
+        - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
+          handler: handleSwap
+      file: ./src/mappings/uniswapV3/uniswapV3PoolMapping.ts
+
+  - kind: ethereum/contract
+    name: BalancerLP
+    network: kovan
+    source:
+      # kovan: BAL(20%WETH - 80% GIV)
+      address: "0x02653cae0cad6b3cd73e7dbc4f7a3ce6693c3ed7"
+      abi: MinimalERC20
+      startBlock: 28895593
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/balancerLpMapping.ts
+
+  - kind: ethereum/contract
+    name: UniswapV3Staker
+    network: kovan
+    source:
+      address: "0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d"
+      abi: UniswapV3Staker
+      startBlock: 28898339
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TokenStaked
+        - TokenUnstaked
+      abis:
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        - event: TokenStaked(indexed uint256,indexed bytes32,uint128)
+          handler: handleTokenStaked
+        - event: TokenUnstaked(indexed uint256,indexed bytes32)
+          handler: handleTokenUnstaked
+      file: ./src/mappings/uniswapV3/uniswapV3TokenStakerMapping.ts
+
+  - kind: ethereum/contract
+    name: UniswapV3PositionsNFT
+    network: kovan
+    source:
+      address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
+      abi: UniswapV3PositionsNFT
+      # It's not our contract, so not needed to set start block to contract creation block
+      startBlock: 28683241
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - IncreaseLiquidity
+        - DecreaseLiquidity
+        - Transfer
+      abis:
+        - name: UniswapV3PositionsNFT
+          file: ./abis/uniswapV3PositionsNFT.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+        - name: UniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
+      eventHandlers:
+        - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleIncreaseLiquidity
+        - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleDecreaseLiquidity
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/mappings/uniswapV3/uniswapV3PositionsNftMapping.ts
