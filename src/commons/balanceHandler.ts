@@ -21,6 +21,8 @@ import {
   CULT_ETH_LP,
   CULT_ETH_LM,
   CULT_TOKEN_DISTRO,
+  HONEYSWAP_GIV_DAI_LP,
+  HONEYSWAP_GIV_DAI_LM,
 } from '../helpers/constants';
 import { UnipoolTokenDistributor } from '../../generated/BalancerLiquidityMiningTokenDistributor/UnipoolTokenDistributor';
 
@@ -52,6 +54,11 @@ export function onTransfer(from: string, to: string, value: BigInt, distributor:
       toBalance.uniswapV2GivDaiLp = toBalance.uniswapV2GivDaiLp.plus(value);
       originalFromValue = fromBalance.uniswapV2GivDaiLp;
       fromBalance.uniswapV2GivDaiLp = fromBalance.uniswapV2GivDaiLp.minus(value);
+      break;
+    case distributor === HONEYSWAP_GIV_DAI_LP:
+      toBalance.honeyswapGivDaiLp = toBalance.honeyswapGivDaiLp.plus(value);
+      originalFromValue = fromBalance.honeyswapGivDaiLp;
+      fromBalance.honeyswapGivDaiLp = fromBalance.honeyswapGivDaiLp.minus(value);
       break;
     case distributor === CULT_ETH_LP:
       toBalance.cultEthLp = toBalance.cultEthLp.plus(value);
@@ -117,6 +124,10 @@ export function userStaked(userAddress: string, stakedValue: BigInt, contractNam
       balance.uniswapV2GivDaiLpStaked = balance.uniswapV2GivDaiLpStaked.plus(stakedValue);
       break;
 
+    case contractName === HONEYSWAP_GIV_DAI_LM:
+      balance.honeyswapGivDaiLpStaked = balance.honeyswapGivDaiLpStaked.plus(stakedValue);
+      break;
+
     case contractName === CULT_ETH_LM:
       balance.cultEthLpStaked = balance.cultEthLpStaked.plus(stakedValue);
       break;
@@ -154,6 +165,9 @@ export function userWithdrew(userAddress: string, withdrawnValue: BigInt, contra
       break;
     case contractName === UNISWAP_V2_GIV_DAI_LM:
       balance.uniswapV2GivDaiLpStaked = balance.uniswapV2GivDaiLpStaked.minus(withdrawnValue);
+      break;
+    case contractName === HONEYSWAP_GIV_DAI_LM:
+      balance.honeyswapGivDaiLpStaked = balance.honeyswapGivDaiLpStaked.minus(withdrawnValue);
       break;
     case contractName === CULT_ETH_LM:
       balance.cultEthLpStaked = balance.cultEthLpStaked.minus(withdrawnValue);
@@ -234,6 +248,10 @@ export function updateUserRewards(userAddress: string, contractAddress: Address,
     case distributor === UNISWAP_V2_GIV_DAI_LM:
       balance.rewardPerTokenPaidUniswapV2GivDai = userRewardPerTokenPaid;
       balance.rewardsUniswapV2GivDai = rewards;
+      break;
+    case distributor === HONEYSWAP_GIV_DAI_LM:
+      balance.rewardPerTokenPaidHoneyswapGivDai = userRewardPerTokenPaid;
+      balance.rewardsHoneyswapGivDai = rewards;
       break;
     case distributor === CULT_ETH_LM:
       balance.rewardPerTokenPaidCultEthLm = userRewardPerTokenPaid;
