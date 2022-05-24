@@ -262,8 +262,8 @@ dataSources:
     network: xdai
     source:
       # xDai: GIV LM (Garden Unipool)
-      address: "0x1460aaF51F4E0B1b59Bb41981Cb4aa5A1B377776"
-      startBlock: 19713038
+      address: "0xcaf9d6F5a987f70f3cA808E82aA80a0288700669"
+      startBlock: 19711386
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
