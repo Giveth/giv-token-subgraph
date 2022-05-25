@@ -72,6 +72,8 @@ jobs:
         run: yarn codegen:kovan
       - name: Codegen xdai
         run: yarn codegen:xdai
+      - name: Codegen xdai:develop
+        run: yarn codegen:xdai:develop
       - name: Codegen mainnet
         run: yarn codegen:xdai
       - name: Build xdai
