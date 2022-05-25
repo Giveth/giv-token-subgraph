@@ -55,6 +55,7 @@ query{
 * Add lp smart contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
 * Add token distro mapping file
 * Add token distro contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
+* Update all functions in src/commons/balanceHandler.ts to support new TokenDistro contract, and LP and LM tokens.
 
 **PS** You can check https://github.com/Giveth/giv-token-subgraph/pull/53 to see a real example
 

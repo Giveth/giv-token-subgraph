@@ -28,12 +28,16 @@ type Balance @entity {
     rewardsBalancer:  BigInt
     rewardPerTokenPaidUniswapV2GivDai:  BigInt
     rewardsUniswapV2GivDai:  BigInt
+    rewardPerTokenPaidHoneyswapGivDai:  BigInt
+    rewardsHoneyswapGivDai:  BigInt
     givback: BigInt!
     givbackLiquidPart: BigInt!
     balancerLp: BigInt!
     balancerLpStaked: BigInt!
     uniswapV2GivDaiLp: BigInt!
     uniswapV2GivDaiLpStaked: BigInt!
+    honeyswapGivDaiLp: BigInt!
+    honeyswapGivDaiLpStaked: BigInt!
     sushiswapLp: BigInt!
     sushiSwapLpStaked: BigInt!
     honeyswapLp : BigInt!

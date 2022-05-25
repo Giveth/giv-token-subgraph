@@ -4,11 +4,13 @@ export const BALANCER_LP = 'balancerLp';
 export const SUSHISWAP_LP = 'shushiswapLp';
 export const HONEYSWAP_LP = 'honeyswapLp';
 export const UNISWAP_V2_GIV_DAI_LP = 'uniswapV2GivDaiLp';
+export const HONEYSWAP_GIV_DAI_LP = 'honeyswapGivDaiLp';
 
 export const BALANCER_LM = 'balancerLm';
 export const GIV_ETH_LM = 'givEthLm';
 export const GIV_HNY_LM = 'givHnyLm';
 export const UNISWAP_V2_GIV_DAI_LM = 'uniswapV2GivDaiLm';
+export const HONEYSWAP_GIV_DAI_LM = 'honeyswapGivDaiLm';
 export const GIV_LM = 'givLM';
 
 export const GARDEN_POOL = 'gardenPool';
