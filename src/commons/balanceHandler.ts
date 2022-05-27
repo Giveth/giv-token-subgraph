@@ -233,6 +233,8 @@ export function addClaimed(to: string, value: BigInt, tokenDistroType: string): 
 }
 
 export function updateUserRewards(userAddress: string, contractAddress: Address, distributor: string): void {
+  if (userAddress === ZERO_ADDRESS) return;
+
   const contract = UnipoolTokenDistributor.bind(contractAddress);
   const rewards = contract.rewards(Address.fromString(userAddress));
   const userRewardPerTokenPaid = contract.userRewardPerTokenPaid(Address.fromString(userAddress));

@@ -3,6 +3,7 @@ import { UnipoolContractInfo } from '../../generated/schema';
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { updateUserRewards, userStaked, userWithdrew } from './balanceHandler';
 import { updateTokenAllocationDistributor } from './tokenAllocation';
+import { ZERO_ADDRESS } from '../helpers/constants';
 
 export class OnRewardAddedParams {
   contractAddress: Address;
@@ -32,12 +33,23 @@ export class OnStakedParams {
 
 export class OnWithdrawnParams extends OnStakedParams {}
 
+// This function does all the logic corresponging `updateReward` method does in
+// Unipool smart contract
+function updateReward(contractAddress: Address, userAddress: string, distributor: string): void {
+  updateRewardPerTokenStored(contractAddress);
+  updateLastUpdateDate(contractAddress);
+
+  //TODO it should be different for any farm/contract
+  updateUserRewards(userAddress, contractAddress, distributor);
+}
+
 export function onRewardAdded(contractAddress: Address): void {
   createUnipoolContractInfoIfNotExists(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
+
+  updateReward(contractAddress, ZERO_ADDRESS, '');
+
   updateRewardRate(contractAddress);
   updatePeriodFinish(contractAddress);
-  updateLastUpdateDate(contractAddress);
 }
 
 export function onRewardPaid(params: OnRewardAddedParams): void {
@@ -46,12 +58,10 @@ export function onRewardPaid(params: OnRewardAddedParams): void {
   const userAddress = params.userAddress;
   const distributor = params.distributor;
   createUnipoolContractInfoIfNotExists(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
-  updateLastUpdateDate(contractAddress);
-  updateTokenAllocationDistributor(txHash, distributor);
 
-  //TODO it should be different for any farm/contract
-  updateUserRewards(userAddress, contractAddress, distributor);
+  updateReward(contractAddress, userAddress, distributor);
+
+  updateTokenAllocationDistributor(txHash, distributor);
 }
 
 export function onStaked(params: OnStakedParams): void {
@@ -60,9 +70,10 @@ export function onStaked(params: OnStakedParams): void {
   const userAddress = params.userAddress;
   const distributor = params.distributor;
   createUnipoolContractInfoIfNotExists(contractAddress);
-  updateLastUpdateDate(contractAddress);
+
+  updateReward(contractAddress, userAddress, distributor);
+
   updateTotalSupply(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
   userStaked(userAddress, amount, distributor);
 }
 
@@ -72,19 +83,11 @@ export function onWithdrawn(params: OnStakedParams): void {
   const userAddress = params.userAddress;
   const distributor = params.distributor;
   createUnipoolContractInfoIfNotExists(contractAddress);
-  updateLastUpdateDate(contractAddress);
-  updateTotalSupply(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
-  userWithdrew(userAddress, amount, distributor);
-}
 
-export function onRewardUpdated(contractAddress: Address, userAddress: string, contractName: string): void {
-  createUnipoolContractInfoIfNotExists(contractAddress);
-  updateRewardRate(contractAddress);
-  updateLastUpdateDate(contractAddress);
+  updateReward(contractAddress, userAddress, distributor);
+
   updateTotalSupply(contractAddress);
-  updateRewardPerTokenStored(contractAddress);
-  updateUserRewards(userAddress, contractAddress, contractName);
+  userWithdrew(userAddress, amount, distributor);
 }
 
 // const isContractInfoInitiated: [string: boolean] = { hey: true };
@@ -110,9 +113,7 @@ function updateRewardPerTokenStored(address: Address): void {
   if (!contractInfo) {
     contractInfo = new UnipoolContractInfo(address.toHex());
   }
-  const rewardPerTokenStored = contract.rewardPerTokenStored();
-
-  contractInfo.rewardPerTokenStored = rewardPerTokenStored;
+  contractInfo.rewardPerTokenStored = contract.rewardPerTokenStored();
   contractInfo.save();
 }
 
