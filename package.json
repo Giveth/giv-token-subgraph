@@ -1,25 +1,40 @@
 {
   "name": "GivEconomy",
+  "version": "0.3.1",
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "eslint --max-warnings 0 . --ext .ts",
+    "lint": "eslint src/ --ext .ts",
     "codegen:kovan": "graph codegen subgraph.kovan.yaml",
+    "codegen:mainnet": "graph codegen subgraph.mainnet.yaml",
     "codegen:xdai": "graph codegen subgraph.xdai.yaml",
-    "codegen": "yarn codegen:xdai && yarn codegen:kovan",
+    "codegen:xdai:develop": "graph codegen subgraph.xdai.develop.yaml",
+    "codegen:develop": "yarn codegen:xdai && yarn codegen:kovan",
+    "clean": "rm -r generated build",
     "build:kovan": "graph build subgraph.kovan.yaml",
+    "build:mainnet": "graph build subgraph.mainnet.yaml",
     "build:xdai": "graph build subgraph.xdai.yaml",
-    "build": "yarn build:xdai && yarn build:kovan",
+    "build:xdai:develop": "graph build subgraph.xdai.develop.yaml",
+    "build:develop": "yarn build:xdai:develop && yarn build:kovan",
     "deploy:kovan": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan subgraph.kovan.yaml",
-    "deploy:xdai": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai subgraph.xdai.yaml",
-    "deploy": "yarn deploy:xdai && yarn deploy:kovan",
+    "deploy:kovan:develop": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan-develop subgraph.kovan.yaml",
+    "deploy:xdai": "graph deploy --product hosted-service giveth/giveth-economy-xdai subgraph.xdai.yaml",
+    "deploy:xdai:develop": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai-develop subgraph.xdai.develop.yaml",
+    "deploy:mainnet": "graph deploy  --product hosted-service  giveth/giveth-economy-mainnet subgraph.mainnet.yaml",
+    "deploy:xdai:deployment6": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai-deployment-six subgraph.xdai.deployment-6.yaml",
+    "deploy:kovan:deployment6": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan-deployment-six subgraph.kovan.deployment-6.yaml",
+    "deploy:xdai:deployment7": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-xdai-deployment-seven subgraph.xdai.develop.yaml",
+    "deploy:kovan:deployment7": "graph deploy --product hosted-service mohammadranjbarz/giv-economy-kovan-deployment-seven subgraph.kovan.yaml",
+    "deploy:develop": "yarn deploy:xdai:develop && yarn deploy:kovan:develop",
     "create-local": "graph create --node http://localhost:8020/ mohammadranjbarz/gardenUnipool",
     "remove-local": "graph remove --node http://localhost:8020/ mohammadranjbarz/gardenUnipool",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 mohammadranjbarz/gardenUnipool"
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 mohammadranjbarz/gardenUnipool",
+    "deploy:mainnet:test": "graph deploy  --product hosted-service  aminlatifi/giveth-economy subgraph.mainnet.yaml",
+    "deploy:xdai:test": "graph deploy  --product hosted-service  aminlatifi/giveth-economy-xdai subgraph.xdai.yaml"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.16.0",
-    "@graphprotocol/graph-cli": "0.23.1",
-    "@graphprotocol/graph-ts": "0.23.1"
+    "@graphprotocol/graph-cli": "0.25.0",
+    "@graphprotocol/graph-ts": "0.25.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.1.1",

@@ -6,12 +6,12 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: TokenDistro
-    network: kovan
+    network: mainnet
     source:
-      # kovan: Token Distro
-      address: "0x2C84Ab41b53C52959a794830fe296Fd717c33337"
+      # mainnet Token Distro
+      address: "0x87dE995F6744B75bBe0255A973081142aDb61f4d"
       abi: TokenDistro
-      startBlock: 28901401
+      startBlock: 13862850
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -53,61 +53,13 @@ dataSources:
       file: ./src/mappings/tokenDistroMapping.ts
 
   - kind: ethereum/contract
-    name: CultTokenDistro
-    network: kovan
-    source:
-      # kovan: CULT Token Distro
-      address: "0xBb974e08774544a361BCF496fE61DaB9Df29AFFc"
-      abi: TokenDistro
-      startBlock: 31509486
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Allocate
-        - Assign
-        - ChangeAddress
-        - Claim
-        - GivBackPaid
-        - RoleAdminChanged
-        - RoleGranted
-        - RoleRevoked
-        - StartTimeChanged
-      abis:
-        - name: TokenDistro
-          file: ./abis/TokenDistro.json
-
-      eventHandlers:
-        - event: Allocate(indexed address,indexed address,uint256)
-          handler: handleAllocate
-        - event: Assign(indexed address,indexed address,uint256)
-          handler: handleAssign
-        - event: ChangeAddress(indexed address,indexed address)
-          handler: handleChangeAddress
-        - event: Claim(indexed address,uint256)
-          handler: handleClaim
-        - event: GivBackPaid(address)
-          handler: handleGivBackPaid
-        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-          handler: handleRoleAdminChanged
-        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleGranted
-        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleRevoked
-        - event: StartTimeChanged(uint256,uint256)
-          handler: handleStartTimeChanged
-
-      file: ./src/mappings/cultTokenDistroMapping.ts
-
-  - kind: ethereum/contract
     name: UniswapV3RewardToken
-    network: kovan
+    network: mainnet
     source:
-      # kovan: Uniswap Reward Token
-      address: "0xDfbb5C70006B357d30BB335f55a01e6b0151Bcb5"
+      # mainnet Uniswap Reward Token
+      address: "0x3115e5aAa3D6f742d09fbB649150dfE285a9c2A3"
       abi: UniswapV3RewardToken
-      startBlock: 28901409
+      startBlock: 13862852
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -133,11 +85,11 @@ dataSources:
 
   - kind: ethereum/contract
     name: UniswapV2GivDaiLiquidityMiningTokenDistributor
-    network: kovan
+    network: mainnet
     source:
-      # kovan: Uniswap V2 DAI GIV LM
-      address: "0x9e4EcF5fE5F58C888C84338525422A1D0915f6ff"
-      startBlock: 31115701
+      # mainnet: Uniswap V2 DAI GIV LM
+      address: "0xa4523D703F663615Bd41606B46B58dEb2F926D98"
+      startBlock: 14620191
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -167,47 +119,12 @@ dataSources:
       file: ./src/mappings/uniswapV2GivDaiLiquidityMiningMapping.ts
 
   - kind: ethereum/contract
-    name: cultEthLm
-    network: kovan
-    source:
-      # kovan: Uniswap V2 CULT ETH LM
-      address: "0x9D23d449Af3e2c07a286688c85ff5d3d4c219D79"
-      startBlock: 31509500
-      abi: UnipoolTokenDistributor
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - OwnershipTransferred
-        - RewardAdded
-        - RewardPaid
-        - Staked
-        - Withdrawn
-      abis:
-        - name: UnipoolTokenDistributor
-          file: ./abis/UnipoolTokenDistributor.json
-      eventHandlers:
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: RewardAdded(uint256)
-          handler: handleRewardAdded
-        - event: RewardPaid(indexed address,uint256)
-          handler: handleRewardPaid
-        - event: Staked(indexed address,uint256)
-          handler: handleStaked
-        - event: Withdrawn(indexed address,uint256)
-          handler: handleWithdrawn
-
-      file: ./src/mappings/cultEthLmMapping.ts
-
-  - kind: ethereum/contract
     name: BalancerLiquidityMiningTokenDistributor
-    network: kovan
+    network: mainnet
     source:
-      # kovan: BAL LM (BAL 80/20 Unipool Instance)
-      address: "0x4B319c068685aF260c91407B651918307df30061"
-      startBlock: 28901423
+      # mainnet BAL LM
+      address: "0xc0dbDcA66a0636236fAbe1B3C16B1bD4C84bB1E1"
+      startBlock: 13862860
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -238,11 +155,11 @@ dataSources:
 
   - kind: ethereum/contract
     name: GivLiquidityMiningTokenDistributor
-    network: kovan
+    network: mainnet
     source:
-      # kovan: GIV LM (GIV Staking Unipool Instance)
-      address: "0x17207684344B206A06BF8651d6e5e1833660418b"
-      startBlock: 28901438
+      # mainnet GIV LM
+      address: "0x4B9EfAE862a1755F7CEcb021856D467E86976755"
+      startBlock: 13862875
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -273,12 +190,12 @@ dataSources:
 
   - kind: ethereum/contract
     name: GIV
-    network: kovan
+    network: mainnet
     source:
-      # kovan: Token (DRGIV)
-      address: "0x29434A25abd94AE882aA883eea81585Aaa5b078D"
+      # mainnet Token (DRGIV2)https://thegraph.com/hosted-service/dashboard
+      address: "0x900db999074d9277c5da2a43f252d74366230da0"
       abi: GIV
-      startBlock: 28898339
+      startBlock: 13816800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -291,9 +208,9 @@ dataSources:
       abis:
         - name: GIV
           file: ./abis/GIV.json
-#        # We should pass all ABIs to every subgraph that use that ABI
-#        - name: uniswapV2Pair
-#          file: ./abis/UniswapV2Pair.json
+      #        # We should pass all ABIs to every subgraph that use that ABI
+      #        - name: uniswapV2Pair
+      #          file: ./abis/UniswapV2Pair.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
@@ -305,60 +222,60 @@ dataSources:
           handler: handleTransfer
       file: ./src/mappings/givTokenMapping.ts
 
-#  - kind: ethereum/contract
-#    name: uniswapV3
-#    network: kovan
-#    source:
-#      address: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
-#      abi: uniswapV3
-#      startBlock: 28083840
-#    mapping:
-#      kind: ethereum/events
-#      apiVersion: 0.0.5
-#      language: wasm/assemblyscript
-#      entities:
-#        - Transfer
-#      abis:
-#        - name: uniswapV3
-#          file: ./abis/uniswapV3.json
-#      eventHandlers:
-#        - event: Transfer(indexed address,indexed address,uint256)
-#          handler: handleTransfer
-#      file: ./src/mappings/uniswapV3Mapping.ts
+  #  - kind: ethereum/contract
+  #    name: uniswapV3
+  #    network: mainnet
+  #    source:
+  #      address: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
+  #      abi: uniswapV3
+  #      startBlock: 28083840
+  #    mapping:
+  #      kind: ethereum/events
+  #      apiVersion: 0.0.5
+  #      language: wasm/assemblyscript
+  #      entities:
+  #        - Transfer
+  #      abis:
+  #        - name: uniswapV3
+  #          file: ./abis/uniswapV3.json
+  #      eventHandlers:
+  #        - event: Transfer(indexed address,indexed address,uint256)
+  #          handler: handleTransfer
+  #      file: ./src/mappings/uniswapV3Mapping.ts
 
-#  - kind: ethereum/contract
-#    name: UniswapV2Pair
-#    network: kovan
-#    source:
-#      # I dont know where come from this address, it's not in Notion
-#      address: "0xa48C26fF05F47a2eEd88C09664de1cb604A21b01"
-#      abi: UniswapV2Pair
-#      startBlock: 28083840
-#    mapping:
-#      kind: ethereum/events
-#      apiVersion: 0.0.5
-#      language: wasm/assemblyscript
-#      entities:
-#        - Transfer
-#        - Initialize
-#        - Swap
-#      abis:
-#        - name: UniswapV2Pair
-#          file: ./abis/UniswapV2Pair.json
-#      eventHandlers:
-#        # We don't need this event handler, but data source should have at least one event handler
-#        - event: Sync(uint112,uint112)
-#          handler: handleSync
-#      file: ./src/mappings/uniswapV2PairMapping.ts
+  #  - kind: ethereum/contract
+  #    name: UniswapV2Pair
+  #    network: mainnet
+  #    source:
+  #      # I dont know where come from this address, it's not in Notion
+  #      address: "0xa48C26fF05F47a2eEd88C09664de1cb604A21b01"
+  #      abi: UniswapV2Pair
+  #      startBlock: 28083840
+  #    mapping:
+  #      kind: ethereum/events
+  #      apiVersion: 0.0.5
+  #      language: wasm/assemblyscript
+  #      entities:
+  #        - Transfer
+  #        - Initialize
+  #        - Swap
+  #      abis:
+  #        - name: UniswapV2Pair
+  #          file: ./abis/UniswapV2Pair.json
+  #      eventHandlers:
+  #        # We don't need this event handler, but data source should have at least one event handler
+  #        - event: Sync(uint112,uint112)
+  #          handler: handleSync
+  #      file: ./src/mappings/uniswapV2PairMapping.ts
 
   - kind: ethereum/contract
     name: UniswapV3Pool
-    network: kovan
+    network: mainnet
     source:
       # Uniswap (ETH/GIV), Pool Address
-      address: "0x3c2455a3ee0d824941c9329c01a66b86078c3e82"
+      address: "0xc763b6b3d0f75167db95daa6a0a0d75dd467c4e1"
       abi: UniswapV3Pool
-      startBlock: 28898483
+      startBlock: 13821537
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -381,12 +298,12 @@ dataSources:
 
   - kind: ethereum/contract
     name: UniswapV2GivDaiLP
-    network: kovan
+    network: mainnet
     source:
-      # kovan: UniswapV2 DAI GIV
-      address: "0x6D5481911052a42c109F1f56354BEB07Ec430b85"
+      # mainnet: UniswapV2 DAI GIV
+      address: "0xbeba1666c62c65e58770376de332891b09461eeb"
       abi: MinimalERC20
-      startBlock: 31113195
+      startBlock: 14436516
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -403,39 +320,14 @@ dataSources:
           handler: handleTransfer
       file: ./src/mappings/uniswapV2GivDaiLpMapping.ts
 
-
-  - kind: ethereum/contract
-    name: cultEthLP
-    network: kovan
-    source:
-      # kovan: UniswapV2 CULT ETH
-      address: "0x6Bb32725AA31b1a99e7C782e0605B0fB57e4B9E6"
-      abi: MinimalERC20
-      startBlock: 31509190
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Transfer
-      abis:
-        - name: MinimalERC20
-          file: ./abis/MinimalERC20.json
-        - name: UniswapV3Staker
-          file: ./abis/UniswapV3Staker.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/mappings/cultEthLpMapping.ts
-
   - kind: ethereum/contract
     name: BalancerLP
-    network: kovan
+    network: mainnet
     source:
-      # kovan: BAL(20%WETH - 80% GIV)
-      address: "0x8a6b25e33b12d1bb6929a8793961076bd1f9d3eb"
+      # mainnet BAL(20%WETH - 80% GIV)
+      address: "0x7819f1532c49388106f7762328c51ee70edd134c"
       abi: MinimalERC20
-      startBlock: 28898529
+      startBlock: 13816861
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -454,11 +346,13 @@ dataSources:
 
   - kind: ethereum/contract
     name: UniswapV3Staker
-    network: kovan
+    network: mainnet
     source:
+      # https://github.com/BrightID/fairdrop/blob/main/src/utils/constants.ts
       address: "0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d"
       abi: UniswapV3Staker
-      startBlock: 28898339
+      # equal to giv token created block
+      startBlock: 13816800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -478,12 +372,13 @@ dataSources:
 
   - kind: ethereum/contract
     name: UniswapV3PositionsNFT
-    network: kovan
+    network: mainnet
     source:
+      # https://github.com/BrightID/fairdrop/blob/main/src/utils/constants.ts
       address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
       abi: UniswapV3PositionsNFT
-      # It's not our contract, so not needed to set start block to contract creation block
-      startBlock: 28683241
+      # equal to giv token created block
+      startBlock: 13816800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -507,3 +402,107 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mappings/uniswapV3/uniswapV3PositionsNftMapping.ts
+
+  - kind: ethereum/contract
+    name: CultTokenDistro
+    network: mainnet
+    source:
+      # mainnet: CULT Token Distro
+      address: "0x73f2D115C2cBAa3b5F477A78F7A7CD348D8b70a2"
+      abi: TokenDistro
+      startBlock: 14919609
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Allocate
+        - Assign
+        - ChangeAddress
+        - Claim
+        - GivBackPaid
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StartTimeChanged
+      abis:
+        - name: TokenDistro
+          file: ./abis/TokenDistro.json
+      eventHandlers:
+        - event: Allocate(indexed address,indexed address,uint256)
+          handler: handleAllocate
+        - event: Assign(indexed address,indexed address,uint256)
+          handler: handleAssign
+        - event: ChangeAddress(indexed address,indexed address)
+          handler: handleChangeAddress
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: GivBackPaid(address)
+          handler: handleGivBackPaid
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StartTimeChanged(uint256,uint256)
+          handler: handleStartTimeChanged
+      file: ./src/mappings/cultTokenDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: cultEthLm
+    network: mainnet
+    source:
+      # mainnet: Uniswap V2 CULT ETH LM
+      address: "0xa479103c2618aD514653B53F064Bc6c9dC35a30b"
+      startBlock: 14919615
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/mappings/cultEthLmMapping.ts
+
+  - kind: ethereum/contract
+    name: cultEthLP
+    network: mainnet
+    source:
+      # mainnet: UniswapV2 CULT ETH
+      address: "0x5281E311734869C64ca60eF047fd87759397EFe6"
+      abi: MinimalERC20
+      startBlock: 14122174
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/cultEthLpMapping.ts

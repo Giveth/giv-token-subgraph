@@ -1,6 +1,7 @@
-import { Initialize, Swap, UniswapV3Pool } from '../../../generated/uniswapV3Pool/uniswapV3Pool';
+import { Initialize, Swap, UniswapV3Pool } from '../../../generated/UniswapV3Pool/UniswapV3Pool';
 import { UniswapV3Pool as Pool } from '../../../generated/schema';
 import { BigInt, log } from '@graphprotocol/graph-ts';
+import { recordUniswapV3InfinitePositionReward } from '../../commons/uniswapV3RewardRecorder';
 
 export function handleInitialize(event: Initialize): void {
   const poolContract = UniswapV3Pool.bind(event.address);
@@ -24,4 +25,6 @@ export function handleSwap(event: Swap): void {
   pool.tick = BigInt.fromI32(event.params.tick);
   pool.liquidity = event.params.liquidity;
   pool.save();
+
+  recordUniswapV3InfinitePositionReward(event.block.timestamp);
 }

@@ -13,7 +13,7 @@ type TransactionTokenAllocation @entity {
     tokenAllocationIds : [String!]!
 }
 
-type Balance @entity{
+type Balance @entity {
     id: ID!
     balance: BigInt!
     allocatedTokens: BigInt!
@@ -24,19 +24,56 @@ type Balance @entity{
     rewardsSushiSwap:  BigInt
     rewardPerTokenPaidHoneyswap:  BigInt
     rewardsHoneyswap:  BigInt
-    rewardPerTokenPaidUniswap:  BigInt
-    rewardsUniswap:  BigInt
     rewardPerTokenPaidBalancer:  BigInt
     rewardsBalancer:  BigInt
+    rewardPerTokenPaidUniswapV2GivDai:  BigInt
+    rewardsUniswapV2GivDai:  BigInt
+    rewardPerTokenPaidHoneyswapGivDai:  BigInt
+    rewardsHoneyswapGivDai:  BigInt
     givback: BigInt!
+    givbackLiquidPart: BigInt!
     balancerLp: BigInt!
     balancerLpStaked: BigInt!
+    uniswapV2GivDaiLp: BigInt!
+    uniswapV2GivDaiLpStaked: BigInt!
+    honeyswapGivDaiLp: BigInt!
+    honeyswapGivDaiLpStaked: BigInt!
     sushiswapLp: BigInt!
     sushiSwapLpStaked: BigInt!
     honeyswapLp : BigInt!
     honeyswapLpStaked : BigInt!
     givStaked: BigInt!
     allocationCount: BigInt!
+    givDropClaimed: Boolean!
+
+    cultAllocatedTokens: BigInt!
+    cultClaimed: BigInt!
+    rewardPerTokenPaidCultEthLm:  BigInt
+    rewardsCultEthLm:  BigInt
+    cultEthLp: BigInt!
+    cultEthLpStaked: BigInt!
+
+    foxAllocatedTokens: BigInt!
+    foxClaimed: BigInt!
+    rewardPerTokenPaidFoxHnyLm: BigInt
+    rewardsFoxHnyLm: BigInt
+    foxHnyLp: BigInt!
+    foxHnyLpStaked: BigInt!
+
+    elkAllocatedTokens: BigInt!
+    elkClaimed: BigInt!
+    rewardPerTokenPaidElkGivLm: BigInt
+    rewardsElkGivLm: BigInt
+    elkGivLp: BigInt!
+    elkGivLpStaked: BigInt!
+}
+
+type Pair @entity {
+    id: ID!
+    reserve0: BigInt!
+    reserve1: BigInt!
+    token0: String!
+    token1: String!
 }
 
 type UnipoolContractInfo @entity {
@@ -58,27 +95,19 @@ type TokenDistroContractInfo @entity {
     lockedAmount: BigInt
 }
 
-type Price @entity {
-    id: ID!
-    from: String!
-    to: String!
-    value: BigInt!
-    source: String!
-    blockTimeStamp: BigInt
-}
-
 type UniswapPosition @entity {
     id: ID!
     tokenId: String!
     token0: String!
     token1: String!
     liquidity: BigInt!
-    tickLower: String!
-    tickUpper: String!
+    tickLower: Int!
+    tickUpper: Int!
     tokenURI: String!
     owner: String!
     staker: String
     staked: Boolean
+    closed: Boolean
 }
 
 type UniswapV3Pool @entity {
@@ -88,5 +117,10 @@ type UniswapV3Pool @entity {
     sqrtPriceX96: BigInt!
     tick: BigInt!
     liquidity: BigInt!
-    stakedLiquidity: BigInt!
+}
+
+type UniswapInfinitePosition @entity {
+    id: ID!
+    lastUpdateTimeStamp: BigInt!
+    lastRewardAmount: BigInt!
 }

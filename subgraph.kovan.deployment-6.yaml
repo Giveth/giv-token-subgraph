@@ -9,9 +9,9 @@ dataSources:
     network: kovan
     source:
       # kovan: Token Distro
-      address: "0x2C84Ab41b53C52959a794830fe296Fd717c33337"
+      address: "0x373bAa19E92F6204b461b791094012fd259996F4"
       abi: TokenDistro
-      startBlock: 28901401
+      startBlock: 28896896
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -53,61 +53,13 @@ dataSources:
       file: ./src/mappings/tokenDistroMapping.ts
 
   - kind: ethereum/contract
-    name: CultTokenDistro
-    network: kovan
-    source:
-      # kovan: CULT Token Distro
-      address: "0xBb974e08774544a361BCF496fE61DaB9Df29AFFc"
-      abi: TokenDistro
-      startBlock: 31509486
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Allocate
-        - Assign
-        - ChangeAddress
-        - Claim
-        - GivBackPaid
-        - RoleAdminChanged
-        - RoleGranted
-        - RoleRevoked
-        - StartTimeChanged
-      abis:
-        - name: TokenDistro
-          file: ./abis/TokenDistro.json
-
-      eventHandlers:
-        - event: Allocate(indexed address,indexed address,uint256)
-          handler: handleAllocate
-        - event: Assign(indexed address,indexed address,uint256)
-          handler: handleAssign
-        - event: ChangeAddress(indexed address,indexed address)
-          handler: handleChangeAddress
-        - event: Claim(indexed address,uint256)
-          handler: handleClaim
-        - event: GivBackPaid(address)
-          handler: handleGivBackPaid
-        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-          handler: handleRoleAdminChanged
-        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleGranted
-        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleRevoked
-        - event: StartTimeChanged(uint256,uint256)
-          handler: handleStartTimeChanged
-
-      file: ./src/mappings/cultTokenDistroMapping.ts
-
-  - kind: ethereum/contract
     name: UniswapV3RewardToken
     network: kovan
     source:
       # kovan: Uniswap Reward Token
-      address: "0xDfbb5C70006B357d30BB335f55a01e6b0151Bcb5"
+      address: "0x6397b874BC81c4c9bEb8D8f2a0fd121b304F21B2"
       abi: UniswapV3RewardToken
-      startBlock: 28901409
+      startBlock: 28896903
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -132,82 +84,12 @@ dataSources:
       file: ./src/mappings/uniswapV3RewardTokenMapping.ts
 
   - kind: ethereum/contract
-    name: UniswapV2GivDaiLiquidityMiningTokenDistributor
-    network: kovan
-    source:
-      # kovan: Uniswap V2 DAI GIV LM
-      address: "0x9e4EcF5fE5F58C888C84338525422A1D0915f6ff"
-      startBlock: 31115701
-      abi: UnipoolTokenDistributor
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - OwnershipTransferred
-        - RewardAdded
-        - RewardPaid
-        - Staked
-        - Withdrawn
-      abis:
-        - name: UnipoolTokenDistributor
-          file: ./abis/UnipoolTokenDistributor.json
-      eventHandlers:
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: RewardAdded(uint256)
-          handler: handleRewardAdded
-        - event: RewardPaid(indexed address,uint256)
-          handler: handleRewardPaid
-        - event: Staked(indexed address,uint256)
-          handler: handleStaked
-        - event: Withdrawn(indexed address,uint256)
-          handler: handleWithdrawn
-
-      file: ./src/mappings/uniswapV2GivDaiLiquidityMiningMapping.ts
-
-  - kind: ethereum/contract
-    name: cultEthLm
-    network: kovan
-    source:
-      # kovan: Uniswap V2 CULT ETH LM
-      address: "0x9D23d449Af3e2c07a286688c85ff5d3d4c219D79"
-      startBlock: 31509500
-      abi: UnipoolTokenDistributor
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - OwnershipTransferred
-        - RewardAdded
-        - RewardPaid
-        - Staked
-        - Withdrawn
-      abis:
-        - name: UnipoolTokenDistributor
-          file: ./abis/UnipoolTokenDistributor.json
-      eventHandlers:
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: RewardAdded(uint256)
-          handler: handleRewardAdded
-        - event: RewardPaid(indexed address,uint256)
-          handler: handleRewardPaid
-        - event: Staked(indexed address,uint256)
-          handler: handleStaked
-        - event: Withdrawn(indexed address,uint256)
-          handler: handleWithdrawn
-
-      file: ./src/mappings/cultEthLmMapping.ts
-
-  - kind: ethereum/contract
     name: BalancerLiquidityMiningTokenDistributor
     network: kovan
     source:
       # kovan: BAL LM (BAL 80/20 Unipool Instance)
-      address: "0x4B319c068685aF260c91407B651918307df30061"
-      startBlock: 28901423
+      address: "0xc3092EeED159be05dF1c103e3CaAC3DacAe1EdF9"
+      startBlock: 28896918
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -241,8 +123,8 @@ dataSources:
     network: kovan
     source:
       # kovan: GIV LM (GIV Staking Unipool Instance)
-      address: "0x17207684344B206A06BF8651d6e5e1833660418b"
-      startBlock: 28901438
+      address: "0xDfdBDA44b2b9C113475a372c078aAC1279C4d7BE"
+      startBlock: 28896934
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
@@ -276,9 +158,9 @@ dataSources:
     network: kovan
     source:
       # kovan: Token (DRGIV)
-      address: "0x29434A25abd94AE882aA883eea81585Aaa5b078D"
+      address: "0x6c16216484069C19530a57762AD6630fB678D00E"
       abi: GIV
-      startBlock: 28898339
+      startBlock: 28895444
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -356,9 +238,9 @@ dataSources:
     network: kovan
     source:
       # Uniswap (ETH/GIV), Pool Address
-      address: "0x3c2455a3ee0d824941c9329c01a66b86078c3e82"
+      address: "0x77c3a14a9dffaa4b4b94f4f274cdbeb0518be24d"
       abi: UniswapV3Pool
-      startBlock: 28898483
+      startBlock: 28895711
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -380,62 +262,13 @@ dataSources:
       file: ./src/mappings/uniswapV3/uniswapV3PoolMapping.ts
 
   - kind: ethereum/contract
-    name: UniswapV2GivDaiLP
-    network: kovan
-    source:
-      # kovan: UniswapV2 DAI GIV
-      address: "0x6D5481911052a42c109F1f56354BEB07Ec430b85"
-      abi: MinimalERC20
-      startBlock: 31113195
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Transfer
-      abis:
-        - name: MinimalERC20
-          file: ./abis/MinimalERC20.json
-        - name: UniswapV3Staker
-          file: ./abis/UniswapV3Staker.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/mappings/uniswapV2GivDaiLpMapping.ts
-
-
-  - kind: ethereum/contract
-    name: cultEthLP
-    network: kovan
-    source:
-      # kovan: UniswapV2 CULT ETH
-      address: "0x6Bb32725AA31b1a99e7C782e0605B0fB57e4B9E6"
-      abi: MinimalERC20
-      startBlock: 31509190
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Transfer
-      abis:
-        - name: MinimalERC20
-          file: ./abis/MinimalERC20.json
-        - name: UniswapV3Staker
-          file: ./abis/UniswapV3Staker.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/mappings/cultEthLpMapping.ts
-
-  - kind: ethereum/contract
     name: BalancerLP
     network: kovan
     source:
       # kovan: BAL(20%WETH - 80% GIV)
-      address: "0x8a6b25e33b12d1bb6929a8793961076bd1f9d3eb"
+      address: "0x02653cae0cad6b3cd73e7dbc4f7a3ce6693c3ed7"
       abi: MinimalERC20
-      startBlock: 28898529
+      startBlock: 28895593
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

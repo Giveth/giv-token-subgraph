@@ -1,8 +1,13 @@
-import { TokenStaked, TokenUnstaked, UniswapV3Staker } from '../../../generated/uniswapV3Staker/UniswapV3Staker';
-import { UniswapPosition, UniswapV3Pool } from '../../../generated/schema';
-import { UNISWAP_V3_INCENTIVE_ID, UNISWAP_V3_POOL_ADDRESS } from '../../configuration';
+import { TokenStaked, TokenUnstaked, UniswapV3Staker } from '../../../generated/UniswapV3Staker/UniswapV3Staker';
+import { UniswapPosition } from '../../../generated/schema';
+import { networkUniswapV3Config } from '../../configuration';
+import { dataSource } from '@graphprotocol/graph-ts';
 
-const uniswapRewardTokenIncentiveId = UNISWAP_V3_INCENTIVE_ID;
+const network = dataSource.network();
+
+const uniswapV3Config = network == 'kovan' ? networkUniswapV3Config.kovan : networkUniswapV3Config.mainnet;
+
+const uniswapRewardTokenIncentiveId = uniswapV3Config.UNISWAP_V3_INCENTIVE_ID;
 
 export function handleTokenStaked(event: TokenStaked): void {
   const incentiveId = event.params.incentiveId.toHex();
@@ -21,12 +26,6 @@ export function handleTokenStaked(event: TokenStaked): void {
   uniswapStakedPosition.staker = staker;
   uniswapStakedPosition.tokenId = tokenId.toString();
   uniswapStakedPosition.save();
-
-  const pool = UniswapV3Pool.load(UNISWAP_V3_POOL_ADDRESS);
-  if (pool) {
-    pool.stakedLiquidity = pool.stakedLiquidity.plus(uniswapStakedPosition.liquidity);
-    pool.save();
-  }
 }
 
 export function handleTokenUnstaked(event: TokenUnstaked): void {
@@ -43,10 +42,4 @@ export function handleTokenUnstaked(event: TokenUnstaked): void {
   uniswapStakedPosition.staked = false;
   uniswapStakedPosition.staker = null;
   uniswapStakedPosition.save();
-  const pool = UniswapV3Pool.load(UNISWAP_V3_POOL_ADDRESS);
-
-  if (pool) {
-    pool.stakedLiquidity = pool.stakedLiquidity.minus(uniswapStakedPosition.liquidity);
-    pool.save();
-  }
 }

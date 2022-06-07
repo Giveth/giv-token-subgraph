@@ -1,11 +1,35 @@
 name: Deploy Graph
 
-on:
-  push:
-    branches: master
+on: [push]
 
 jobs:
-  deploy-kovan:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Codegen kovan
+        run: yarn codegen:kovan
+      - name: Codegen xdai
+        run: yarn codegen:xdai
+      - name: Codegen mainnet
+        run: yarn codegen:xdai
+      - name: Build xdai
+        run: yarn build:xdai
+      - name: Build kovan
+        run: yarn build:kovan
+      - name: Build mainnet
+        run: yarn build:mainnet
+
+  deploy-kovan-develop:
+    if: github.ref == 'refs/heads/develop'
+    needs: build
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -13,21 +37,27 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
       - name: Install
         run: yarn --frozen-lockfile
-      - name: Codegen
+      - name: Codegen kovan
         run: yarn codegen:kovan
-      - name: Build
+      - name: Codegen xdai
+        run: yarn codegen:xdai
+      - name: Codegen mainnet
+        run: yarn codegen:xdai
+      - name: Build kovan
         run: yarn build:kovan
       - uses: gtaschuk/graph-deploy@v0.1.5
         with:
           graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
-          graph_subgraph_name: "giv-economy-kovan"
-          graph_account: "mohammadranjbarz"
+          graph_subgraph_name: "giveth-economy-kovan-staging"
+          graph_account: "giveth"
           graph_config_file: "subgraph.kovan.yaml"
 
-  deploy-xdai:
+  deploy-xdai-develop:
+    if: github.ref == 'refs/heads/develop'
+    needs: build
     runs-on: ubuntu-latest
     environment: graph
     steps:
@@ -35,22 +65,81 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-version: 14
-      - name: list-files
-        run: ls src/xdai
+          node-version: 16
       - name: Install
         run: yarn --frozen-lockfile
-      - name: Codegen
+      - name: Codegen kovan
+        run: yarn codegen:kovan
+      - name: Codegen xdai
         run: yarn codegen:xdai
-      - name: Build
+      - name: Codegen xdai:develop
+        run: yarn codegen:xdai:develop
+      - name: Codegen mainnet
+        run: yarn codegen:xdai
+      - name: Build xdai
         run: yarn build:xdai
       - uses: gtaschuk/graph-deploy@v0.1.5
         with:
           graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
-          graph_subgraph_name: "giv-economy-xdai"
-          graph_account: "mohammadranjbarz"
+          graph_subgraph_name: "giveth-economy-xdai-staging"
+          graph_account: "giveth"
+          graph_config_file: "subgraph.xdai.develop.yaml"
+
+  deploy-xdai-production:
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: graph
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Codegen kovan
+        run: yarn codegen:kovan
+      - name: Codegen xdai
+        run: yarn codegen:xdai
+      - name: Codegen mainnet
+        run: yarn codegen:xdai
+      - name: Build xdai
+        run: yarn build:xdai
+      - uses: gtaschuk/graph-deploy@v0.1.5
+        with:
+          graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
+          graph_subgraph_name: "giveth-economy-xdai"
+          graph_account: "giveth"
           graph_config_file: "subgraph.xdai.yaml"
 
+  deploy-mainnet-production :
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: graph
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Codegen kovan
+        run: yarn codegen:kovan
+      - name: Codegen xdai
+        run: yarn codegen:xdai
+      - name: Codegen mainnet
+        run: yarn codegen:xdai
+      - name: Build mainnet
+        run: yarn build:mainnet
+      - uses: gtaschuk/graph-deploy@v0.1.5
+        with:
+          graph_access_token: ${{secrets.GRAPH_ACCESS_TOKEN}}
+          graph_subgraph_name: "giveth-economy-mainnet"
+          graph_account: "giveth"
+          graph_config_file: "subgraph.mainnet.yaml"
 
 env:
   CI: true

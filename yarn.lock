@@ -211,10 +211,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@graphprotocol/graph-cli@0.23.1":
-  version "0.23.1"
-  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-cli/-/graph-cli-0.23.1.tgz#9bac95d65a023be6f18d19be07a0c1529040939f"
-  integrity sha512-twvNTZ6N5SPINTdThaCsekQ1VXAS61uJhNDthIUGqEfTjn9p1hyK4YH3XurGhCuq9TsnpeQasLzkuPv2qMZP0w==
+"@graphprotocol/graph-cli@0.25.0":
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-cli/-/graph-cli-0.25.0.tgz#f2a35158cc399c9e42f20571d7ce1643ccd842fa"
+  integrity sha512-94InY8tPkwyUeDh5LTRURJK5NhZDE5e6Lg5q8u1jCuZ8q2ZTCf64W8wa6u3/o27jbyavDQzcsTQgJVeyL2JXfg==
   dependencies:
     assemblyscript "0.19.10"
     binary-install-raw "0.0.13"
@@ -240,10 +240,10 @@
     which "2.0.2"
     yaml "^1.5.1"
 
-"@graphprotocol/graph-ts@0.23.1":
-  version "0.23.1"
-  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.23.1.tgz#76e595d26ec5672f3778b1d3830e4640a57aec1b"
-  integrity sha512-pipofvN1LlwLOXrS7IWy8hSBFZzVyVHdLXDpQskl9nKqdbb3chelj4JoVEzCl7klvomDpP84ngLpW17fBh5vww==
+"@graphprotocol/graph-ts@0.25.0":
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.25.0.tgz#74b11effe1d96957004b3f5f0361562ba2b80019"
+  integrity sha512-/R++19dAtqPhd/Bv3l09ubcc8SWrm+akeyYG4yqkg5fk+b5Bm2Bi4Y+CK8B4l3C9mcc2mzJ7s7YisDMmGclqzw==
   dependencies:
     assemblyscript "0.19.10"
 

@@ -1,6 +1,8 @@
 import { Balance, TokenAllocation, TransactionTokenAllocation } from '../../generated/schema';
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
-import { GIVBACK } from '../helpers/constants';
+import { BigInt, log } from '@graphprotocol/graph-ts';
+import { CULT_TOKEN_DISTRO, ELK_TOKEN_DISTRO, FOX_TOKEN_DISTRO, GIV_TOKEN_DISTRO } from '../helpers/constants';
+import { Allocate, ChangeAddress } from '../../generated/TokenDistro/TokenDistro';
+import { addAllocatedTokens } from './balanceHandler';
 
 export function saveTokenAllocation(
   recipient: string,
@@ -41,24 +43,72 @@ export function updateTokenAllocationDistributor(txHash: string, distributor: st
   }
 }
 
-export function onGivBackPaid(txHash: string): void {
-  const transactionTokenAllocations = TransactionTokenAllocation.load(txHash);
-  if (!transactionTokenAllocations) {
+export function onAllocate(event: Allocate, tokenDistroType: string): void {
+  if (tokenDistroType === GIV_TOKEN_DISTRO) {
+    saveTokenAllocation(
+      event.params.grantee.toHex(),
+      event.transaction.hash.toHex(),
+      event.transactionLogIndex,
+      event.params.amount,
+      event.block.timestamp
+    );
+  }
+  addAllocatedTokens(event.params.grantee.toHex(), event.params.amount, tokenDistroType);
+}
+
+export function onChangeAddress(event: ChangeAddress, tokenDistroType: string): void {
+  const oldBalance = Balance.load(event.params.oldAddress.toHex());
+  if (!oldBalance) {
+    log.debug('Change Address oldAddress {} balance is null!', [event.params.oldAddress.toHex()]);
     return;
   }
-  for (let i = 0; i < transactionTokenAllocations.tokenAllocationIds.length; i++) {
-    const tokenAllocation = TokenAllocation.load(transactionTokenAllocations.tokenAllocationIds[i]);
-    if (!tokenAllocation) {
-      continue;
-    }
-    tokenAllocation.givback = true;
-    tokenAllocation.distributor = GIVBACK;
-    tokenAllocation.save();
-    const balance = Balance.load(tokenAllocation.recipient);
-    if (!balance) {
-      continue;
-    }
-    balance.givback = balance.givback.plus(tokenAllocation.amount);
-    balance.save();
+  let newBalance = Balance.load(event.params.newAddress.toHex());
+  if (!newBalance) {
+    newBalance = new Balance(event.params.newAddress.toHex());
   }
+
+  if (tokenDistroType === GIV_TOKEN_DISTRO) {
+    // New Address allocatedTokens amount should be zero
+    newBalance.allocatedTokens = oldBalance.allocatedTokens;
+    oldBalance.allocatedTokens = BigInt.zero();
+
+    // New Address claimed amount should be zero
+    newBalance.claimed = oldBalance.claimed;
+    oldBalance.claimed = BigInt.zero();
+
+    newBalance.givback = newBalance.givback.plus(oldBalance.givback);
+    oldBalance.givback = BigInt.zero();
+
+    newBalance.givbackLiquidPart = newBalance.givbackLiquidPart.plus(oldBalance.givbackLiquidPart);
+    oldBalance.givbackLiquidPart = BigInt.zero();
+  } else if (tokenDistroType === FOX_TOKEN_DISTRO) {
+    // New Address allocatedTokens amount should be zero
+    newBalance.foxAllocatedTokens = oldBalance.foxAllocatedTokens;
+    oldBalance.foxAllocatedTokens = BigInt.zero();
+
+    // New Address claimed amount should be zero
+    newBalance.foxClaimed = oldBalance.foxClaimed;
+    oldBalance.foxClaimed = BigInt.zero();
+  } else if (tokenDistroType === CULT_TOKEN_DISTRO) {
+    // New Address allocatedTokens amount should be zero
+    newBalance.cultAllocatedTokens = oldBalance.cultAllocatedTokens;
+    oldBalance.cultAllocatedTokens = BigInt.zero();
+
+    // New Address claimed amount should be zero
+    newBalance.cultClaimed = oldBalance.cultClaimed;
+    oldBalance.cultClaimed = BigInt.zero();
+  } else if (tokenDistroType === ELK_TOKEN_DISTRO) {
+    // New Address allocatedTokens amount should be zero
+    newBalance.elkAllocatedTokens = oldBalance.elkAllocatedTokens;
+    oldBalance.elkAllocatedTokens = BigInt.zero();
+
+    // New Address claimed amount should be zero
+    newBalance.elkClaimed = oldBalance.elkClaimed;
+    oldBalance.elkClaimed = BigInt.zero();
+  } else {
+    log.error('Token Distro Type is not defined {}', [tokenDistroType]);
+  }
+
+  oldBalance.save();
+  newBalance.save();
 }

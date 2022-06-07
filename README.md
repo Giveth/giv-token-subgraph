@@ -6,8 +6,10 @@
 * `yarn`
 * `yarn codegen:xdai`
 * `yarn codegen:kovan`
+* `yarn codegen:mainnet`
 * `yarn build:xdai`
 * `yarn build:kovan`
+* `yarn build:mainnet`
 
 ### Deploy
 * `graph auth`
@@ -20,169 +22,63 @@
 You can see the smart contracts here
 https://www.notion.so/giveth/Testing-Deployment-218c3f503a04421ba3f51e438f4d6acf
 
+## Get subgraphs info
+* **URL**: https://api.thegraph.com/index-node/graphql
+* Query sample
+```
+query{
+  indexingStatusForCurrentVersion(subgraphName: "giveth/giveth-economy-mainnet"){
+    subgraph
+    synced
+    health
+    entityCount
+    node
+  }
+}
+```
+
+## Add Regen farm steps (like foxHoney, cultEth, ..):
+* In balance schema you need to add some fields, for instance for **CULT/ETH** farm we added these
+  * `cultClaimed`
+  * `cultAllocatedTokens`
+  * `cultEthLpStaked`
+  * `cultEthLp`
+  * `rewardPerTokenPaidCultEthLm`
+  * `rewardsCultEthLm`
+* Add some constant variables in ./src/helpers/constants, for instance for **CULT/ETH**
+  * `CULT_TOKEN_DISTRO`
+  * `CULT_ETH_LP`
+  * `CULT_ETH_LM`
+* Add Lm mapping file
+* Add lm smart contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
+* Add lp mapping file
+* Add lp smart contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
+* Add token distro mapping file
+* Add token distro contract info in subgraph.(xdai | xdai.develop | kovan | mainnet).yaml
+* Update all functions in src/commons/balanceHandler.ts to support new TokenDistro contract, and LP and LM tokens.
+
+**PS** You can check https://github.com/Giveth/giv-token-subgraph/pull/53 to see a real example
+
 ## Test
 Online graphql client link: You can go here https://graphiql-online.com/graphiql
 
-Our subgraphs: 
-* **Kovan** 
-  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-kovan
-  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-kovan
+### Staging
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-kovan-staging
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-kovan-staging
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai-staging
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-xdai-staging
+### Production
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-mainnet
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-mainnet
+  * https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai
+  * https://thegraph.com/hosted-service/subgraph/giveth/giveth-economy-xdai
 
-* **Xdai**
-  * https://api.thegraph.com/subgraphs/name/mohammadranjbarz/giv-economy-xdai
-  * https://thegraph.com/hosted-service/subgraph/mohammadranjbarz/giv-economy-xdai
 
+## Query sample
+You can see it [here](./docs/querySamples.md)
+## Smart contract infos
+* [UnipoolTokenDistributor](./docs/unipoolTokenDistributor.md)
 
+* Create and Update tokenAllocation flow
 
-Query sample:
-
-* **Token Allocation**
-```
-{
-  tokenAllocations(first: 10) {
-    id
-    recipient
-    amount
-    timestamp
-    distributor
-    txHash
-    givback
-  }
-}
-```
-
-```
-{
-  tokenAllocations( where:{
-    recipient: "0xf23ea0b5f14afcbe532a1df273f7b233ebe41c78"
-  }) {
-    id
-    recipient
-    amount
-    timestamp
-    distributor
-    txHash
-    givback
-  }
-}
-```
-
-* **GIV Balance**
-
-```
-{
-  balances( first: 10 ) {
-    balance
-    allocatedTokens
-    claimed
-    rewardPerTokenPaidGivLm
-    rewardsGivLm
-    rewardPerTokenPaidSushiSwap
-    rewardsSushiSwap
-    rewardPerTokenPaidHoneyswap
-    rewardsHoneyswap
-    rewardPerTokenPaidUniswap
-    rewardsUniswap
-    rewardPerTokenPaidBalancer
-    rewardsBalancer
-    givback
-    balancerLp
-    balancerLpStaked
-    sushiswapLp
-    sushiSwapLpStaked
-    honeyswapLp 
-    honeyswapLpStaked 
-    givStaked
-  }
-}
-```
-
-```
-{
-  tokenAllocations(first: 5,
-    skip:0
-    orderBy:timestamp,
-    orderDirection:asc,
-    where:{
-      recipient:"0x8f48094a12c8f99d616ae8f3305d5ec73cbaa6b6"
-    }
-  ) {
-    id
-    recipient
-    amount
-    timestamp
-  }
-}
-```
-
-* **Unipool contract info**
-
-```
-{
-     unipoolContractInfos{
-          id
-          periodFinish
-          totalSupply
-          rewardRate
-          lastUpdateTime
-          rewardPerTokenStored
-     }
-}
-
-```
-
-* **Token distro smart contract info**
-```
-{
-  tokenDistroContractInfos(first:5){
-    id
-    initialAmount
-    duration
-    startTime
-    cliffTime
-    lockedAmount
-    totalTokens
-  }
-}
-```
-
-* **Get Giv price**
-```
-{
-  prices{
-    id
-    from
-     to
-    value
-    source
-    blockTimeStamp
-  }
-}
-```
-
-* **Get UniswapStakedPositions**
-```
-{
-  uniswapPositions{
-    id
-    tokenId
-    staked
-    liquidity
-    tickLower
-    tickUpper
-    owner
-    staker
-  }
-}
-```
-
-* **Get UniswapV3Pools
- ```
- {
-  uniswapV3Pools{
-    id
-    sqrtPriceX96
-    tick
-  }
- }
-```
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgICBUW1Rva2VuIERpc3Ryb10gLS0-fGVtaXQgYWxsb2NhdGV8IEIoQmxvY2tjaGFpbilcbiAgICBEW0Rpc3RyaWJ1dG9yc10gLS0-fGVtaXQgcmV3YXJkUGFpZHwgQihCbG9ja2NoYWluKVxuICAgIFQgLS0-fGVtaXQgZ2l2YmFja1BhaWR8IEIoQmxvY2tjaGFpbilcbiAgICBCIC0tPiB8aW5kZXggZXZlbnR8IFNbU3ViZ3JhcGhdXG4gICAgUyAtLT58YWxsb2NhdGV8IENbY3JlYXRlIGFsbG9jYXRpb25dXG4gICAgUyAtLT58cmV3YXJkUGFpZHwgVURbVXBkYXRlIGFsbG9jYXRpb24ncyBkaXN0cml1YnRvciBvZiB0aGlzIHRyYW5zYWN0aW9uIHRvIGRpc3RyaWJ1dG9yIG5hbWVdXG4gICAgUyAtLT58Z2l2YmFja1BhaWR8IFJbVXBkYXRlIGFsbG9jYXRpb24ncyBkaXN0cml1YnRvciBvZiB0aGlzIHRyYW5zYWN0aW9uIHRvIGdpdmJhY2tdXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/edit#eyJjb2RlIjoiZ3JhcGggVERcbiAgICBUW1Rva2VuIERpc3Ryb10gLS0-fGVtaXQgYWxsb2NhdGV8IEIoQmxvY2tjaGFpbilcbiAgICBEW0Rpc3RyaWJ1dG9yc10gLS0-fGVtaXQgcmV3YXJkUGFpZHwgQihCbG9ja2NoYWluKVxuICAgIFQgLS0-fGVtaXQgZ2l2YmFja1BhaWR8IEIoQmxvY2tjaGFpbilcbiAgICBCIC0tPiB8aW5kZXggZXZlbnR8IFNbU3ViZ3JhcGhdXG4gICAgUyAtLT58YWxsb2NhdGV8IENbY3JlYXRlIGFsbG9jYXRpb25dXG4gICAgUyAtLT58cmV3YXJkUGFpZHwgVURbVXBkYXRlIGFsbG9jYXRpb24ncyBkaXN0cml1YnRvciBvZiB0aGlzIHRyYW5zYWN0aW9uIHRvIGRpc3RyaWJ1dG9yIG5hbWVdXG4gICAgUyAtLT58Z2l2YmFja1BhaWR8IFJbVXBkYXRlIGFsbG9jYXRpb24ncyBkaXN0cml1YnRvciBvZiB0aGlzIHRyYW5zYWN0aW9uIHRvIGdpdmJhY2tdXG4iLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ)
