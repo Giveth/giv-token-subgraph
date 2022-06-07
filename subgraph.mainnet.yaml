@@ -87,7 +87,7 @@ dataSources:
     name: UniswapV2GivDaiLiquidityMiningTokenDistributor
     network: mainnet
     source:
-      # kovan: Uniswap V2 DAI GIV LM
+      # mainnet: Uniswap V2 DAI GIV LM
       address: "0xa4523D703F663615Bd41606B46B58dEb2F926D98"
       startBlock: 14620191
       abi: UnipoolTokenDistributor
@@ -300,7 +300,7 @@ dataSources:
     name: UniswapV2GivDaiLP
     network: mainnet
     source:
-      # kovan: UniswapV2 DAI GIV
+      # mainnet: UniswapV2 DAI GIV
       address: "0xbeba1666c62c65e58770376de332891b09461eeb"
       abi: MinimalERC20
       startBlock: 14436516
@@ -402,3 +402,107 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mappings/uniswapV3/uniswapV3PositionsNftMapping.ts
+
+  - kind: ethereum/contract
+    name: CultTokenDistro
+    network: mainnet
+    source:
+      # mainnet: CULT Token Distro
+      address: "0x73f2D115C2cBAa3b5F477A78F7A7CD348D8b70a2"
+      abi: TokenDistro
+      startBlock: 14919609
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Allocate
+        - Assign
+        - ChangeAddress
+        - Claim
+        - GivBackPaid
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StartTimeChanged
+      abis:
+        - name: TokenDistro
+          file: ./abis/TokenDistro.json
+      eventHandlers:
+        - event: Allocate(indexed address,indexed address,uint256)
+          handler: handleAllocate
+        - event: Assign(indexed address,indexed address,uint256)
+          handler: handleAssign
+        - event: ChangeAddress(indexed address,indexed address)
+          handler: handleChangeAddress
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: GivBackPaid(address)
+          handler: handleGivBackPaid
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StartTimeChanged(uint256,uint256)
+          handler: handleStartTimeChanged
+      file: ./src/mappings/cultTokenDistroMapping.ts
+
+  - kind: ethereum/contract
+    name: cultEthLm
+    network: mainnet
+    source:
+      # mainnet: Uniswap V2 CULT ETH LM
+      address: "0xa479103c2618aD514653B53F064Bc6c9dC35a30b"
+      startBlock: 14919615
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/mappings/cultEthLmMapping.ts
+
+  - kind: ethereum/contract
+    name: cultEthLP
+    network: mainnet
+    source:
+      # mainnet: UniswapV2 CULT ETH
+      address: "0x5281E311734869C64ca60eF047fd87759397EFe6"
+      abi: MinimalERC20
+      startBlock: 14122174
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+        - name: UniswapV3Staker
+          file: ./abis/UniswapV3Staker.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/cultEthLpMapping.ts
