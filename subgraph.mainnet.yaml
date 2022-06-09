@@ -26,6 +26,7 @@ dataSources:
         - RoleGranted
         - RoleRevoked
         - StartTimeChanged
+        - DurationChanged
       abis:
         - name: TokenDistro
           file: ./abis/TokenDistro.json
@@ -49,6 +50,8 @@ dataSources:
           handler: handleRoleRevoked
         - event: StartTimeChanged(uint256,uint256)
           handler: handleStartTimeChanged
+        - event: DurationChanged(uint256)
+          handler: handleDurationChanged
 
       file: ./src/mappings/tokenDistroMapping.ts
 
@@ -425,6 +428,7 @@ dataSources:
         - RoleGranted
         - RoleRevoked
         - StartTimeChanged
+        - DurationChanged
       abis:
         - name: TokenDistro
           file: ./abis/TokenDistro.json
@@ -447,6 +451,8 @@ dataSources:
           handler: handleRoleRevoked
         - event: StartTimeChanged(uint256,uint256)
           handler: handleStartTimeChanged
+        - event: DurationChanged(uint256)
+          handler: handleDurationChanged
       file: ./src/mappings/cultTokenDistroMapping.ts
 
   - kind: ethereum/contract

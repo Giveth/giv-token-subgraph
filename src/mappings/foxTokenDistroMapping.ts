@@ -7,10 +7,11 @@ import {
   RoleGranted,
   RoleRevoked,
   StartTimeChanged,
+  DurationChanged,
 } from '../../generated/TokenDistro/TokenDistro';
 import { onAllocate, onChangeAddress } from '../commons/tokenAllocation';
 import { addClaimed } from '../commons/balanceHandler';
-import { createTokenDistroContractInfoIfNotExists } from '../commons/TokenDistroHandler';
+import { createOrUpdateTokenDistroContractInfo } from '../commons/TokenDistroHandler';
 import { FOX_TOKEN_DISTRO } from '../helpers/constants';
 
 export function handleAllocate(event: Allocate): void {
@@ -18,7 +19,7 @@ export function handleAllocate(event: Allocate): void {
 }
 
 export function handleAssign(event: Assign): void {
-  createTokenDistroContractInfoIfNotExists(event.address);
+  createOrUpdateTokenDistroContractInfo(event.address);
 }
 
 export function handleChangeAddress(event: ChangeAddress): void {
@@ -35,4 +36,10 @@ export function handleRoleGranted(event: RoleGranted): void {}
 
 export function handleRoleRevoked(event: RoleRevoked): void {}
 
-export function handleStartTimeChanged(event: StartTimeChanged): void {}
+export function handleStartTimeChanged(event: StartTimeChanged): void {
+  createOrUpdateTokenDistroContractInfo(event.address);
+}
+
+export function handleDurationChanged(event: DurationChanged): void {
+  createOrUpdateTokenDistroContractInfo(event.address);
+}
