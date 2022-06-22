@@ -114,6 +114,40 @@ dataSources:
       file: ./src/mappings/sushiSwapLmMapping.ts
 
   - kind: ethereum/contract
+    name: HoneyswapGivDaiLm
+    network: xdai
+    source:
+      # xDai: UNIPOOL LM (HNY/GIV)
+      address: "0x24A6067fEd46dc8663794c4d39Ec91b074cf85D4"
+      startBlock: 22653615
+      abi: UnipoolTokenDistributor
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardAdded
+        - RewardPaid
+        - Staked
+        - Withdrawn
+      abis:
+        - name: UnipoolTokenDistributor
+          file: ./abis/UnipoolTokenDistributor.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardAdded(uint256)
+          handler: handleRewardAdded
+        - event: RewardPaid(indexed address,uint256)
+          handler: handleRewardPaid
+        - event: Staked(indexed address,uint256)
+          handler: handleStaked
+        - event: Withdrawn(indexed address,uint256)
+          handler: handleWithdrawn
+      file: ./src/mappings/honeyswapGivDaiLmMapping.ts
+
+  - kind: ethereum/contract
     name: HoneyswapLm
     network: xdai
     source:
@@ -260,6 +294,27 @@ dataSources:
           handler: handleTransfer
       file: ./src/mappings/honeySwapLpMapping.ts
 
+  - kind: ethereum/contract
+    name: HoneyswapGivDaiLP
+    network: xdai
+    source:
+      # xDai: Honeyswap (GIV/DAI)
+      address: "0xB7189A7Ea38FA31210A79fe282AEC5736Ad5fA57"
+      abi: MinimalERC20
+      startBlock: 19818258
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: MinimalERC20
+          file: ./abis/MinimalERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/honeySwapGivDaiLpMapping.ts
 
   - kind: ethereum/contract
     name: GivLiquidityMiningTokenDistributor
