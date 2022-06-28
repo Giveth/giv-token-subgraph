@@ -1,6 +1,6 @@
 {
   "name": "GivEconomy",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "license": "UNLICENSED",
   "scripts": {
     "lint": "eslint src/ --ext .ts",

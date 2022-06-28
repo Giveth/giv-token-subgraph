@@ -227,8 +227,8 @@ dataSources:
         - name: UniswapV2Pair
           file: ./abis/UniswapV2Pair.json
       eventHandlers:
-#        - event: Sync(uint112,uint112)
-#          handler: handleSync
+        - event: Sync(uint112,uint112)
+          handler: handleSync
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/mappings/sushiSwapLpMapping.ts
@@ -262,8 +262,8 @@ dataSources:
     network: xdai
     source:
       # xDai: GIV LM (Garden Unipool)
-      address: "0xcaf9d6F5a987f70f3cA808E82aA80a0288700669"
-      startBlock: 19711386
+      address: "0x898Baa558A401e59Cb2aA77bb8b2D89978Cf506F"
+      startBlock: 19713038
       abi: UnipoolTokenDistributor
     mapping:
       kind: ethereum/events
